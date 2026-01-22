@@ -1,0 +1,207 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+body {
+	background: #000;
+	color: #fff;
+	font-family: 'Pretendard';
+}
+
+/* 검색 영역 */
+.search-section {
+	padding-top: 70px;
+	position: relative;
+	min-height: 60vh;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	overflow: hidden;
+}
+
+.aurora-mask {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+}
+
+#auroraCanvas {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+
+.search-section h1 {
+	font-size: 30px;
+	letter-spacing: 1.6px;
+	margin-bottom: 3px;
+}
+
+.search-section p {
+	font-size: 20px;
+	letter-spacing: 0.5px;
+}
+
+.search-box {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	margin-top: 24px;
+}
+
+.search-box input {
+	width: 600px;
+	padding: 14px;
+	border-radius: 8px 0 0 8px;
+	border: none;
+	font-size: 16px;
+}
+
+.search-box button {
+	padding: 14px 22px;
+	border-radius: 0 8px 8px 0;
+	border: none;
+	background: var(--main-blue);
+	color: white;
+	cursor: pointer;
+}
+
+/* 영화 섹션 */
+.movie-section {
+	padding: 70px 10vw;
+	background: rgba(0, 0, 0, 0.6);
+	text-align: center;
+}
+
+.section-title {
+	font-size: 35px;
+	margin-bottom: 20px;
+	text-align: left;
+}
+
+/* 가로 영화 리스트 */
+.movie_slider {
+	position: relative;
+}
+
+.movie-list {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: nowrap;
+	scroll-behavior: smooth;
+	overflow: hidden;
+}
+
+/* 영화 카드 */
+.movie-card {
+	width: 13%;
+	position: relative;
+	aspect-ratio: 2 / 3;
+	border-radius: 7%;
+	overflow: hidden;
+	cursor: pointer;
+	transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.movie-card img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+	transition: transform 0.6s ease, filter 0.6s ease;
+}
+
+/* Hover 효과 */
+.movie-card:hover {
+	transform: scale(1.03);
+	box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+}
+
+.movie-card:hover img {
+	transform: scale(1.06);
+	filter: blur(1.5px);
+}
+
+/* Overlay */
+.movie-overlay {
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 100%);
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	padding: 1rem;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+
+	text-align: left;
+}
+
+.movie-card:hover .movie-overlay {
+	opacity: 1;
+}
+
+.text-box {
+	display: flex;
+	justify-content: space-between;
+}
+
+
+.movie-overlay .rating {
+	color: gold;
+	font-size: 12px;
+	margin-bottom: 0.25rem;
+}
+
+.movie-overlay h4 {
+	margin: 0 0 0.25rem 0;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.movie-overlay p {
+	font-size: 12px;
+	color: #ccc;
+	margin: 0;
+}
+
+.next.right {
+	right: -60px;
+}
+
+.next.left {
+	left: -60px;
+}
+
+.next {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+
+	width: 50px;
+	height: 50px;
+	/* background: rgba(255, 255, 255, 0.5);/ */
+	border-radius: 50%;
+
+	color: #fff;
+	font-size: 25px;
+	text-align: center;
+	line-height: 50px;
+
+	cursor: pointer;
+}
+
+/* 스크롤 숨김 (선택 사항) */
+.movie-list::-webkit-scrollbar {
+	display: none;
+}
+
+.movie-list {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}

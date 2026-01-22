@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>영화 목록</title>
+    <link rel="stylesheet" href="css/movielist.css">
+    <link rel="stylesheet" href="css/header.css">
+</head>
+
+<body>
+
+    <header class="navbar"></header>
+
+    <main class="container">
+        <h2 class="page-title">영화 목록</h2>
+
+        <section id="movieGrid" class="movie-grid"></section>
+        <div id="pagination" class="pagination"></div>
+    </main>
+
+    <script src="js/movielist.js"></script>
+
+    <script>
+        fetch("header.html")
+            .then(res => res.text())
+            .then(html => {
+                document.querySelector("header").innerHTML = html;
+            });
+    </script>
+</body>
+
+</html>

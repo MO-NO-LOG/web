@@ -1,0 +1,171 @@
+/* =======================
+Reset
+======================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    border: none;
+    outline: none;
+    font-family: 'Pretendard';
+    color: #fff;
+}
+
+/* =======================
+Layout
+======================= */
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: gray;
+}
+
+/* =======================
+Content Card
+======================= */
+.content {
+    width: 480px;
+    background: #0000007a;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(13px);
+    padding: 40px 45px;
+    border-radius: 16px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 공통 스타일 */
+.content {
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+}
+
+/* PC 화면 
+   화면 너비가 769px 이상일 때 적용.*/
+@media screen and (min-width: 769px) {
+    .content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 550px;
+        background: #0000007a;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(13px);
+        -webkit-backdrop-filter: blur(13px);
+        padding: 30px 35px;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+}
+
+/* 모바일 화면 
+   화면 너비가 768px 이하일 때 적용.*/
+@media screen and (max-width: 768px) {
+    .content {
+        /* 모바일에서는 화면 중앙에 고정하는 대신 적절한 여백을 줌 */
+        position: relative; 
+        margin: 50px auto; /* 상하 여백 50px, 좌우 자동 중앙 */
+        width: 90%; /* 화면의 90% 차지 */
+        max-width: 400px; /* 아무리 커져도 400px 제한 */
+        padding: 40px 20px;
+        background: #0000007a;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+}
+
+
+/* =======================
+Title & Text
+======================= */
+.content h2 {
+    font-size: 32px;
+    font-weight: 700;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+/* =======================
+Input
+======================= */
+.input-box {
+    position: relative;
+    width: 100%;
+    height: 70px;
+    margin: 20px 0 36px;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 30px;
+    padding: 22px 50px 22px 22px;
+    font-size: 18px;
+}
+
+input::placeholder {
+    color: #ffffff75;
+    font-size: 17px;
+}
+
+.input-box i {
+    position: absolute;
+    top: 50%;
+    right: 22px;
+    transform: translateY(-50%);
+    font-size: 20px;
+}
+
+/* =======================
+Remember
+======================= */
+.remember {
+    font-size: 15px;
+    margin: 40px 0 30px;
+}
+
+.remember a {
+    color: #ffffffdd;
+}
+
+/* =======================
+Button
+======================= */
+.btnn {
+    display: block;
+    width: 100px;
+    height: 52px;
+    margin: 30px 0 20px auto;
+    background: #fff;
+    color: #0a2862;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* =======================
+Input UX 제거
+======================= */
+input::-ms-reveal,
+input::-ms-clear {
+    display: none;
+}
+
+input::-webkit-credentials-auto-fill-button,
+input::-webkit-clear-button,
+input::-webkit-inner-spin-button,
+input::-webkit-contacts-auto-fill-button {
+    display: none !important;
+}

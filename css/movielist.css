@@ -1,0 +1,227 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #f3f3f3;
+    color: #111;
+    padding-top: 80px;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+.logo {
+    font-weight: 700;
+    color: #fff;
+    font-size: 20px;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 16px 40px;
+    background-color: #0a0f1e;
+    backdrop-filter: blur(6px);
+    
+    font-size: 20px;
+}
+
+.logout {
+    color: #fff;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-right: 41.5px;
+    margin-top: 1.5px;
+}
+
+.menu a {
+    position: relative;
+    padding: 8px 4px;
+    color: white;
+}
+
+.menu a::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -6px;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #4f7cff, transparent);
+    transform: translateX(-50%);
+    transition: width 0.35s ease;
+}
+
+.menu a:hover::after {
+    width: 180%;
+}
+
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-menu a {
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 15px;
+    color: white;
+}
+
+.user-menu a:first-child {
+    border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.user-menu a:first-child:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.user-menu a:last-child {
+    background: #4f7cff;
+    color: #fff;
+}
+
+.user-menu a:last-child:hover {
+    opacity: 0.9;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.page-title {
+    margin-bottom: 20px;
+}
+
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+}
+
+.movie-card {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    transition: 0.2s;
+}
+
+.movie-card:hover {
+    transform: translateY(-5px);
+}
+
+.movie-card img {
+    width: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+}
+
+/* 카드 정보 영역 */
+.card-info {
+    padding: 12px;
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.genre {
+    font-size: 12px;
+    font-weight: bold;
+    color: #4f7cff;
+}
+
+.rating {
+    font-size: 12px;
+    color: #f5b400;
+    font-weight: bold;
+}
+
+.title {
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.date {
+    font-size: 12px;
+    color: #777;
+}
+
+/* 페이지네이션 */
+
+.pagination {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.pagination button {
+    width: 35px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    background: #ddd;
+    cursor: pointer;
+}
+
+.pagination button.active {
+    background: #0a0f1e;
+    color: white;
+}
+
+/* 반응형 */
+
+@media (max-width: 1000px) {
+    .movie-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+    .movie-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.arrow-btn {
+    background: #4f7cff;
+    color: white;
+    font-weight: bold;
+    width: 35px;
+}
+
+.arrow-btn::before {
+    width: 100px;
+    height: 100px;
+}
+
+.arrow-btn:hover {
+    background: #3b63d6;
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+    <link rel="stylesheet" href="css/find_id.css">
+    <link rel="stylesheet" href="css/slider.css">
+    <link rel="stylesheet" href="css/header.css">
+</head>
+
+<body>
+    <!-- 헤더 -->
+    <header class="navbar"></header>
+
+
+    <!-- 슬라이더 영역 -->
+    <div class="slider-bg">
+        <div class="slider-container">
+            <div class="slider-track" id="sliderTrack" data-direction="left" data-speed="0.06" data-start="1">
+                <!-- JS에서 이미지 자동 생성 -->
+            </div>
+        </div>
+        <div class="slider-container">
+            <div class="slider-track" id="sliderTrack" id="sliderTrack" data-direction="right" data-speed="0.07"
+                data-start="30">
+                <!-- JS에서 이미지 자동 생성 -->
+            </div>
+        </div>
+        <div class="slider-container">
+            <div class="slider-track" id="sliderTrack" id="sliderTrack" data-direction="left" data-speed="0.1"
+                data-start="30">
+                <!-- JS에서 이미지 자동 생성 -->
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <form action="">
+            <h2>아이디 찾기</h2>
+            <span>이메일을 입력해 주세요.</span>
+            <div class="input-box">
+                <input type="text" placeholder="본인확인 이메일" required>
+            </div>
+            <div class="remember">
+                <label>
+                    <a href="#">휴대폰 본인인증으로 찾기</a>
+                </label>
+            </div>
+            <button type="submit" class="btnn">다음</button>
+        </form>
+    </div>
+    <script src="js/slider.js"></script>
+    <script>
+        fetch("header.html")
+            .then(res => res.text())
+            .then(html => {
+                document.querySelector("header").innerHTML = html;
+            });
+    </script>
+</body>
+
+</html>

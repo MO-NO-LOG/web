@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Detail</title>
+    <link rel="stylesheet" href="css/review.css">
+    <link rel="stylesheet" href="css/header.css">
+</head>
+
+<body>
+
+    <!-- 헤더 -->
+    <header class="navbar"></header>
+
+    <main class="detail">
+
+        <!-- 상단 영화 정보 -->
+        <section class="detail-top">
+
+            <!-- 포스터 -->
+            <div class="poster">
+                <img src="images/posters/10. 어벤져스 엔드게임.webp" alt="포스터">
+            </div>
+
+            <!-- 정보 -->
+            <div class="info">
+                <div class="meta">
+                    <span>Animation</span>
+                    <span>Adventure</span>
+                    <span>2019</span>
+                </div>
+
+                <h1 class="title">어벤져스: 은배게임</h1>
+
+                <div class="score">
+                    <strong>4.8</strong>
+                    <span>Average Rating</span>
+                </div>
+
+                <div class="summary">
+                    <h3>개요 (SYNOPSIS)</h3>
+                    <p>
+                        어벤져스의 패배 이후 지구는 초토화됐고 남은 절반의 사람들은 정신적 고통을 호소하며 하루하루를 근근이 버텨나간다. 와칸다에서 싸우다 생존한 히어로들과 우주의 타이탄 행성에서
+                        싸우다 생존한 히어로들이 뿔뿔이 흩어졌는데, 아이언맨과 네뷸라는 우주를 떠돌고 있고 지구에 남아 있는 어벤져스 멤버들은 닉 퓨리가 마지막에 신호를 보내다 만 송신기만
+                        들여다보며 혹시 모를 우주의 응답을 기다리는 중이다. 애초 히어로의 삶을 잠시 내려놓고 가족과 시간을 보내던 호크아이 역시 헤아릴 수 없는 마음의 상처를 입은 채 사라지고
+                        마는데...
+                    </p>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- 리뷰 -->
+        <section class="reviews">
+
+            <div class="reviews-header">
+                <h2>Reviews</h2>
+                <button class="btn write" onclick="toggleReviewForm()">write review</button>
+            </div>
+
+            <!-- 리뷰 작성 -->
+            <div id="review-form" class="review-form">
+                <div class="rating-input">
+                    <input type="radio" id="star5" name="rating" value="5">
+                    <label for="star5">★</label>
+
+                    <input type="radio" id="star4" name="rating" value="4">
+                    <label for="star4">★</label>
+
+                    <input type="radio" id="star3" name="rating" value="3">
+                    <label for="star3">★</label>
+
+                    <input type="radio" id="star2" name="rating" value="2">
+                    <label for="star2">★</label>
+
+                    <input type="radio" id="star1" name="rating" value="1">
+                    <label for="star1">★</label>
+                </div>
+                <textarea placeholder="리뷰를 작성하세요"></textarea>
+                <div class="form-actions">
+                    <button onclick="toggleReviewForm()">취소</button>
+                    <button>등록</button>
+                </div>
+            </div>
+
+            <!-- 리뷰 목록 -->
+            <article class="review">
+                <div class="review-top">
+                    <img src="https://i.pravatar.cc/100?u=2" alt="User">
+                    <span class="user">Yesun Kim</span>
+                    <span class="star">★★★★★</span>
+                </div>
+                <p>
+                    "말로 표현할 수 없는 영화였습니다. 저에게 피카츄라는 인물이 엄청난 감동을 주었습니다. <br>
+                    눈물 없이 볼 수 없는 영화이기도 햇습니다 띠벌"
+                </p>
+            </article>
+
+            <article class="review">
+                <div class="review-top">
+                    <img src="https://i.pravatar.cc/100?u=1" alt="User">
+                    <span class="user">Daniel Kim</span>
+                    <span class="star">★★★★☆</span>
+                </div>
+                <p>
+                    "SF 장르가 줄 수 있는 시각적 만족감을 충실히 주면서도, 철학적인 질문을 던지는 것을 놓치지 않았습니다. 주인공의 연기가 매우 절제되어 있어 더욱
+                    몰입되었습니다."
+                </p>
+            </article>
+            <button class="view-more">View More Review</button>
+        </section>
+
+        <!-- 추천 영화 -->
+        <section class="recommend">
+            <h2>추천 영화 목록</h2>
+
+            <div class="recommend-list">
+                <article class="movie-card">
+                    <img src="images/posters/15. 트루먼 쇼.webp" alt="">
+                    <div class="movie-overlay">
+                        <h4>박채정 쇼</h3>
+                            <div class="text-box">
+                                <p>2025-12-12</p>
+                                <span class="rating">★ 8.9</span>
+                            </div>
+                    </div>
+                </article>
+
+                <article class="movie-card">
+                    <img src="images/posters/26. 나 홀로 집에.webp" alt="">
+                    <div class="movie-overlay">
+                        <h4>건 홀로 집에</h3>
+                            <div class="text-box">
+                                <p>2025-12-12</p>
+                                <span class="rating">★ 8.9</span>
+                            </div>
+                    </div>
+                </article>
+
+                <article class="movie-card">
+                    <img src="images/posters/21. 애나벨.webp" alt="">
+                    <div class="movie-overlay">
+                        <h4>신유빈:인형의 주인</h3>
+                            <div class="text-box">
+                                <p>2025-12-12</p>
+                                <span class="rating">★ 8.9</span>
+                            </div>
+                    </div>
+                </article>
+
+                <article class="movie-card">
+                    <img src="images/posters/18. 이웃집 토토로.webp" alt="">
+                    <div class="movie-overlay">
+                        <h4>이웃집 송헌</h3>
+                            <div class="text-box">
+                                <p>2025-12-12</p>
+                                <span class="rating">★ 8.9</span>
+                            </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        function toggleReviewForm() {
+            document.getElementById('review-form').classList.toggle('show');
+        }
+    </script>
+    <script>
+        fetch("header.html")
+            .then(res => res.text())
+            .then(html => {
+                document.querySelector("header").innerHTML = html;
+            });
+    </script>
+
+</body>
+
+</html>

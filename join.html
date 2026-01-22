@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>회원가입</title>
+    <link rel="stylesheet" href="css/join.css">
+    <link rel="stylesheet" href="css/slider.css">
+    <script src="js/join.js" defer></script>
+</head>
+
+<body>
+    <!-- 헤더 -->
+    <header class="navbar"></header>
+
+
+    <!-- 슬라이더 영역 -->
+    <div class="slider-bg">
+        <div class="slider-container">
+            <div class="slider-track" id="sliderTrack" data-direction="left" data-speed="0.06" data-start="1">
+                <!-- JS에서 이미지 자동 생성 -->
+            </div>
+        </div>
+        <div class="slider-container">
+            <div class="slider-track" id="sliderTrack" id="sliderTrack" data-direction="right" data-speed="0.07"
+                data-start="30">
+                <!-- JS에서 이미지 자동 생성 -->
+            </div>
+        </div>
+        <div class="slider-container">
+            <div class="slider-track" id="sliderTrack" id="sliderTrack" data-direction="left" data-speed="0.10"
+                data-start="50">
+                <!-- JS에서 이미지 자동 생성 -->
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <form action="">
+            <h2>회원가입</h2>
+
+            <!-- 아이디 -->
+            <div class="input-box">
+                <span>아이디</span>
+                <input type="text" placeholder="아이디를 입력하세요." required />
+                <i class="ri-user-fill"></i>
+            </div>
+
+            <!-- 비밀번호 -->
+            <div class="input-box">
+                <span>비밀번호</span>
+                <input type="password" id="password" placeholder="비밀번호를 입력하세요." required autocomplete="new-password" />
+                <i class="ri-eye-off-fill toggle-password"></i>
+            </div>
+
+            <!-- 비밀번호 재입력 -->
+            <div class="input-box">
+                <span>비밀번호 재입력</span>
+                <input type="password" id="repassword" placeholder="비밀번호를 한번 더 입력하세요." required
+                    autocomplete="new-password" />
+                <i class="ri-eye-off-fill toggle-password"></i>
+            </div>
+
+            <!-- 이메일 -->
+            <div class="input-box">
+                <span>이메일</span>
+                <input type="email" id="email" placeholder="이메일을 입력하세요." required />
+                <i class="ri-mail-fill"></i>
+            </div>
+
+            <!-- 성별 선택 -->
+            <span>성별</span>
+            <div class="gender-box">
+                <button type="button" class="gender-btn" data-gender="male" value="0">남자</button>
+                <button type="button" class="gender-btn" data-gender="female" value="0">여자</button>
+                <input type="hidden" name="gender" id="gender" required />
+            </div>
+            <button type="submit" class="btnn">회원가입</button>
+        </form>
+    </div>
+    <script src="js/slider.js"></script>
+    <script>
+        fetch("header.html")
+            .then(res => res.text())
+            .then(html => {
+                document.querySelector("header").innerHTML = html;
+            });
+    </script>
+</body>
+
+</html>

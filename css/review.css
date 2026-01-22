@@ -1,0 +1,476 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+/* ================= 공통 ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #ffffff;
+    color: #111;
+    font-family: 'Pretendard';
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* ================= 상세 페이지 ================= */
+.detail {
+    padding-top: 140px;
+    padding-bottom: 120px;
+}
+
+.detail-top {
+    max-width: 1200px;
+    margin: 0 auto 160px;
+    display: flex;
+    gap: 80px;
+}
+
+.poster {
+    width: 45%;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.25);
+}
+
+.poster img {
+    width: 100%;
+    display: block;
+}
+
+.info {
+    width: 55%;
+    position: sticky;
+    /* padding-top: 180px; */
+    top: 120px;
+}
+
+.meta {
+    display: flex;
+    gap: 12px;
+    font-size: 12px;
+    color: #888;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.title {
+    font-size: 48px;
+    font-weight: 800;
+    margin-bottom: 24px;
+}
+
+.score {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 32px;
+    letter-spacing: 1.3px;
+}
+.score span {
+    color: #a1a1a1;
+}
+.score strong {
+    font-size: 32px;
+}
+
+.summary h3 {
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+.summary p {
+    line-height: 1.7;
+    color: #555;
+}
+
+
+.btn {
+    padding: 20px 25px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+}
+.btn.main {
+    background: #000;
+    color: #fff;
+}
+
+.btn.sub {
+    background: #eee;
+}
+
+/* ================= 리뷰 ================= */
+/* ===== 리뷰 섹션 ===== */
+.reviews {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 20px;
+    background: #fff;
+    color: #111;
+}
+.reviews button.view-more {
+    width: 1100px;
+    height: 40px;
+    border-radius: 30px;
+    font-weight: 600;
+    color: #555;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 1.3px;
+}
+
+/* 헤더 */
+.reviews-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 48px;
+}
+
+.reviews-header h2 {
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.reviews-header span {
+    font-size: 13px;
+    color: #999;
+}
+
+/* Write 버튼 */
+.btn.write {
+    padding: 10px 24px;
+    border-radius: 999px;
+    background: #0B0E17;
+    color: #fff;
+    font-size: 14px;
+    letter-spacing: 1.3px;
+    /* font-weight: 600; */
+    border: none;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.btn.write:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(10, 124, 255, .35);
+}
+
+/* ===== 리뷰 작성 폼 ===== */
+.review-form {
+    display: none;
+    background: #f9fafb;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 40px;
+}
+
+.review-form.show {
+    display: block;
+}
+
+.review-form select,
+.review-form textarea {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    margin-bottom: 14px;
+}
+
+.review-form select:focus,
+.review-form textarea:focus {
+    border-color: #4f7cff;
+}
+
+
+
+/* 폼 버튼 */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.form-actions button {
+    padding: 8px 18px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+}
+
+.form-actions button:first-child {
+    background: none;
+    color: #999;
+}
+
+.form-actions button:last-child {
+    background: #0b0f19;
+    color: #fff;
+}
+
+/* ===== 별점 입력 ===== */
+.rating-input {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.rating-input input {
+    display: none;
+}
+
+.rating-input label {
+    font-size: 26px;
+    color: #ddd;
+    cursor: pointer;
+}
+
+.rating-input label:hover,
+.rating-input label:hover~label,
+.rating-input input:checked~label {
+    color: #f5c542;
+}
+
+/* ===== 리뷰 카드 ===== */
+.review {
+    padding: 36px 0;
+    border-top: 1px solid #eee;
+}
+
+.review-top {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+}
+
+.review-top img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+}
+
+.review .user {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.review .star {
+    margin-left: auto;
+    color: #ffb400;
+    letter-spacing: 2px;
+}
+
+.review p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #555;
+    max-width: 900px;
+}
+
+/* ===== 추천 영화 카드 ===== */
+.movie-card {
+    position: relative;
+    aspect-ratio: 2 / 3;
+    border-radius: 1rem;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.movie-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease, filter 0.6s ease;
+}
+
+/* Hover 효과 */
+.movie-card:hover {
+    transform: translateY(-12px) scale(1.03);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+}
+
+.movie-card:hover img {
+    transform: scale(1.06);
+    filter: blur(1.5px);
+}
+
+/* Overlay */
+.movie-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+
+    text-align: left;
+}
+
+.movie-card:hover .movie-overlay {
+    opacity: 1;
+}
+
+.text-box {
+    display: flex;
+    justify-content: space-between;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.movie-overlay .rating {
+    color: gold;
+    font-size: 12px;
+    margin-bottom: 0.25rem;
+}
+
+.movie-overlay h4 {
+    margin: 0 0 0.25rem 0;
+    color: #ccc;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.movie-overlay p {
+    font-size: 12px;
+    color: #ccc;
+    margin: 0;
+}
+
+/* 오버레이 */
+.recommend-item::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, .9), transparent);
+    opacity: 0;
+    transition: 0.3s ease;
+}
+
+.recommend-item:hover::after {
+    opacity: 1;
+}
+
+.recommend-item h4,
+.recommend-item span {
+    position: absolute;
+    left: 16px;
+    color: #fff;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: 0.3s ease;
+}
+
+.recommend-item h4 {
+    bottom: 36px;
+}
+
+.recommend-item span {
+    bottom: 16px;
+    color: #ccc;
+}
+
+.recommend-item:hover h4,
+.recommend-item:hover span {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ================= 추천 영화 ================= */
+.recommend {
+    max-width: 1200px;
+    margin: 160px auto 0;
+}
+
+.recommend h2 {
+    margin-bottom: 20px;
+}
+
+.recommend-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+}
+
+.recommend-item {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.recommend-item img {
+    width: 100%;
+    display: block;
+    transition: transform 0.6s ease, filter 0.6s ease;
+}
+
+.recommend-item:hover {
+    transform: translateY(-12px) scale(1.03);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+}
+
+.recommend-item:hover img {
+    transform: scale(1.06);
+    filter: blur(1.5px);
+}
+
+.recommend-item::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.recommend-item:hover::after {
+    opacity: 1;
+}
+
+.recommend-item h4,
+.recommend-item span {
+    position: absolute;
+    left: 16px;
+    color: #fff;
+    opacity: 0;
+    transition: 0.3s ease;
+    z-index: 2;
+}
+
+.recommend-item h4 {
+    bottom: 36px;
+    font-size: 16px;
+}
+
+.recommend-item span {
+    bottom: 16px;
+    font-size: 13px;
+    color: #ccc;
+}
+
+.recommend-item:hover h4,
+.recommend-item:hover span {
+    opacity: 1;
+}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/slider.css">
+    <link rel="stylesheet" href="css/header.css">
+</head>
+
+<body>
+    <!-- 헤더 -->
+    <header class="navbar"></header>
+
+
+    <!-- 슬라이더 영역 -->
+    <div class="slider-bg">
+        <div class="slider-container">
+            <div class="slider-track" id="sliderTrack" data-direction="left" data-speed="0.06" data-start="1">
+                <!-- JS에서 이미지 자동 생성 -->
+            </div>
+        </div>
+        <div class="slider-container">
+            <div class="slider-track" id="sliderTrack" id="sliderTrack" data-direction="right" data-speed="0.07"
+                data-start="30">
+                <!-- JS에서 이미지 자동 생성 -->
+            </div>
+        </div>
+        <div class="slider-container">
+            <div class="slider-track" id="sliderTrack" id="sliderTrack" data-direction="left" data-speed="0.10"
+                data-start="50">
+                <!-- JS에서 이미지 자동 생성 -->
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <form action="">
+            <h2>로그인</h2>
+            <div class="input-box">
+                <span>아이디</span>
+                <input type="text" placeholder="아이디를 입력하세요." required>
+                <i class="ri-user-fill"></i>
+            </div>
+            <div class="input-box">
+                <span>비밀번호</span>
+                <input type="password" id="password" placeholder="비밀번호를 입력하세요" required autocomplete="new-password">
+                <i class="ri-eye-off-fill toggle-password" id="togglePassword"></i>
+            </div>
+            <div class="remember">
+                <label>
+                    <input type="checkbox"> 로그인 상태 유지
+                </label>
+                <a href="join.html">회원가입</a>
+            </div>
+            <button type="submit" class="btnn" href="mypage.html">로그인</button>
+
+            <div class="button">
+                <a href="find_id.html">
+                    <i class="ri-google-fill">아이디 찾기</i>
+                </a>
+                <a href="find_pwd.html">
+                    <i class="ri-facebook-fill">비밀번호 찾기</i>
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <script src="js/slider.js"></script>
+    <script>
+        fetch("header.html")
+            .then(res => res.text())
+            .then(html => {
+                document.querySelector("header").innerHTML = html;
+            });
+    </script>
+</body>
+
+</html>

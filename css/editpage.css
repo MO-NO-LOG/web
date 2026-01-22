@@ -1,0 +1,378 @@
+/* RESET */
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    font-family: Pretendard, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* PAGE */
+
+.page {
+    margin-top: 65px;   
+    background: #f1f5f9;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 32px;
+}
+
+.profile-title {
+    font-weight: 600;
+    font-size: 20px;
+    margin-left: 20px;
+}
+
+.profile-sub {
+    font-weight: 400;
+    font-size: 14px;
+    color: #898989;
+    margin-left: 20px;
+}
+
+
+/* CONTENT (핵심) */
+
+.content {
+    width: 100%;
+    max-width: 750px;
+    /* ⬅️ 가로폭 줄임 (사진 느낌) */
+    background: #fdfefe;
+    border-radius: 28px;
+    padding: 40px 48px 36px;
+    box-shadow:
+        0 8px 24px rgba(15, 23, 42, 0.06),
+        0 2px 6px rgba(15, 23, 42, 0.04);
+}
+
+
+/* TITLE */
+
+h1 {
+    margin: -5px 0 0;
+    font-size: 26px;
+    color: #111827;
+}
+
+.desc {
+    margin: 4px 0 28px;
+    font-size: 14px;
+    color: #6b7280bd;
+}
+
+
+/* PROFILE */
+
+.profile-area {
+    display: flex;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.avatar {
+    width: 105px;
+    height: 105px;
+    border-radius: 50%;
+    background: #636465;
+    margin-right: 20px;
+    border: none;
+}
+
+
+/* FIELD */
+
+.field {
+    margin-bottom: 20px;
+}
+
+.field-guide {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: #4F7CFF;
+    margin-bottom: -8px;
+}
+
+.field label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #000000;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.input-wrap {
+    display: flex;
+    gap: 12px;
+}
+
+.input-wrap input {
+    flex: 1;
+    height: 40px;
+    padding: 0 16px;
+    border-radius: 30px;
+    border: 1px solid #929292;
+    background: #f9fafb;
+    font-size: 14px;
+    color: #636363a3;
+}
+
+.input-wrap button {
+    width: 100px;
+    height: 40px;
+    border-radius: 30px;
+    border: 1px solid #d1d5db;
+    background: #fff;
+    font-size: 14px;
+}
+
+
+/* ACTIONS */
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 28px;
+}
+
+.cancel,
+.save {
+    height: 44px;
+    padding: 0 22px;
+    border-radius: 12px;
+    font-size: 14px;
+}
+
+.cancel {
+    background: #f3f4f6;
+    border: 1px solid #d1d5db;
+    border-radius: 30px;
+}
+
+.save {
+    margin-left: 10px;
+    background: #4F7CFF;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+}
+
+
+/* MODAL */
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(6px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+/* MODAL BOX (공통) */
+
+.modal-box {
+    width: 400px;
+    border-radius: 22px;
+    background: #fff;
+    padding: 26px 28px 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+
+/* HEADER */
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header span {
+    font-size: 18px;
+    font-weight: 700;
+    color: #111;
+}
+
+.close {
+    border: none;
+    background: none;
+    font-size: 18px;
+    color: #9ca3af;
+    cursor: pointer;
+}
+
+
+/* SAVE BUTTON (공통) */
+
+.modal-save {
+    margin-top: 22px;
+    width: 100%;
+    height: 44px;
+    border-radius: 999px;
+    border: none;
+    background: #4f7cff;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+
+/* GUIDE TEXT (공통) */
+
+.modal-box .guide {
+    font-size: 12px;
+    font-weight: 400;
+    color: #000000;
+    margin: 14px 10px 10px;
+}
+
+.modal-box .guide:first-child {
+    margin-top: 6px;
+}
+
+
+/* NICKNAME / ID */
+
+.modal-box.nickname #modal-body,
+.modal-box.id #modal-body {
+    margin-top: 18px;
+}
+
+.modal-box.nickname input,
+.modal-box.id input {
+    width: 100%;
+    height: 44px;
+    border-radius: 999px;
+    border: 1px solid #d1d5db;
+    padding: 0 16px;
+    font-size: 14px;
+}
+
+.modal-box.nickname .guide:last-of-type,
+.modal-box.id .guide:last-of-type {
+    font-size: 11.5px;
+    color: #a1a1aa;
+    margin-top: 6px;
+}
+
+
+/* EMAIL (사진 그대로) */
+
+.modal-box.email {
+    width: 400px;
+}
+
+.modal-box.email #modal-body {
+    margin-top: 18px;
+}
+
+.modal-box.email label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #111;
+    margin: 14px 0 6px;
+    display: block;
+}
+
+.modal-box.input.email2 {
+    width: 300px;
+}
+
+/* 위: 이메일 + 코드전송 */
+.modal-box.email2 .send-code {
+    display: flex;
+    gap: 10px;
+}
+
+.modal-box.email .email-row input {
+    flex: 1;
+    height: 44px;
+    border-radius: 999px;
+    border: 1px solid #d1d5db;
+    padding: 0 16px;
+    font-size: 14px;
+}
+
+/* 코드 전송 버튼 */
+.modal-box.email .send-code {
+    width: 88px;
+    height: 44px;
+    border-radius: 999px;
+    border: 1px solid #d1d5db;
+    background: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    color: #a1a1aa;
+    margin-left: 1.5px;
+}
+
+/* 아래: 인증 코드 (길게) */
+.modal-box.email>#modal-body>input {
+    width: 250px;
+    height: 44px;
+    border-radius: 999px;
+    border: 1px solid #d1d5db;
+    padding: 0 16px;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+
+/* PASSWORD */
+
+.modal-box.password #modal-body {
+    margin-top: 18px;
+}
+
+.modal-box.password input {
+    width: 100%;
+    height: 44px;
+    border-radius: 999px;
+    border: 1px solid #d1d5db;
+    padding: 0 16px;
+    font-size: 14px;
+}
+
+/* TOAST */
+
+.toast {
+    width: 400px;
+    text-align: center;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #4F7CFF;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 14px;
+    z-index: 10000;
+}
+
+.toast.hidden {
+    display: none;
+}

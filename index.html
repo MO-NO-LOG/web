@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>MOVIE DB</title>
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/header.css" />
+	<script src="js/star.js"></script>
+</head>
+
+<body>
+
+	<header class="navbar"></header>
+
+	<!-- 검색 영역 (오로라) -->
+	<section class="search-section">
+		<div class="aurora-mask">
+			<canvas id="auroraCanvas"></canvas>
+		</div>
+
+		<h1>환영합니다</h1>
+		<p>수많은 영화와 TV 프로그램을 검색해보세요.</p>
+
+		<div class="search-box">
+			<input type="text" placeholder="영화, TV 프로그램, 인물 검색">
+			<button>검색</button>
+		</div>
+	</section>
+
+	<!-- 🎞 트렌드 영화 -->
+	<section class="movie-section">
+		<h2 class="section-title">트렌드 영화</h2>
+
+		<div class="movie_slider">
+			<div class="left next">⬅</div>
+			<div class="movie-list">
+				<article class="movie-card">
+					<a href="review.html">
+						<img src="images/posters/10. 어벤져스 엔드게임.webp" alt="어벤져스 엔드게임">
+						<div class="movie-overlay">
+							<h4>어벤져스: 은배게임</h4>
+							<div class="text-box">
+								<p>2025-12-12</p>
+								<span class="rating">★ 8.9</span>
+							</div>
+						</div>
+					</a>
+				</article>
+				<article class="movie-card">
+					<img src="images/posters/11. 캐리비안의 해저기 블랙펄의 저주.webp" alt="어벤져스 엔드게임">
+					<div class="movie-overlay">
+						<h4>박준용의 해적</h4>
+						<div class="text-box">
+							<p>2025-12-12</p>
+							<span class="rating">★ 8.9</span>
+						</div>
+					</div>
+				</article>
+				<article class="movie-card">
+					<img src="images/posters/20. 드래곤 길들이기.webp" alt="어벤져스 엔드게임">
+					<div class="movie-overlay">
+						<h4>김예선 길들이기</h4>
+						<div class="text-box">
+							<p>2025-12-12</p>
+							<span class="rating">★ 8.9</span>
+						</div>
+					</div>
+				</article>
+
+				<article class="movie-card">
+					<img src="images/posters/13. 인터스텔라.webp" alt="">
+					<div class="movie-overlay">
+						<h4>민성스텔라(이브)</h3>
+							<div class="text-box">
+								<p>2025-12-12</p>
+								<span class="rating">★ 8.9</span>
+							</div>
+					</div>
+				</article>
+				<article class="movie-card">
+					<img src="images/posters/14. 터미네이터.webp" alt="">
+					<div class="movie-overlay">
+						<h4>태미네이터</h3>
+							<div class="text-box">
+								<p>2025-12-12</p>
+								<span class="rating">★ 8.9</span>
+							</div>
+					</div>
+				</article>
+
+				<article class="movie-card">
+					<img src="images/posters/25. 블랙팬서.webp" alt="">
+					<div class="movie-overlay">
+						<h4>민우팬서</h3>
+							<div class="text-box">
+								<p>2025-12-12</p>
+								<span class="rating">★ 8.9</span>
+							</div>
+					</div>
+				</article>
+				<article class="movie-card">
+					<img src="images/posters/16. 하울의 움직이는 성.webp" alt="">
+					<div class="movie-overlay">
+						<h4>자연의 움직이는 성</h3>
+							<div class="text-box">
+								<p>2025-12-12</p>
+								<span class="rating">★ 8.9</span>
+							</div>
+					</div>
+				</article>
+
+			</div>
+			<div class="right next">➡</div>
+		</div>
+	</section>
+
+	<script src="js/aurora.js"></script>
+
+	<script>
+		fetch("header.html")
+			.then(res => res.text())
+			.then(html => {
+				document.querySelector("header").innerHTML = html;
+			});
+	</script>
+</body>
+
+</html>
