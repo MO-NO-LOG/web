@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>MOVIE DB</title>
+        <link rel="stylesheet" href="css/font.css" />
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/header.css" />
+    </head>
+
+    <body>
+        <header class="navbar"></header>
+
+        <!-- 검색 영역 (오로라) -->
+        <section class="search-section">
+            <div class="aurora-mask">
+                <canvas id="auroraCanvas"></canvas>
+            </div>
+
+            <h1>환영합니다</h1>
+            <p>수많은 영화와 TV 프로그램을 검색해보세요.</p>
+
+            <div class="search-box">
+                <input type="text" placeholder="영화, TV 프로그램, 인물 검색" />
+                <button>검색</button>
+            </div>
+        </section>
+
+        <!-- 🎞 트렌드 영화 -->
+        <section class="movie-section">
+            <h2 class="section-title">트렌드 영화</h2>
+
+            <div class="movie_slider">
+                <div class="left next">⬅</div>
+                <div class="movie-list" id="trendList">
+                    <!-- JS -->
+                </div>
+                <div class="right next">➡</div>
+            </div>
+        </section>
+
+        <!-- 🎬 현재 상영작 TOP 7 -->
+        <section class="movie-section rank-section">
+            <h2 class="section-title">현재 상영작 TOP 7</h2>
+
+            <div class="movie-list top7-list" id="top7List">
+                <!-- JS -->
+            </div>
+        </section>
+
+        <!-- ⭐ 관객 평점 순위 -->
+        <section class="movie-section">
+            <h2 class="section-title">관객 평점 순위</h2>
+
+            <div class="movie_slider">
+                <div class="left next">⬅</div>
+
+                <div class="movie-list" id="ratingList">
+                    <!-- JS -->
+                </div>
+
+                <div class="right next">➡</div>
+            </div>
+        </section>
+
+        <!-- ⏰ 종료 예정작 -->
+        <section class="movie-section">
+            <h2 class="section-title">추억의 작품</h2>
+
+            <div class="movie_slider">
+                <div class="left next">⬅</div>
+
+                <div class="movie-list" id="endingList">
+                    <!-- JS -->
+                </div>
+
+                <div class="right next">➡</div>
+            </div>
+        </section>
+
+        <!-- 푸터 -->
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <div class="footer-brand">MONOLOG</div>
+
+                <div class="footer-cols">
+                    <div class="footer-col">
+                        <h4>About</h4>
+                        <ul>
+                            <li>사이트 소개</li>
+                            <li>사이트 맵</li>
+                            <li>이용약관</li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-col">
+                        <h4>Team info</h4>
+                        <ul>
+                            <li>기획/리더 : 박상진</li>
+                            <li>페이지 디자인 : 정자연</li>
+                            <li>프론트엔드 : 촤백령, 정자연</li>
+                            <li>백엔드 : 박상진, 신윤재</li>
+                            <li>반응형 : 박채정</li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-col">
+                        <h4>Inquiry</h4>
+                        <ul>
+                            <li class="Inquiry">Tel</li>
+                            <li>031-446-1201</li>
+                            <li class="Inquiry" style="margin-top: 10px">
+                                Address
+                            </li>
+                            <li>경기도 안양시 만안구 삼덕로 49</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-line"></div>
+                <p>© 2026 MONOLOG. All rights reserved.</p>
+                <p class="footer-small">
+                    본 사이트는 학습 및 발표 목적으로 제작되었으며, 상업적으로
+                    이용되지 않습니다. | Designed by Team MONOLOG.
+                </p>
+            </div>
+        </footer>
+
+        <script src="js/aurora.js"></script>
+        <script src="js/search.js"></script>
+        <script src="js/page/index.js"></script>
+        <script src="js/header.js"></script>
+    </body>
+</html>

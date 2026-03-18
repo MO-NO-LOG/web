@@ -1,0 +1,151 @@
+﻿<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>회원가입</title>
+        <link rel="stylesheet" href="css/join.css" />
+        <link rel="stylesheet" href="css/slider.css" />
+        <link rel="stylesheet" href="css/header.css" />
+    </head>
+
+    <body>
+        <header class="navbar"></header>
+
+        <div class="slider-bg">
+            <div class="slider-container">
+                <div
+                    class="slider-track"
+                    data-direction="left"
+                    data-speed="0.06"
+                    data-start="1"
+                ></div>
+            </div>
+            <div class="slider-container">
+                <div
+                    class="slider-track"
+                    data-direction="right"
+                    data-speed="0.07"
+                    data-start="30"
+                ></div>
+            </div>
+            <div class="slider-container">
+                <div
+                    class="slider-track"
+                    data-direction="left"
+                    data-speed="0.10"
+                    data-start="50"
+                ></div>
+            </div>
+        </div>
+
+        <div class="content">
+            <h2>회원가입</h2>
+            <form>
+                <div class="input-box">
+                    <span>이메일</span>
+                    <div class="line-box">
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="이메일을 입력하세요"
+                            required
+                        />
+                        <button
+                            type="button"
+                            id="sendCodeBtn"
+                            class="verify-btn"
+                        >
+                            인증코드 발송
+                        </button>
+                    </div>
+                </div>
+                <div class="input-box verify-code-box">
+                    <span>이메일 인증코드</span>
+                    <div class="line-box">
+                        <input
+                            type="text"
+                            id="emailCode"
+                            placeholder="인증코드 6자리 입력하세요"
+                        />
+                        <button
+                            type="button"
+                            id="confirmCodeBtn"
+                            class="verify-btn"
+                        >
+                            인증 확인
+                        </button>
+                    </div>
+                </div>
+
+                <div class="input-box">
+                    <span>비밀번호</span>
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="비밀번호를 입력하세요"
+                        required
+                        autocomplete="new-password"
+                    />
+                </div>
+
+                <div class="input-box">
+                    <span>비밀번호 재입력</span>
+                    <input
+                        type="password"
+                        id="repassword"
+                        placeholder="비밀번호를 한 번 더 입력하세요"
+                        required
+                        autocomplete="new-password"
+                    />
+                </div>
+
+                <div class="input-box">
+                    <span>닉네임</span>
+                    <input
+                        type="text"
+                        id="nickname"
+                        placeholder="닉네임을 입력하세요"
+                        required
+                    />
+                </div>
+
+                <div class="input-box birth-box">
+                    <span>생년월일</span>
+                    <div class="birth-select-row">
+                        <select id="birthYear" required>
+                            <option value="">년</option>
+                        </select>
+                        <select id="birthMonth" required>
+                            <option value="">월</option>
+                        </select>
+                        <select id="birthDay" required>
+                            <option value="">일</option>
+                        </select>
+                    </div>
+                </div>
+
+                <span>성별</span>
+                <div class="gender-box">
+                    <button type="button" class="gender-btn" data-gender="male">
+                        남자
+                    </button>
+                    <button
+                        type="button"
+                        class="gender-btn"
+                        data-gender="female"
+                    >
+                        여자
+                    </button>
+                    <input type="hidden" name="gender" id="gender" required />
+                </div>
+
+                <button type="submit" class="btnn">회원가입</button>
+            </form>
+        </div>
+
+        <script src="js/slider.js"></script>
+        <script src="js/join.js"></script>
+        <script src="js/header.js"></script>
+    </body>
+</html>

@@ -1,0 +1,428 @@
+﻿@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
+
+html,
+body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    background: #000;
+    color: #fff;
+    font-family: "Pretendard";
+}
+
+/* 寃???곸뿭 */
+.search-section {
+    padding-top: 70px;
+    position: relative;
+    min-height: 60vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+.aurora-mask {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#auroraCanvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.search-section h1 {
+    font-size: 30px;
+    letter-spacing: 1.6px;
+    margin-bottom: 3px;
+}
+
+.search-section p {
+    font-size: 20px;
+    letter-spacing: 0.5px;
+}
+
+.search-box {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    width: min(92vw, 760px);
+    margin-top: 24px;
+}
+
+.search-box input {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 14px;
+    border-radius: 8px 0 0 8px;
+    border: none;
+    font-size: 16px;
+}
+
+.search-box button {
+    padding: 14px 22px;
+    border-radius: 0 8px 8px 0;
+    border: none;
+    background: var(--main-blue);
+    color: white;
+    cursor: pointer;
+}
+
+/* ?곹솕 ?뱀뀡 */
+.movie-section {
+    padding: 3vw 10vw;
+    background: var(--main-background);
+    text-align: center;
+}
+
+.section-title {
+    font-weight: 600;
+    font-size: 2.12vw;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* 媛濡??곹솕 由ъ뒪??*/
+.movie_slider {
+    position: relative;
+}
+
+.movie-list {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    scroll-behavior: smooth;
+    overflow: hidden;
+
+    gap: 0.8%;
+}
+
+/* ?곹솕 移대뱶 */
+.movie-card {
+    width: 13%;
+    position: relative;
+    border-radius: 7%;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    flex: 0 0 calc((100% - 6 * 1.2%) / 7);
+    aspect-ratio: 2 / 3;
+}
+
+.movie-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition:
+        transform 0.6s ease,
+        filter 0.6s ease;
+}
+
+/* Hover ?④낵 */
+.movie-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+}
+
+.movie-card:hover img {
+    transform: scale(1.06);
+    filter: blur(1.5px);
+}
+
+/* Overlay */
+.movie-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.9) 0%,
+        rgba(0, 0, 0, 0) 100%
+    );
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+
+    text-align: left;
+}
+
+.movie-card:hover .movie-overlay {
+    opacity: 1;
+}
+
+.text-box {
+    display: flex;
+    justify-content: space-between;
+}
+
+.movie-overlay .rating {
+    color: gold;
+    font-size: 12px;
+    margin-bottom: 0.25rem;
+}
+
+.movie-overlay h4 {
+    width: 100px;
+    margin: 0 0 0.25rem 0;
+    font-weight: bold;
+    font-size: 14px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.movie-overlay p {
+    font-size: 12px;
+    color: #ccc;
+    margin: 0;
+}
+
+.next.right {
+    right: -60px;
+}
+
+.next.left {
+    left: -60px;
+}
+
+.next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+
+    color: #fff;
+    font-size: 25px;
+    text-align: center;
+    line-height: 50px;
+
+    cursor: pointer;
+}
+
+.movie-list::-webkit-scrollbar {
+    display: none;
+}
+
+.movie-list {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.rank-section {
+    padding: 3.5vw 4vw;
+}
+.top7-list {
+    overflow: hidden;
+    justify-content: space-between;
+}
+
+/* RANK 카드 */
+.rank-card {
+    position: relative;
+    overflow: visible !important; /* ?レ옄??諛뽰쑝濡?*/
+    transform: none !important;
+}
+
+.rank-card img {
+    clip-path: inset(0);
+    transition:
+        transform 0.6s ease,
+        filter 0.6s ease;
+}
+
+.rank-card .poster-wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 7%;
+    overflow: hidden;
+}
+
+.rank-card .rank-num {
+    position: absolute;
+    left: -20px;
+    bottom: -40px;
+
+    font-size: 12vw;
+    font-weight: 900;
+    line-height: 1;
+
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+
+    z-index: 999;
+    pointer-events: none;
+
+    transform: none !important;
+    filter: none !important;
+}
+
+/* hover ???レ옄留??먮━寃?*/
+.rank-card:hover .rank-num {
+    opacity: 0.15;
+}
+.clip {
+    overflow: hidden;
+}
+
+.rank-card:hover img {
+    transform: scale(1.06);
+    filter: blur(1.5px);
+}
+
+.rank-card:hover .poster-wrap {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+}
+
+.top7-list {
+    overflow: visible !important;
+}
+
+.movie-card:hover .rank-num {
+    transform: none;
+    filter: none;
+}
+
+.rank-card .movie-overlay {
+    z-index: 3;
+}
+
+.site-footer {
+    background: var(--main-background);
+    padding: 90px 10vw 30px;
+}
+
+.footer-inner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 60px;
+}
+
+.footer-brand {
+    font-size: 34px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    margin-top: 55px;
+    white-space: nowrap;
+}
+
+.footer-cols {
+    display: flex;
+    gap: 90px;
+}
+
+.footer-col h4 {
+    font-size: 16px;
+    margin-bottom: 12px;
+    font-weight: 800;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-col li {
+    font-size: 12px;
+    font-weight: 200;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 6px;
+}
+
+.footer-col li.Inquiry {
+    color: #f5f5f5;
+    font-weight: 200;
+}
+
+.footer-bottom {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.footer-line {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.15);
+    margin-bottom: 18px;
+}
+
+.footer-bottom p {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 6px 0;
+}
+
+.footer-small {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.45);
+}
+@media (max-width: 1000px) {
+    .rank-card .rank-num {
+        left: -10px;
+        bottom: -20px;
+    }
+    .footer-inner {
+        flex-direction: column;
+    }
+}
+@media (max-width: 700px) {
+    .search-box input {
+        width: 70vw;
+        padding: 14px;
+        border-radius: 8px 0 0 8px;
+        border: none;
+        font-size: 16px;
+    }
+    .footer-cols {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .right.next {
+        width: 25px;
+        height: 25px;
+        line-height: 30px;
+        font-size: 15px;
+        right: -30px;
+    }
+    .left.next {
+        width: 25px;
+        height: 25px;
+        line-height: 30px;
+        font-size: 15px;
+        left: -30px;
+    }
+}
+@media (max-width: 500px) {
+    .rank-card .rank-num {
+        left: 0;
+        bottom: -10px;
+    }
+}
+@media (max-width: 768px) {
+    .next.left {
+        left: -25px;
+    }
+
+    .next.right {
+        right: -25px;
+    }
+}

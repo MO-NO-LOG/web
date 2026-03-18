@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>영화 상세</title>
+    <link rel="stylesheet" href="css/review.css">
+    <link rel="stylesheet" href="css/header.css">
+</head>
+
+<body>
+    <header class="navbar"></header>
+
+    <main class="detail">
+        <section class="detail-top">
+            <div class="poster">
+                <img src="images/ui/break.png" alt="포스터">
+            </div>
+
+            <div class="info">
+                <div class="meta"></div>
+
+                <h1 class="title">영화 제목</h1>
+
+                <div class="score">
+                    <strong>0.0</strong>
+                    <span>평균 평점</span>
+                </div>
+
+                <div class="summary">
+                    <h3>줄거리</h3>
+                    <p>영화 설명</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="reviews">
+            <div class="reviews-header">
+                <h2>리뷰</h2>
+                <button class="btn write" type="button" onclick="toggleReviewForm()">리뷰 작성</button>
+            </div>
+
+            <div class="review-input-wrap">
+                <img src="images/default-user.png" class="profile" alt="User">
+
+                <div id="review-form" class="review-form">
+                    <div class="rating-input">
+                        <input type="radio" id="star10" name="rating" value="5">
+                        <label for="star10" class="star full" aria-label="5점"></label>
+
+                        <input type="radio" id="star9" name="rating" value="4.5">
+                        <label for="star9" class="star half" aria-label="4.5점"></label>
+
+                        <input type="radio" id="star8" name="rating" value="4">
+                        <label for="star8" class="star full" aria-label="4점"></label>
+
+                        <input type="radio" id="star7" name="rating" value="3.5">
+                        <label for="star7" class="star half" aria-label="3.5점"></label>
+
+                        <input type="radio" id="star6" name="rating" value="3">
+                        <label for="star6" class="star full" aria-label="3점"></label>
+
+                        <input type="radio" id="star5" name="rating" value="2.5">
+                        <label for="star5" class="star half" aria-label="2.5점"></label>
+
+                        <input type="radio" id="star4" name="rating" value="2">
+                        <label for="star4" class="star full" aria-label="2점"></label>
+
+                        <input type="radio" id="star3" name="rating" value="1.5">
+                        <label for="star3" class="star half" aria-label="1.5점"></label>
+
+                        <input type="radio" id="star2" name="rating" value="1">
+                        <label for="star2" class="star full" aria-label="1점"></label>
+
+                        <input type="radio" id="star1" name="rating" value="0.5">
+                        <label for="star1" class="star half" aria-label="0.5점"></label>
+                    </div>
+
+                    <textarea placeholder="리뷰 내용을 입력하세요."></textarea>
+
+                    <div class="form-actions">
+                        <button type="button" onclick="toggleReviewForm()">취소</button>
+                        <button type="button">등록</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="review-list"></div>
+
+            <button class="view-more" type="button">리뷰 더보기</button>
+            <div class="review-pagination" id="reviewPagination" style="display:none;"></div>
+        </section>
+
+        <section class="recommend">
+            <h2>추천 영화 목록</h2>
+
+            <div class="recommend-list">
+                <article class="movie-card">
+                    <img src="images/ui/break.png" alt="">
+                    <div class="movie-overlay">
+                        <h4>추천 영화</h4>
+                        <div class="text-box">
+                            <p>-</p>
+                            <span class="rating">★0.0</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="movie-card">
+                    <img src="images/ui/break.png" alt="">
+                    <div class="movie-overlay">
+                        <h4>추천 영화</h4>
+                        <div class="text-box">
+                            <p>-</p>
+                            <span class="rating">★0.0</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="movie-card">
+                    <img src="images/ui/break.png" alt="">
+                    <div class="movie-overlay">
+                        <h4>추천 영화</h4>
+                        <div class="text-box">
+                            <p>-</p>
+                            <span class="rating">★0.0</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="movie-card">
+                    <img src="images/ui/break.png" alt="">
+                    <div class="movie-overlay">
+                        <h4>추천 영화</h4>
+                        <div class="text-box">
+                            <p>-</p>
+                            <span class="rating">★0.0</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+</body>
+<script src="js/review.js"></script>
+<script src="js/header.js"></script>
+
+</html>

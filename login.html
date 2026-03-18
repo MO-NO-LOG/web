@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>로그인</title>
+
+        <link rel="stylesheet" href="css/login.css" />
+        <link rel="stylesheet" href="css/slider.css" />
+        <link rel="stylesheet" href="css/header.css" />
+    </head>
+
+    <body>
+        <!-- 헤더 -->
+        <header class="navbar"></header>
+
+        <!-- 슬라이더 영역 -->
+        <div class="slider-bg">
+            <div class="slider-container">
+                <div
+                    class="slider-track"
+                    data-direction="left"
+                    data-speed="0.06"
+                ></div>
+            </div>
+            <div class="slider-container">
+                <div
+                    class="slider-track"
+                    data-direction="right"
+                    data-speed="0.07"
+                ></div>
+            </div>
+            <div class="slider-container">
+                <div
+                    class="slider-track"
+                    data-direction="left"
+                    data-speed="0.10"
+                ></div>
+            </div>
+        </div>
+
+        <!-- 로그인 폼 -->
+        <div class="content">
+            <form id="loginForm">
+                <h2>로그인</h2>
+
+                <div class="input-box">
+                    <span>아이디</span>
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="이메일을 입력하세요"
+                        required
+                    />
+                </div>
+
+                <div class="input-box">
+                    <span>비밀번호</span>
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="비밀번호를 입력하세요"
+                        required
+                    />
+                </div>
+
+                <div class="remember">
+                    <label>
+                        <input type="checkbox" id="rememberMe" /> 로그인 상태
+                        유지
+                    </label>
+                    <a href="join.html">회원가입</a>
+                </div>
+
+                <button type="submit" class="btnn">로그인</button>
+            </form>
+        </div>
+
+        <script src="js/slider.js"></script>
+        <script src="js/header.js"></script>
+        <script src="js/login.js"></script>
+    </body>
+</html>

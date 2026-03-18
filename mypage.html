@@ -1,0 +1,78 @@
+﻿<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>My Page</title>
+        <link rel="stylesheet" href="css/font.css" />
+        <link rel="stylesheet" href="css/mypage.css" />
+        <link rel="stylesheet" href="css/header.css" />
+    </head>
+
+    <body>
+        <header class="navbar"></header>
+
+        <main class="container">
+            <section class="profile">
+                <div class="avatar">
+                    <img
+                        id="mypageAvatar"
+                        src="/images/default-user.png"
+                        alt="프로필 이미지"
+                    />
+                    <a href="editpage.html"
+                        ><img src="images/ui/pen.png" alt="수정"
+                    /></a>
+                </div>
+                <h2 id="mypageNickname">사용자</h2>
+
+                <div class="stats">
+                    <div>
+                        <span>작성한 리뷰 수</span>
+                        <strong id="statReviewCount">0개</strong>
+                    </div>
+                    <div>
+                        <span>작성한 댓글 수</span>
+                        <strong id="statCommentCount">0개</strong>
+                    </div>
+                    <div>
+                        <span>이용 일수</span>
+                        <strong id="statJoinedDays">0일</strong>
+                    </div>
+                </div>
+            </section>
+
+            <section class="my-review">
+                <h3>내가 작성한 리뷰 (MY REVIEW)</h3>
+                <div id="myReviewList"></div>
+                <button id="myReviewMoreBtn" class="more-btn" type="button">
+                    더보기
+                </button>
+            </section>
+
+            <section class="wishlist">
+                <div class="wish-cta">
+                    <div class="wish-cta-left">
+                        <div class="wish-icon">
+                            <img
+                                src="images/ui/redheart.png"
+                                class="heart-icon"
+                                alt="하트"
+                            />
+                        </div>
+                        <div class="wish-text">
+                            <strong>보고 싶은 영화가 있나요?</strong>
+                            <p>위시리스트에 모아두고 나중에 확인해보세요.</p>
+                        </div>
+                    </div>
+                    <a class="wish-btn" href="wishlist.html"
+                        >위시리스트 바로가기 <span>→</span></a
+                    >
+                </div>
+            </section>
+        </main>
+
+        <script src="js/mypage.js"></script>
+        <script src="js/header.js"></script>
+    </body>
+</html>
