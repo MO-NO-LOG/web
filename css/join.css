@@ -124,7 +124,16 @@ input::placeholder {
     color: #fff;
     font-size: 16px;
 }
+input#emailCode::-webkit-outer-spin-button,
+input#emailCode::-webkit-inner-spin-button {
+  -webkit-appearance:none;
+  margin: 0;
+}
 
+/* Firefox */
+input#emailCode[type=number] {
+  -moz-appearance:textfield;
+}
 span {
     margin-left: 10px;
     margin-bottom: 3px;
@@ -182,7 +191,11 @@ span {
 
 .content .input-box.verify-code-box {
     margin-top: 16px;
-    margin-bottom: 10px;
+    margin-bottom: 60px;
+}
+#verifyStatusText{
+    margin-left: 15px;
+    color: #ffd36b;
 }
 
 .verify-row {
