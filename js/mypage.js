@@ -56,6 +56,10 @@ function resolveProfileImage(src) {
     .replace(/^api\/file\/profile-image\/+/i, "")
     .replace(/^profile_images\/+/i, "");
 
+  if (path && !/\.(?:avif|png|jpe?g|gif|webp|svg)$/i.test(path)) {
+    path = `${path}.avif`;
+  }
+
   if (!path || /(?:^|\/)images\/default-user\.png$/i.test(path)) {
     return DEFAULT_PROFILE_IMAGE;
   }
