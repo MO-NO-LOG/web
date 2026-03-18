@@ -98,7 +98,7 @@ function renderMovies() {
     movieGrid.appendChild(card);
   });
 
-  window.WishFeature?.syncButtons(movieGrid);
+  window.WishFeature?.init(movieGrid);
   updateCountAndEmpty();
 }
 
