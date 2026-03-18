@@ -16,6 +16,7 @@ const PROFILE_IMAGE_CDN_HOST = "cdn.mono-log.fun";
 const DEFAULT_PROFILE_IMAGE = "images/default-user.png";
 const REVIEW_FOCUS_CLASS = "review-target";
 const REVIEW_FOCUS_ACTIVE_CLASS = "review-target-active";
+const REVIEW_REACTION_STORAGE_KEY = "review_reaction_state";
 
 let currentViewerProfileImage = DEFAULT_PROFILE_IMAGE;
 let pendingFocusReviewId = 0;
@@ -28,6 +29,93 @@ function readCookie(name) {
     new RegExp(`(?:^|; )${escaped}=([^;]*)`)
   );
   return match ? decodeURIComponent(match[1]) : "";
+}
+
+function readStoredReactionState() {
+  try {
+    const raw = localStorage.getItem(REVIEW_REACTION_STORAGE_KEY);
+    const parsed = raw ? JSON.parse(raw) : {};
+    return parsed && typeof parsed === "object" ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+function writeStoredReactionState(reviewId, state) {
+  if (!reviewId) return;
+
+  const stored = readStoredReactionState();
+  stored[String(reviewId)] = {
+    likeCount: Number(state.likeCount || 0),
+    dislikeCount: Number(state.dislikeCount || 0),
+    myReaction: state.myReaction || null,
+  };
+
+  try {
+    localStorage.setItem(REVIEW_REACTION_STORAGE_KEY, JSON.stringify(stored));
+  } catch {}
+}
+
+function getStoredReactionState(reviewId) {
+  const stored = readStoredReactionState()[String(reviewId)];
+  return stored && typeof stored === "object" ? stored : null;
+}
+
+function readReactionCount(review, type) {
+  const candidates =
+    type === "LIKE"
+      ? [
+          review?.likeCount,
+          review?.likes,
+          review?.like_count,
+          review?.likeCnt,
+          review?.positiveCount,
+          review?.upCount,
+        ]
+      : [
+          review?.dislikeCount,
+          review?.dislikes,
+          review?.dislike_count,
+          review?.dislikeCnt,
+          review?.negativeCount,
+          review?.downCount,
+        ];
+
+  const value = candidates.find(
+    (item) => Number.isFinite(Number(item)) && Number(item) >= 0,
+  );
+
+  return value === undefined ? 0 : Number(value);
+}
+
+function readMyReaction(review) {
+  const candidates = [
+    review?.myReaction,
+    review?.my_reaction,
+    review?.reaction,
+    review?.reactionType,
+    review?.reaction_type,
+    review?.userReaction,
+  ];
+
+  const value = candidates.find((item) => typeof item === "string" && item.trim());
+  const normalized = String(value || "").trim().toUpperCase();
+  return normalized === "LIKE" || normalized === "DISLIKE" ? normalized : null;
+}
+
+function syncReactionStateToReviews(reviewId, state) {
+  allReviews = allReviews.map((review) => {
+    if (Number(review.reviewId) !== Number(reviewId)) return review;
+
+    return {
+      ...review,
+      likeCount: state.likeCount,
+      likes: state.likeCount,
+      dislikeCount: state.dislikeCount,
+      dislikes: state.dislikeCount,
+      myReaction: state.myReaction,
+    };
+  });
 }
 
 function getMovieId() {
@@ -264,14 +352,15 @@ async function readErrorMessage(response, fallback) {
 function getReactionState(review) {
   const reviewId = Number(review.reviewId);
   if (!reviewReactionState.has(reviewId)) {
-    reviewReactionState.set(reviewId, {
-      likeCount: Number(review.likeCount || review.likes || 0),
-      dislikeCount: Number(review.dislikeCount || review.dislikes || 0),
-      myReaction:
-        review.myReaction === "LIKE" || review.myReaction === "DISLIKE"
-          ? review.myReaction
-          : null,
-    });
+    const storedState = getStoredReactionState(reviewId);
+    const nextState = storedState || {
+      likeCount: readReactionCount(review, "LIKE"),
+      dislikeCount: readReactionCount(review, "DISLIKE"),
+      myReaction: readMyReaction(review),
+    };
+
+    reviewReactionState.set(reviewId, nextState);
+    syncReactionStateToReviews(reviewId, nextState);
   }
 
   return reviewReactionState.get(reviewId);
@@ -502,12 +591,16 @@ async function toggleReaction(reviewEl, reaction) {
   const previous = { ...state };
 
   applyReactionChange(state, nextReaction);
+  syncReactionStateToReviews(reviewId, state);
+  writeStoredReactionState(reviewId, state);
   updateReviewReactionUI(reviewEl);
 
   try {
     await sendReaction(reviewId, nextReaction);
   } catch (error) {
     reviewReactionState.set(reviewId, previous);
+    syncReactionStateToReviews(reviewId, previous);
+    writeStoredReactionState(reviewId, previous);
     updateReviewReactionUI(reviewEl);
     alert(error.message || "반응 처리 실패");
   }
@@ -888,6 +981,7 @@ async function loadReviews() {
 
   const data = await response.json();
   allReviews = Array.isArray(data.reviews) ? data.reviews : [];
+  reviewReactionState.clear();
   reviewExpanded = false;
   currentReviewPage = 1;
   prepareReviewFocusTarget();
