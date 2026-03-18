@@ -7,8 +7,8 @@
     --black: #18181b;
 
     --heart-default: url("../images/ui/heart_stroke.png");
-    --heart-hover: url("../images/ui/redheart.png");
-    --heart-on: url("../images/ui/heart_stroke.png");
+    --heart-hover: url("../images/ui/heart_stroke.png");
+    --heart-on: url("../images/ui/redheart.png");
     --heart-on-hover: url("../images/ui/redheart.png");
 }
 
@@ -279,7 +279,7 @@ a {
 .wish-icon {
     width: 22px;
     height: 22px;
-    background-image: var(--heart-hover);
+    background-image: var(--heart-default);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -290,11 +290,11 @@ a {
 }
 
 .wish-btn.on .wish-icon {
-    background-image: var(--heart-on-hover);
+    background-image: var(--heart-on);
 }
 
 .wish-btn.on:hover .wish-icon {
-    background-image: var(--heart-on);
+    background-image: var(--heart-on-hover);
 }
 
 /* 텍스트 */
