@@ -4,7 +4,10 @@ const ACCESS_TOKEN_KEY = "access_token";
 const state = {
   reviews: [],
   visibleCount: 5,
+  wishlist: [],
 };
+
+const FALLBACK_POSTER = "images/ui/break.png";
 
 function formatDate(value) {
   if (!value) return "-";
@@ -27,6 +30,59 @@ function calcJoinedDays(value) {
 function toStars(rating) {
   const n = Math.max(0, Math.min(5, Math.round(Number(rating) || 0)));
   return "*".repeat(n) + "-".repeat(5 - n);
+}
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function renderWishlist() {
+  const grid = document.getElementById("myWishlistGrid");
+  if (!grid) return;
+
+  if (state.wishlist.length === 0) {
+    grid.innerHTML = `
+      <div class="mypage-wishlist-empty">
+        위시리스트에 담긴 영화가 없습니다.
+      </div>
+    `;
+    return;
+  }
+
+  grid.innerHTML = state.wishlist
+    .map(
+      (movie) => `
+        <article class="mypage-wish-card">
+          <a class="mypage-wish-link" href="review.html?movieId=${movie.movieId}">
+            <div class="mypage-wish-poster">
+              <img src="${escapeHtml(movie.posterUrl || FALLBACK_POSTER)}" alt="${escapeHtml(movie.title)}">
+              <button class="wish-btn" type="button" aria-label="위시리스트" data-movie-id="${movie.movieId}">
+                <span class="wish-icon" aria-hidden="true"></span>
+              </button>
+            </div>
+            <div class="mypage-wish-info">
+              <div class="mypage-wish-head">
+                <h4 class="mypage-wish-title">${escapeHtml(movie.title)}</h4>
+                <span class="mypage-wish-rating">★${Number(movie.averageRating || 0).toFixed(1)}</span>
+              </div>
+              <div class="mypage-wish-meta">
+                <span>${escapeHtml(movie.genreText || "ETC")}</span>
+                <span class="dot">·</span>
+                <span>${escapeHtml(movie.releaseYear ? String(movie.releaseYear) : "-")}</span>
+              </div>
+            </div>
+          </a>
+        </article>
+      `,
+    )
+    .join("");
+
+  window.WishFeature?.init(grid);
 }
 
 function renderReviews() {
@@ -93,6 +149,58 @@ function fillProfile(user, profile) {
   }
 }
 
+async function fetchMovieDetail(movieId, token) {
+  try {
+    const response = await fetch(`${API}/api/movies/detail/${movieId}`, {
+      credentials: "include",
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    });
+
+    if (!response.ok) return null;
+    return response.json();
+  } catch (error) {
+    console.error("mypage wishlist detail load failed:", error);
+    return null;
+  }
+}
+
+async function loadWishlist(token) {
+  try {
+    const response = await fetch(`${API}/api/favorites/list`, {
+      credentials: "include",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const data = await response.json();
+    const favorites = Array.isArray(data.favorites) ? data.favorites.slice(0, 4) : [];
+    const details = await Promise.all(
+      favorites.map((item) => fetchMovieDetail(item.movieId, token)),
+    );
+
+    state.wishlist = favorites.map((item, index) => {
+      const detail = details[index] || {};
+      const genres = Array.isArray(detail.genres) ? detail.genres : [];
+      const releaseDate = detail.releaseDate || "";
+
+      return {
+        movieId: item.movieId,
+        title: item.title || detail.title || "Movie",
+        posterUrl: item.posterUrl || detail.posterUrl || FALLBACK_POSTER,
+        averageRating: Number(detail.averageRating || 0),
+        releaseYear: releaseDate ? Number(String(releaseDate).slice(0, 4)) : 0,
+        genreText: genres.length > 0 ? genres.join(", ") : "ETC",
+      };
+    });
+  } catch (error) {
+    console.error("mypage wishlist load failed:", error);
+    state.wishlist = [];
+  }
+
+  renderWishlist();
+}
+
 async function loadMyPage() {
   const token = localStorage.getItem(ACCESS_TOKEN_KEY);
   if (!token) {
@@ -125,6 +233,7 @@ async function loadMyPage() {
 
     state.reviews = Array.isArray(profile.reviews) ? profile.reviews : [];
     renderReviews();
+    await loadWishlist(token);
   } catch (err) {
     console.error("mypage load failed:", err);
     alert("Failed to load mypage.");

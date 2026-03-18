@@ -90,7 +90,7 @@ function renderMovies(movies, selectedGenres) {
           <a class="movie-link" href="review.html?movieId=${movie.id}" aria-label="${escapeHtml(movie.title)} 상세">
             <div class="poster">
               <img src="${movie.posterUrl || "images/no-poster.png"}" alt="${escapeHtml(movie.title)}">
-              <button class="wish-btn" type="button" aria-label="위시리스트">
+              <button class="wish-btn" type="button" aria-label="위시리스트" data-movie-id="${movie.id}">
                 <span class="wish-icon" aria-hidden="true"></span>
               </button>
             </div>
@@ -112,6 +112,8 @@ function renderMovies(movies, selectedGenres) {
       `,
     )
     .join("");
+
+  window.WishFeature?.syncButtons(movieGrid);
 }
 
 function getSelectedGenres() {

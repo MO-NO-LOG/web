@@ -289,7 +289,7 @@ a {
     text-overflow: ellipsis;
 }
 
-.wish-btn {
+.wishlist-link-btn {
     background: #111;
     color: #fff;
     border-radius: 10px;
@@ -302,9 +302,153 @@ a {
     flex: 0 0 auto;
 }
 
-.wish-btn span {
+.wishlist-link-btn span {
     font-size: 14px;
     transform: translateY(-1px);
+}
+
+.mypage-wishlist-grid {
+    margin-top: 18px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px 18px;
+}
+
+.mypage-wish-card {
+    min-width: 0;
+}
+
+.mypage-wish-link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 14px;
+    border-radius: 22px;
+    background: #fff;
+    box-shadow: 0 10px 24px -14px rgba(0, 0, 0, 0.22);
+    transition: transform 0.18s ease;
+}
+
+.mypage-wish-link:hover {
+    transform: translateY(-4px);
+}
+
+.mypage-wish-poster {
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #111;
+}
+
+.mypage-wish-poster img {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    display: block;
+}
+
+.mypage-wish-poster:hover .wish-btn {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.mypage-wish-poster .wish-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+    width: 50px;
+    height: 50px;
+    border-radius: 999px;
+    border: none;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(4px);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition:
+        transform 0.12s ease,
+        background 0.15s ease,
+        box-shadow 0.15s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.mypage-wish-poster .wish-btn:hover {
+    transform: scale(1.05);
+}
+
+.mypage-wish-poster .wish-btn.on {
+    background: rgba(0, 0, 0, 0.35);
+}
+
+.mypage-wish-poster .wish-btn.on:hover {
+    background: rgba(180, 180, 180, 0.42);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.mypage-wish-poster .wish-icon {
+    width: 25px;
+    height: 25px;
+    background-image: url("../images/ui/heart_stroke.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.mypage-wish-poster .wish-btn.on .wish-icon {
+    background-image: url("../images/ui/redheart.png");
+}
+
+.mypage-wish-info {
+    margin-top: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.mypage-wish-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 12px;
+}
+
+.mypage-wish-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mypage-wish-rating {
+    color: #ffb400;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.mypage-wish-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #9d9d9d;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.mypage-wish-meta .dot {
+    opacity: 0.55;
+}
+
+.mypage-wishlist-empty {
+    border-radius: 18px;
+    background: #f3f4f6;
+    color: #777;
+    text-align: center;
+    padding: 28px 20px;
 }
 
 /* 카드 그리드 */
@@ -449,6 +593,10 @@ a {
     .wish-grid {
         grid-template-columns: repeat(3, 1fr);
     }
+
+    .mypage-wishlist-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 @media (max-width: 768px) {
@@ -466,6 +614,11 @@ a {
         grid-template-columns: repeat(2, 1fr);
         gap: 14px;
     }
+
+    .mypage-wishlist-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+    }
 }
 
 @media (max-width: 420px) {
@@ -473,8 +626,12 @@ a {
         grid-template-columns: 1fr;
     }
 
-    .wish-btn {
+    .wishlist-link-btn {
         padding: 10px 12px;
+    }
+
+    .mypage-wishlist-grid {
+        grid-template-columns: 1fr;
     }
 }
 

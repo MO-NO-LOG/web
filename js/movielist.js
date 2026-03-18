@@ -62,7 +62,7 @@ function renderMovies() {
     card.innerHTML = `
       <div class="card-poster">
         <img src="${movie.posterUrl || "images/no-poster.png"}" alt="${movie.title}">
-        <button class="wish-btn" type="button" aria-label="위시리스트">
+        <button class="wish-btn" type="button" aria-label="위시리스트" data-movie-id="${movie.id}">
           <span class="wish-icon"></span>
         </button>
       </div>
@@ -84,6 +84,8 @@ function renderMovies() {
 
     grid.appendChild(card);
   });
+
+  window.WishFeature?.init(grid);
 }
 
 function renderPagination() {
@@ -148,12 +150,3 @@ async function loadMovies() {
 }
 
 loadMovies();
-
-document.addEventListener("click", (e) => {
-  const wishBtn = e.target.closest(".wish-btn");
-  if (!wishBtn) return;
-
-  e.preventDefault();
-  e.stopPropagation();
-  wishBtn.classList.toggle("on");
-});
