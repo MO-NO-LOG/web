@@ -1,4 +1,4 @@
-"https://api.mono-log.fun"
+const API = "https://api.mono-log.fun";
 const ACCESS_TOKEN_KEY = "access_token";
 
 let csrfTokenCache = null;
@@ -342,7 +342,7 @@ async function loadMovieDetail() {
   const movieId = getMovieId();
   if (!movieId) return;
 
-  const response = await fetch(`${API}/movies/detail/${movieId}`);
+  const response = await fetch(`${API}/api/movies/detail/${movieId}`);
   if (!response.ok) return;
 
   const movie = await response.json();

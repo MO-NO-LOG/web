@@ -1,4 +1,4 @@
-"https://api.mono-log.fun"
+const API = "https://api.mono-log.fun";
 const ACCESS_TOKEN_KEY = "access_token";
 const FALLBACK_POSTER = "images/ui/break.png";
 
