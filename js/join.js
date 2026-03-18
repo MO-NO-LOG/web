@@ -1,5 +1,5 @@
 ﻿const API = "https://api.mono-log.fun";
-const REQUIRE_EMAIL_VERIFY = false; // 배포 시 true
+const REQUIRE_EMAIL_VERIFY = true; // 배포 시 true
 
 // ========================
 // DOM 참조
