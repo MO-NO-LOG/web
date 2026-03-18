@@ -642,6 +642,21 @@ function getReplyCount(comments) {
   }, 0);
 }
 
+function extractCommentsFromResponse(data) {
+  if (Array.isArray(data)) return data;
+
+  const candidates = [
+    data?.comments,
+    data?.data?.comments,
+    data?.items,
+    data?.results,
+    data?.data,
+  ];
+
+  const comments = candidates.find((value) => Array.isArray(value));
+  return Array.isArray(comments) ? comments : [];
+}
+
 function updateReplyCountUI(reviewEl) {
   const button = reviewEl.querySelector(".comment-btn");
   if (!button) return;
@@ -676,6 +691,47 @@ async function loadComments(reviewEl) {
   const data = await response.json();
   reviewEl.__comments = Array.isArray(data.comments) ? data.comments : [];
   renderReplies(reviewEl);
+  updateReplyCountUI(reviewEl);
+}
+
+function updateReplyCountUI(reviewEl) {
+  const button = reviewEl.querySelector(".comment-btn");
+  if (!button) return;
+
+  const comments = reviewEl.__comments || [];
+  const count = getReplyCount(comments);
+  const text = button.querySelector(".reply-count");
+
+  button.dataset.count = String(count);
+  button.style.display = count > 0 ? "inline-flex" : "none";
+  reviewEl.classList.toggle("has-replies", count > 0);
+
+  if (!text) return;
+  text.textContent = button.classList.contains("open")
+    ? "답글 접기"
+    : `답글 ${count}개`;
+}
+
+async function loadComments(reviewEl) {
+  const reviewId = Number(reviewEl.dataset.reviewId);
+  if (!reviewId) return;
+
+  const response = await fetch(`${API}/api/reviews/comment/list`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ reviewId }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
+  }
+
+  const data = await response.json();
+  reviewEl.__comments = extractCommentsFromResponse(data);
+  renderReplies(reviewEl);
+  reviewEl
+    .querySelectorAll(".reply-profile")
+    .forEach((imgEl) => applyProfileImageFallback(imgEl));
   updateReplyCountUI(reviewEl);
 }
 
