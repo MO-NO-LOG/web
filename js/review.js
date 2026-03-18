@@ -19,6 +19,8 @@ const REVIEW_FOCUS_ACTIVE_CLASS = "review-target-active";
 
 let currentViewerProfileImage = DEFAULT_PROFILE_IMAGE;
 let pendingFocusReviewId = 0;
+const profileImageCacheByNickname = new Map();
+const profileImageRequestByNickname = new Map();
 
 function readCookie(name) {
   const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -117,6 +119,73 @@ function getProfileImageFromData(source) {
   ];
 
   return candidates.find((value) => typeof value === "string" && value.trim()) || "";
+}
+
+function getNicknameFromData(source) {
+  if (!source || typeof source !== "object") return "";
+
+  const candidates = [
+    source.userNickname,
+    source.nickname,
+    source.writerNickname,
+    source.authorNickname,
+    source.user?.nickname,
+  ];
+
+  return candidates.find((value) => typeof value === "string" && value.trim()) || "";
+}
+
+async function fetchProfileImageByNickname(nickname) {
+  const key = typeof nickname === "string" ? nickname.trim() : "";
+  if (!key) return DEFAULT_PROFILE_IMAGE;
+
+  if (profileImageCacheByNickname.has(key)) {
+    return profileImageCacheByNickname.get(key);
+  }
+
+  if (profileImageRequestByNickname.has(key)) {
+    return profileImageRequestByNickname.get(key);
+  }
+
+  const request = fetch(
+    `${API}/api/user/profile/${encodeURIComponent(key)}?limit=1`,
+    { credentials: "include" },
+  )
+    .then(async (response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const profile = await response.json();
+      const profileImage = resolveProfileImage(getProfileImageFromData(profile));
+      profileImageCacheByNickname.set(key, profileImage);
+      return profileImage;
+    })
+    .catch(() => DEFAULT_PROFILE_IMAGE)
+    .finally(() => {
+      profileImageRequestByNickname.delete(key);
+    });
+
+  profileImageRequestByNickname.set(key, request);
+  return request;
+}
+
+async function hydrateProfileImages(root = document) {
+  const imageElements = [...root.querySelectorAll("img[data-profile-nickname]")];
+
+  await Promise.all(
+    imageElements.map(async (imgEl) => {
+      const nickname = imgEl.dataset.profileNickname?.trim();
+      const sourceValue = imgEl.dataset.profileSource || "";
+      if (!nickname || sourceValue.trim()) return;
+
+      const profileImage = await fetchProfileImageByNickname(nickname);
+      if (!profileImage || profileImage === DEFAULT_PROFILE_IMAGE) return;
+
+      applyProfileImageFallback(imgEl);
+      imgEl.src = profileImage;
+    }),
+  );
 }
 
 function getCommentId(comment) {
@@ -234,11 +303,19 @@ function passiveActionIcons() {
 }
 
 function makeReplyHTML(reply) {
-  const replyProfileImage = resolveProfileImage(getProfileImageFromData(reply));
+  const replyNickname = getNicknameFromData(reply);
+  const replyProfileSource = getProfileImageFromData(reply);
+  const replyProfileImage = resolveProfileImage(replyProfileSource);
 
   return `
     <div class="reply nested-reply">
-      <img src="${escapeHtml(replyProfileImage)}" class="reply-profile" alt="reply-user">
+      <img
+        src="${escapeHtml(replyProfileImage)}"
+        class="reply-profile"
+        alt="reply-user"
+        data-profile-nickname="${escapeHtml(replyNickname)}"
+        data-profile-source="${escapeHtml(replyProfileSource)}"
+      >
       <div class="reply-content">
         <span class="reply-user">${escapeHtml(reply.userNickname || "익명")}</span>
         <div class="reply-body">${escapeHtml(reply.content || "")}</div>
@@ -253,12 +330,20 @@ function makeReplyHTML(reply) {
 function makeCommentThreadHTML(comment) {
   const commentId = getCommentId(comment);
   const replies = Array.isArray(comment.replies) ? comment.replies : [];
-  const commentProfileImage = resolveProfileImage(getProfileImageFromData(comment));
+  const commentNickname = getNicknameFromData(comment);
+  const commentProfileSource = getProfileImageFromData(comment);
+  const commentProfileImage = resolveProfileImage(commentProfileSource);
 
   return `
     <div class="comment-thread" data-comment-id="${commentId}">
       <div class="reply">
-        <img src="${escapeHtml(commentProfileImage)}" class="reply-profile" alt="comment-user">
+        <img
+          src="${escapeHtml(commentProfileImage)}"
+          class="reply-profile"
+          alt="comment-user"
+          data-profile-nickname="${escapeHtml(commentNickname)}"
+          data-profile-source="${escapeHtml(commentProfileSource)}"
+        >
         <div class="reply-content">
           <span class="reply-user">${escapeHtml(comment.userNickname || "익명")}</span>
           <div class="reply-body">${escapeHtml(comment.content || "")}</div>
@@ -285,12 +370,19 @@ function makeCommentThreadHTML(comment) {
 }
 
 function makeReviewHTML(review) {
-  const reviewProfileImage = resolveProfileImage(getProfileImageFromData(review));
+  const reviewNickname = getNicknameFromData(review);
+  const reviewProfileSource = getProfileImageFromData(review);
+  const reviewProfileImage = resolveProfileImage(reviewProfileSource);
 
   return `
     <article class="review" data-review-id="${review.reviewId}">
       <div class="review-top">
-        <img src="${escapeHtml(reviewProfileImage)}" alt="User">
+        <img
+          src="${escapeHtml(reviewProfileImage)}"
+          alt="User"
+          data-profile-nickname="${escapeHtml(reviewNickname)}"
+          data-profile-source="${escapeHtml(reviewProfileSource)}"
+        >
         <span class="user">${escapeHtml(review.userNickname || "익명")}</span>
         <span class="star">${starRatingHTML(review.rating)}</span>
       </div>
@@ -732,6 +824,9 @@ async function loadComments(reviewEl) {
   reviewEl
     .querySelectorAll(".reply-profile")
     .forEach((imgEl) => applyProfileImageFallback(imgEl));
+  hydrateProfileImages(reviewEl).catch((error) => {
+    console.error("comment profile image hydrate failed:", error);
+  });
   updateReplyCountUI(reviewEl);
 }
 
@@ -770,6 +865,10 @@ function renderReviews() {
   document
     .querySelectorAll(".review-top > img, .reply-profile")
     .forEach((imgEl) => applyProfileImageFallback(imgEl));
+
+  hydrateProfileImages(container).catch((error) => {
+    console.error("review profile image hydrate failed:", error);
+  });
 
   preloadCommentCounts();
   updateReviewControls();
