@@ -6,7 +6,7 @@ const state = {
   token: localStorage.getItem(ACCESS_TOKEN_KEY) || "",
   me: null,
   currentImage: "",
-};
+}; 
 
 function readCookie(name) {
   const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
