@@ -35,6 +35,12 @@ function detailMessage(data, fallback) {
   return fallback;
 }
 
+function setVerifyStatus(message, color) {
+  if (!verifyStatusText) return;
+  verifyStatusText.textContent = message;
+  if (color) verifyStatusText.style.color = color;
+}
+
 // ========================
 // 생년월일 셀렉트 초기화
 // ========================
@@ -88,8 +94,7 @@ monthSelect.addEventListener("change", fillDays);
 // ========================
 emailInput.addEventListener("input", () => {
   isEmailVerified = false;
-  verifyStatusText.textContent = "이메일 인증 필요";
-  verifyStatusText.style.color = "#ffd36b";
+  setVerifyStatus("이메일 인증 필요", "#ffd36b");
 });
 
 sendCodeBtn.addEventListener("click", async () => {
@@ -119,7 +124,7 @@ sendCodeBtn.addEventListener("click", async () => {
 
 confirmCodeBtn.addEventListener("click", async () => {
   const email = emailInput.value.trim();
-  const code = emailCodeInput.value.trim();
+  const code = emailCodeInput.value.trim().replace(/\s+/g, "");
   if (!email || !code) {
     alert("이메일과 인증코드를 입력하세요.");
     return;
@@ -131,17 +136,15 @@ confirmCodeBtn.addEventListener("click", async () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, code }),
     });
-    const data = await res.json();
+    const data = await res.json().catch(() => null);
     if (!res.ok) {
       isEmailVerified = false;
-      verifyStatusText.textContent = "인증 실패";
-      verifyStatusText.style.color = "#ff7b7b";
+      setVerifyStatus("인증 실패", "#ff7b7b");
       alert(detailMessage(data, "이메일 인증 실패"));
       return;
     }
     isEmailVerified = true;
-    verifyStatusText.textContent = "이메일 인증 완료";
-    verifyStatusText.style.color = "#7dff8a";
+    setVerifyStatus("이메일 인증 완료", "#7dff8a");
     alert("이메일 인증이 완료되었습니다.");
   } catch (err) {
     console.error(err);
