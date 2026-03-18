@@ -418,6 +418,15 @@ body {
     }
 }
 @media (max-width: 768px) {
+    .movie-list {
+        gap: 1.2%;
+    }
+
+    .movie-card {
+        width: auto;
+        flex: 0 0 calc((100% - 3 * 1.2%) / 4);
+    }
+
     .next.left {
         left: -25px;
     }
