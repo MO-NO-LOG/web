@@ -253,7 +253,7 @@ async function saveProfile(event) {
   state.me = user;
   state.currentImage = user.img || state.currentImage || "";
   fillForm(user);
-  showToast("프로필이 저장되었습니다.");
+  window.location.href = "mypage.html";
 }
 
 function bindEvents() {

@@ -12,8 +12,11 @@ const REVIEWS_PAGE_SIZE = 5;
 const FALLBACK_POSTER = "images/ui/break.png";
 const PROFILE_IMAGE_CDN_BASE = "https://cdn.mono-log.fun/profile_images/";
 const DEFAULT_PROFILE_IMAGE = "images/default-user.png";
+const REVIEW_FOCUS_CLASS = "review-target";
+const REVIEW_FOCUS_ACTIVE_CLASS = "review-target-active";
 
 let currentViewerProfileImage = DEFAULT_PROFILE_IMAGE;
+let pendingFocusReviewId = 0;
 
 function readCookie(name) {
   const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -25,6 +28,11 @@ function readCookie(name) {
 
 function getMovieId() {
   return new URLSearchParams(window.location.search).get("movieId");
+}
+
+function getTargetReviewId() {
+  const reviewId = Number(new URLSearchParams(window.location.search).get("reviewId"));
+  return Number.isFinite(reviewId) && reviewId > 0 ? reviewId : 0;
 }
 
 function getToken() {
@@ -497,6 +505,48 @@ function getVisibleReviews() {
   return allReviews.slice(start, start + REVIEWS_PAGE_SIZE);
 }
 
+function prepareReviewFocusTarget() {
+  if (!pendingFocusReviewId) return;
+
+  const targetIndex = allReviews.findIndex(
+    (review) => Number(review.reviewId) === pendingFocusReviewId,
+  );
+  if (targetIndex < 0) {
+    pendingFocusReviewId = 0;
+    return;
+  }
+
+  if (targetIndex >= REVIEWS_PREVIEW_COUNT) {
+    reviewExpanded = true;
+    currentReviewPage = Math.floor(targetIndex / REVIEWS_PAGE_SIZE) + 1;
+  }
+}
+
+function focusTargetReview() {
+  if (!pendingFocusReviewId) return;
+
+  const reviewEl = document.querySelector(
+    `.review[data-review-id="${pendingFocusReviewId}"]`,
+  );
+  if (!reviewEl) return;
+
+  pendingFocusReviewId = 0;
+  reviewEl.classList.remove(REVIEW_FOCUS_CLASS, REVIEW_FOCUS_ACTIVE_CLASS);
+  void reviewEl.offsetWidth;
+  reviewEl.classList.add(REVIEW_FOCUS_CLASS, REVIEW_FOCUS_ACTIVE_CLASS);
+  reviewEl.tabIndex = -1;
+
+  window.requestAnimationFrame(() => {
+    reviewEl.scrollIntoView({ behavior: "smooth", block: "center" });
+    reviewEl.focus({ preventScroll: true });
+  });
+
+  window.setTimeout(() => {
+    reviewEl.classList.remove(REVIEW_FOCUS_CLASS, REVIEW_FOCUS_ACTIVE_CLASS);
+    reviewEl.removeAttribute("tabindex");
+  }, 2400);
+}
+
 function renderReviewPagination() {
   const pagination = document.getElementById("reviewPagination");
   if (!pagination) return;
@@ -632,6 +682,7 @@ function renderReviews() {
 
   preloadCommentCounts();
   updateReviewControls();
+  focusTargetReview();
 }
 
 async function loadReviews() {
@@ -649,6 +700,7 @@ async function loadReviews() {
   allReviews = Array.isArray(data.reviews) ? data.reviews : [];
   reviewExpanded = false;
   currentReviewPage = 1;
+  prepareReviewFocusTarget();
   renderReviews();
 }
 
@@ -897,6 +949,7 @@ document.addEventListener("click", (event) => {
 });
 
 document.addEventListener("DOMContentLoaded", async () => {
+  pendingFocusReviewId = getTargetReviewId();
   await fillReviewProfile();
   await loadMovieDetail();
   await loadReviews();

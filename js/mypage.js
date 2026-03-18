@@ -79,9 +79,41 @@ function calcJoinedDays(value) {
   return Math.max(1, Math.floor(diff / (1000 * 60 * 60 * 24)));
 }
 
-function toStars(rating) {
-  const n = Math.max(0, Math.min(5, Math.round(Number(rating) || 0)));
-  return "*".repeat(n) + "-".repeat(5 - n);
+function renderStars(rating) {
+  const filledCount = Math.max(0, Math.min(5, Math.round(Number(rating) || 0)));
+  const emptyCount = 5 - filledCount;
+
+  return `
+    <span class="stars-filled" aria-hidden="true">${"★".repeat(filledCount)}</span><span class="stars-empty" aria-hidden="true">${"☆".repeat(emptyCount)}</span>
+    <span class="sr-only">별점 ${filledCount}점</span>
+  `;
+}
+
+function getReviewMovieId(review) {
+  const candidates = [
+    review?.movieId,
+    review?.movie_id,
+    review?.movie?.movieId,
+    review?.movie?.id,
+  ];
+
+  const movieId = candidates.find((value) => Number.isFinite(Number(value)) && Number(value) > 0);
+  return movieId ? Number(movieId) : 0;
+}
+
+function getReviewId(review) {
+  const candidates = [review?.reviewId, review?.review_id, review?.id];
+  const reviewId = candidates.find((value) => Number.isFinite(Number(value)) && Number(value) > 0);
+  return reviewId ? Number(reviewId) : 0;
+}
+
+function moveToReview(movieId, reviewId = 0) {
+  if (!Number.isFinite(movieId) || movieId <= 0) return;
+  const params = new URLSearchParams({ movieId: String(movieId) });
+  if (Number.isFinite(reviewId) && reviewId > 0) {
+    params.set("reviewId", String(reviewId));
+  }
+  window.location.href = `review.html?${params.toString()}`;
 }
 
 function escapeHtml(value) {
@@ -156,20 +188,35 @@ function renderReviews() {
 
   const visibleReviews = state.reviews.slice(0, state.visibleCount);
   visibleReviews.forEach((item) => {
+    const movieId = getReviewMovieId(item);
+    const reviewId = getReviewId(item);
     const movieTitle = item.movieTitle || "Movie";
     const createdAt = formatDate(item.createdAt);
     const content = item.content || "";
-    const stars = toStars(item.rating);
+    const stars = renderStars(item.rating);
 
     const row = document.createElement("div");
     row.className = "review-item";
+    if (movieId) {
+      row.classList.add("review-item-link");
+      row.tabIndex = 0;
+      row.setAttribute("role", "link");
+      row.setAttribute("aria-label", `${movieTitle} 리뷰 보기`);
+      row.addEventListener("click", () => moveToReview(movieId, reviewId));
+      row.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          moveToReview(movieId, reviewId);
+        }
+      });
+    }
     row.innerHTML = `
       <div>
         <strong>${movieTitle}</strong>
         <div class="review-date">${createdAt}</div>
         <p>${content}</p>
       </div>
-      <div class="stars">${stars}</div>
+      <div class="stars" aria-label="별점 ${Math.max(0, Math.min(5, Math.round(Number(item.rating) || 0)))}점">${stars}</div>
     `;
     reviewList.appendChild(row);
   });
