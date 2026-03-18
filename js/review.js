@@ -119,6 +119,20 @@ function getProfileImageFromData(source) {
   return candidates.find((value) => typeof value === "string" && value.trim()) || "";
 }
 
+function getCommentId(comment) {
+  const candidates = [
+    comment?.commentId,
+    comment?.comment_id,
+    comment?.reviewCommentId,
+    comment?.id,
+  ];
+
+  const commentId = candidates.find(
+    (value) => Number.isFinite(Number(value)) && Number(value) > 0,
+  );
+  return commentId ? Number(commentId) : 0;
+}
+
 function applyProfileImageFallback(imgEl) {
   if (!imgEl) return;
   imgEl.onerror = () => {
@@ -237,11 +251,12 @@ function makeReplyHTML(reply) {
 }
 
 function makeCommentThreadHTML(comment) {
+  const commentId = getCommentId(comment);
   const replies = Array.isArray(comment.replies) ? comment.replies : [];
   const commentProfileImage = resolveProfileImage(getProfileImageFromData(comment));
 
   return `
-    <div class="comment-thread" data-comment-id="${comment.commentId}">
+    <div class="comment-thread" data-comment-id="${commentId}">
       <div class="reply">
         <img src="${escapeHtml(commentProfileImage)}" class="reply-profile" alt="comment-user">
         <div class="reply-content">
@@ -768,8 +783,8 @@ function toggleNestedReplyForm(commentEl, forceOpen) {
   if (!form) return;
 
   const shouldOpen =
-    typeof forceOpen === "boolean" ? forceOpen : form.style.display !== "block";
-  form.style.display = shouldOpen ? "block" : "none";
+    typeof forceOpen === "boolean" ? forceOpen : form.style.display !== "flex";
+  form.style.display = shouldOpen ? "flex" : "none";
 
   if (shouldOpen) {
     form.querySelector(".nested-reply-input")?.focus();
@@ -781,7 +796,10 @@ async function submitReply(reviewEl, commentEl) {
   const input = commentEl.querySelector(".nested-reply-input");
   const content = input?.value?.trim();
 
-  if (!commentId) return;
+  if (!commentId) {
+    alert("대댓글 대상을 찾을 수 없습니다.");
+    return;
+  }
   if (!content) {
     alert("대댓글 내용을 입력하세요.");
     return;
@@ -931,8 +949,9 @@ document.addEventListener("click", (event) => {
     return;
   }
 
-  if (event.target.classList.contains("cancel-btn")) {
-    const replies = event.target.closest(".replies");
+  const cancelButton = event.target.closest(".cancel-btn");
+  if (cancelButton) {
+    const replies = cancelButton.closest(".replies");
     const review = replies?.closest(".review");
     const commentButtonInReview = review?.querySelector(".comment-btn");
     if (!replies || !review || !commentButtonInReview) return;
@@ -943,25 +962,28 @@ document.addEventListener("click", (event) => {
     return;
   }
 
-  if (event.target.classList.contains("nested-reply-cancel-btn")) {
-    const commentEl = event.target.closest(".comment-thread");
+  const nestedReplyCancelButton = event.target.closest(".nested-reply-cancel-btn");
+  if (nestedReplyCancelButton) {
+    const commentEl = nestedReplyCancelButton.closest(".comment-thread");
     if (commentEl) {
       toggleNestedReplyForm(commentEl, false);
     }
     return;
   }
 
-  if (event.target.classList.contains("reply-submit-btn")) {
-    const review = event.target.closest(".review");
+  const replySubmitButton = event.target.closest(".reply-submit-btn");
+  if (replySubmitButton) {
+    const review = replySubmitButton.closest(".review");
     if (review) {
       submitComment(review);
     }
     return;
   }
 
-  if (event.target.classList.contains("nested-reply-submit-btn")) {
-    const commentEl = event.target.closest(".comment-thread");
-    const review = event.target.closest(".review");
+  const nestedReplySubmitButton = event.target.closest(".nested-reply-submit-btn");
+  if (nestedReplySubmitButton) {
+    const commentEl = nestedReplySubmitButton.closest(".comment-thread");
+    const review = nestedReplySubmitButton.closest(".review");
     if (commentEl && review) {
       submitReply(review, commentEl);
     }
