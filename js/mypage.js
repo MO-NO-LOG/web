@@ -1,6 +1,8 @@
 ﻿const API = "https://api.mono-log.fun";
 const ACCESS_TOKEN_KEY = "access_token";
+const API_HOST = new URL(API).hostname;
 const PROFILE_IMAGE_CDN_BASE = "https://cdn.mono-log.fun/profile_images/";
+const PROFILE_IMAGE_CDN_HOST = "cdn.mono-log.fun";
 const DEFAULT_PROFILE_IMAGE = "images/default-user.png";
 
 const state = {
@@ -34,10 +36,10 @@ function resolveProfileImage(src) {
   if (/^https?:\/\//i.test(value)) {
     try {
       const url = new URL(value);
-      if (url.origin === "https://cdn.mono-log.fun") {
-        return value;
+      if (url.hostname === PROFILE_IMAGE_CDN_HOST) {
+        return `https://${PROFILE_IMAGE_CDN_HOST}${url.pathname}${url.search}${url.hash}`;
       }
-      if (url.origin !== API) {
+      if (url.hostname !== API_HOST) {
         return value;
       }
       return resolveProfileImage(`${url.pathname}${url.search}${url.hash}`);
@@ -237,7 +239,13 @@ function fillProfile(user, profile) {
       ? resolveProfileImage(profile.profileImage)
       : DEFAULT_PROFILE_IMAGE;
 
-  if (avatarEl) avatarEl.src = profileImage;
+  if (avatarEl) {
+    avatarEl.onerror = () => {
+      avatarEl.onerror = null;
+      avatarEl.src = DEFAULT_PROFILE_IMAGE;
+    };
+    avatarEl.src = profileImage;
+  }
   if (nicknameEl) nicknameEl.textContent = user.nickname || "User";
   if (reviewCountEl)
     reviewCountEl.textContent = `${profile.reviewCount || 0} 개`;

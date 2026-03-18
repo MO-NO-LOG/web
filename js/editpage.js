@@ -1,6 +1,8 @@
 const API = "https://api.mono-log.fun";
 const ACCESS_TOKEN_KEY = "access_token";
+const API_HOST = new URL(API).hostname;
 const PROFILE_IMAGE_CDN_BASE = "https://cdn.mono-log.fun/profile_images/";
+const PROFILE_IMAGE_CDN_HOST = "cdn.mono-log.fun";
 const DEFAULT_PROFILE_IMAGE = "images/default-user.png";
 
 const state = {
@@ -32,10 +34,10 @@ function resolveProfileImage(src) {
   if (/^https?:\/\//i.test(value)) {
     try {
       const url = new URL(value);
-      if (url.origin === "https://cdn.mono-log.fun") {
-        return value;
+      if (url.hostname === PROFILE_IMAGE_CDN_HOST) {
+        return `https://${PROFILE_IMAGE_CDN_HOST}${url.pathname}${url.search}${url.hash}`;
       }
-      if (url.origin !== API) {
+      if (url.hostname !== API_HOST) {
         return value;
       }
       return resolveProfileImage(`${url.pathname}${url.search}${url.hash}`);
@@ -112,6 +114,10 @@ function showToast(message, isError = false) {
 function setProfileImage(src) {
   const image = document.getElementById("profilePreview");
   if (!image) return;
+  image.onerror = () => {
+    image.onerror = null;
+    image.src = DEFAULT_PROFILE_IMAGE;
+  };
   image.src = src && String(src).trim() ? resolveProfileImage(src) : DEFAULT_PROFILE_IMAGE;
 }
 

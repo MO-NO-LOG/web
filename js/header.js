@@ -1,6 +1,8 @@
 ﻿const HEADER_ACCESS_TOKEN_KEY = "access_token";
 const HEADER_API = "https://api.mono-log.fun";
+const HEADER_API_HOST = new URL(HEADER_API).hostname;
 const HEADER_PROFILE_IMAGE_CDN_BASE = "https://cdn.mono-log.fun/profile_images/";
+const HEADER_PROFILE_IMAGE_CDN_HOST = "cdn.mono-log.fun";
 const HEADER_DEFAULT_PROFILE_IMAGE = "images/default-user.png";
 
 function resolveHeaderProfileImage(src) {
@@ -26,10 +28,10 @@ function resolveHeaderProfileImage(src) {
   if (/^https?:\/\//i.test(value)) {
     try {
       const url = new URL(value);
-      if (url.origin === "https://cdn.mono-log.fun") {
-        return value;
+      if (url.hostname === HEADER_PROFILE_IMAGE_CDN_HOST) {
+        return `https://${HEADER_PROFILE_IMAGE_CDN_HOST}${url.pathname}${url.search}${url.hash}`;
       }
-      if (url.origin !== HEADER_API) {
+      if (url.hostname !== HEADER_API_HOST) {
         return value;
       }
       return resolveHeaderProfileImage(`${url.pathname}${url.search}${url.hash}`);
@@ -116,6 +118,13 @@ fetch("../header.html")
               </li>
             </ul>
         `;
+        const profileImageEl = userMenu.querySelector('img[alt="user"]');
+        if (profileImageEl) {
+          profileImageEl.onerror = () => {
+            profileImageEl.onerror = null;
+            profileImageEl.src = HEADER_DEFAULT_PROFILE_IMAGE;
+          };
+        }
         userMenu.classList.add("login");
       })
       .catch((err) => console.error("header user fetch failed:", err));

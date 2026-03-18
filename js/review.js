@@ -1,5 +1,6 @@
 const API = "https://api.mono-log.fun";
 const ACCESS_TOKEN_KEY = "access_token";
+const API_HOST = new URL(API).hostname;
 
 let csrfTokenCache = null;
 let allReviews = [];
@@ -11,6 +12,7 @@ const REVIEWS_PREVIEW_COUNT = 3;
 const REVIEWS_PAGE_SIZE = 5;
 const FALLBACK_POSTER = "images/ui/break.png";
 const PROFILE_IMAGE_CDN_BASE = "https://cdn.mono-log.fun/profile_images/";
+const PROFILE_IMAGE_CDN_HOST = "cdn.mono-log.fun";
 const DEFAULT_PROFILE_IMAGE = "images/default-user.png";
 const REVIEW_FOCUS_CLASS = "review-target";
 const REVIEW_FOCUS_ACTIVE_CLASS = "review-target-active";
@@ -71,10 +73,10 @@ function resolveProfileImage(src) {
   if (/^https?:\/\//i.test(value)) {
     try {
       const url = new URL(value);
-      if (url.origin === "https://cdn.mono-log.fun") {
-        return value;
+      if (url.hostname === PROFILE_IMAGE_CDN_HOST) {
+        return `https://${PROFILE_IMAGE_CDN_HOST}${url.pathname}${url.search}${url.hash}`;
       }
-      if (url.origin !== API) {
+      if (url.hostname !== API_HOST) {
         return value;
       }
       return resolveProfileImage(`${url.pathname}${url.search}${url.hash}`);
@@ -111,6 +113,14 @@ function getProfileImageFromData(source) {
   ];
 
   return candidates.find((value) => typeof value === "string" && value.trim()) || "";
+}
+
+function applyProfileImageFallback(imgEl) {
+  if (!imgEl) return;
+  imgEl.onerror = () => {
+    imgEl.onerror = null;
+    imgEl.src = DEFAULT_PROFILE_IMAGE;
+  };
 }
 
 function starRatingHTML(rating) {
@@ -400,6 +410,7 @@ async function fillReviewProfile() {
 
   if (!token) {
     currentViewerProfileImage = DEFAULT_PROFILE_IMAGE;
+    applyProfileImageFallback(profileImg);
     profileImg.src = DEFAULT_PROFILE_IMAGE;
     writeBtn.textContent = "리뷰 작성";
     return;
@@ -414,6 +425,7 @@ async function fillReviewProfile() {
 
     const user = await response.json();
     currentViewerProfileImage = resolveProfileImage(user.img);
+    applyProfileImageFallback(profileImg);
     profileImg.src = currentViewerProfileImage;
     writeBtn.textContent = `${user.nickname}님의 리뷰 작성`;
   } catch (error) {
@@ -679,6 +691,10 @@ function renderReviews() {
     updateReplyCountUI(reviewEl);
     updateReviewReactionUI(reviewEl);
   });
+
+  document
+    .querySelectorAll(".review-top > img, .reply-profile")
+    .forEach((imgEl) => applyProfileImageFallback(imgEl));
 
   preloadCommentCounts();
   updateReviewControls();
