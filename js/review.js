@@ -1,4 +1,4 @@
-const API = `http://${window.location.hostname}:8002`;
+"https://api.mono-log.fun"
 const ACCESS_TOKEN_KEY = "access_token";
 
 let csrfTokenCache = null;
