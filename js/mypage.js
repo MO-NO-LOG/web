@@ -1,5 +1,7 @@
 ﻿const API = "https://api.mono-log.fun";
 const ACCESS_TOKEN_KEY = "access_token";
+const PROFILE_IMAGE_CDN_BASE = "https://cdn.mono-log.fun/profile_images/";
+const DEFAULT_PROFILE_IMAGE = "images/default-user.png";
 
 const state = {
   reviews: [],
@@ -8,6 +10,56 @@ const state = {
 };
 
 const FALLBACK_POSTER = "images/ui/break.png";
+
+function resolveProfileImage(src) {
+  const value = typeof src === "string" ? src.trim() : "";
+  if (!value) return DEFAULT_PROFILE_IMAGE;
+
+  if (
+    value === DEFAULT_PROFILE_IMAGE ||
+    value === `/${DEFAULT_PROFILE_IMAGE}` ||
+    /(?:^|\/)images\/default-user\.png$/i.test(value)
+  ) {
+    return DEFAULT_PROFILE_IMAGE;
+  }
+
+  if (value.startsWith("blob:") || value.startsWith("data:")) {
+    return value;
+  }
+
+  if (value.startsWith("//")) {
+    return `https:${value}`;
+  }
+
+  if (/^https?:\/\//i.test(value)) {
+    try {
+      const url = new URL(value);
+      if (url.origin === "https://cdn.mono-log.fun") {
+        return value;
+      }
+      if (url.origin !== API) {
+        return value;
+      }
+      return resolveProfileImage(`${url.pathname}${url.search}${url.hash}`);
+    } catch {
+      return value;
+    }
+  }
+
+  const match = value.match(/^([^?#]*)(.*)$/);
+  let path = (match?.[1] || value).replace(/^\/+/, "");
+  const suffix = match?.[2] || "";
+
+  path = path
+    .replace(/^api\/file\/profile-image\/+/i, "")
+    .replace(/^profile_images\/+/i, "");
+
+  if (!path || /(?:^|\/)images\/default-user\.png$/i.test(path)) {
+    return DEFAULT_PROFILE_IMAGE;
+  }
+
+  return `${PROFILE_IMAGE_CDN_BASE}${path}${suffix}`;
+}
 
 function formatDate(value) {
   if (!value) return "-";
@@ -135,8 +187,8 @@ function fillProfile(user, profile) {
 
   const profileImage =
     profile.profileImage && String(profile.profileImage).trim()
-      ? profile.profileImage
-      : "/images/default-user.png";
+      ? resolveProfileImage(profile.profileImage)
+      : DEFAULT_PROFILE_IMAGE;
 
   if (avatarEl) avatarEl.src = profileImage;
   if (nicknameEl) nicknameEl.textContent = user.nickname || "User";

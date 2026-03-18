@@ -10,6 +10,10 @@ const reviewReactionState = new Map();
 const REVIEWS_PREVIEW_COUNT = 3;
 const REVIEWS_PAGE_SIZE = 5;
 const FALLBACK_POSTER = "images/ui/break.png";
+const PROFILE_IMAGE_CDN_BASE = "https://cdn.mono-log.fun/profile_images/";
+const DEFAULT_PROFILE_IMAGE = "images/default-user.png";
+
+let currentViewerProfileImage = DEFAULT_PROFILE_IMAGE;
 
 function readCookie(name) {
   const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -34,6 +38,71 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#39;");
+}
+
+function resolveProfileImage(src) {
+  const value = typeof src === "string" ? src.trim() : "";
+  if (!value) return DEFAULT_PROFILE_IMAGE;
+
+  if (
+    value === DEFAULT_PROFILE_IMAGE ||
+    value === `/${DEFAULT_PROFILE_IMAGE}` ||
+    /(?:^|\/)images\/default-user\.png$/i.test(value)
+  ) {
+    return DEFAULT_PROFILE_IMAGE;
+  }
+
+  if (value.startsWith("blob:") || value.startsWith("data:")) {
+    return value;
+  }
+
+  if (value.startsWith("//")) {
+    return `https:${value}`;
+  }
+
+  if (/^https?:\/\//i.test(value)) {
+    try {
+      const url = new URL(value);
+      if (url.origin === "https://cdn.mono-log.fun") {
+        return value;
+      }
+      if (url.origin !== API) {
+        return value;
+      }
+      return resolveProfileImage(`${url.pathname}${url.search}${url.hash}`);
+    } catch {
+      return value;
+    }
+  }
+
+  const match = value.match(/^([^?#]*)(.*)$/);
+  let path = (match?.[1] || value).replace(/^\/+/, "");
+  const suffix = match?.[2] || "";
+
+  path = path
+    .replace(/^api\/file\/profile-image\/+/i, "")
+    .replace(/^profile_images\/+/i, "");
+
+  if (!path || /(?:^|\/)images\/default-user\.png$/i.test(path)) {
+    return DEFAULT_PROFILE_IMAGE;
+  }
+
+  return `${PROFILE_IMAGE_CDN_BASE}${path}${suffix}`;
+}
+
+function getProfileImageFromData(source) {
+  if (!source || typeof source !== "object") return "";
+
+  const candidates = [
+    source.img,
+    source.userImg,
+    source.profileImage,
+    source.userProfileImage,
+    source.profile_image,
+    source.avatar,
+  ];
+
+  return candidates.find((value) => typeof value === "string" && value.trim()) || "";
 }
 
 function starRatingHTML(rating) {
@@ -129,9 +198,11 @@ function passiveActionIcons() {
 }
 
 function makeReplyHTML(reply) {
+  const replyProfileImage = resolveProfileImage(getProfileImageFromData(reply));
+
   return `
     <div class="reply nested-reply">
-      <img src="images/default-user.png" class="reply-profile" alt="reply-user">
+      <img src="${escapeHtml(replyProfileImage)}" class="reply-profile" alt="reply-user">
       <div class="reply-content">
         <span class="reply-user">${escapeHtml(reply.userNickname || "익명")}</span>
         <div class="reply-body">${escapeHtml(reply.content || "")}</div>
@@ -145,11 +216,12 @@ function makeReplyHTML(reply) {
 
 function makeCommentThreadHTML(comment) {
   const replies = Array.isArray(comment.replies) ? comment.replies : [];
+  const commentProfileImage = resolveProfileImage(getProfileImageFromData(comment));
 
   return `
     <div class="comment-thread" data-comment-id="${comment.commentId}">
       <div class="reply">
-        <img src="images/default-user.png" class="reply-profile" alt="comment-user">
+        <img src="${escapeHtml(commentProfileImage)}" class="reply-profile" alt="comment-user">
         <div class="reply-content">
           <span class="reply-user">${escapeHtml(comment.userNickname || "익명")}</span>
           <div class="reply-body">${escapeHtml(comment.content || "")}</div>
@@ -163,7 +235,7 @@ function makeCommentThreadHTML(comment) {
         </div>
       </div>
       <div class="nested-reply-form" style="display:none;">
-        <img src="images/default-user.png" class="reply-profile" alt="me">
+        <img src="${escapeHtml(currentViewerProfileImage)}" class="reply-profile" alt="me">
         <input type="text" class="nested-reply-input" placeholder="대댓글을 입력하세요">
         <button type="button" class="nested-reply-cancel-btn">취소</button>
         <button type="button" class="nested-reply-submit-btn">등록</button>
@@ -176,10 +248,12 @@ function makeCommentThreadHTML(comment) {
 }
 
 function makeReviewHTML(review) {
+  const reviewProfileImage = resolveProfileImage(getProfileImageFromData(review));
+
   return `
     <article class="review" data-review-id="${review.reviewId}">
       <div class="review-top">
-        <img src="images/default-user.png" alt="User">
+        <img src="${escapeHtml(reviewProfileImage)}" alt="User">
         <span class="user">${escapeHtml(review.userNickname || "익명")}</span>
         <span class="star">${starRatingHTML(review.rating)}</span>
       </div>
@@ -198,7 +272,7 @@ function makeReviewHTML(review) {
 
       <div class="replies" style="display:none;">
         <div class="reply-form">
-          <img src="images/default-user.png" class="reply-profile" alt="me">
+          <img src="${escapeHtml(currentViewerProfileImage)}" class="reply-profile" alt="me">
           <input type="text" class="reply-input" placeholder="댓글을 입력하세요">
           <button type="button" class="cancel-btn">취소</button>
           <button type="button" class="reply-submit-btn">등록</button>
@@ -317,7 +391,8 @@ async function fillReviewProfile() {
   if (!profileImg || !writeBtn) return;
 
   if (!token) {
-    profileImg.src = "images/default-user.png";
+    currentViewerProfileImage = DEFAULT_PROFILE_IMAGE;
+    profileImg.src = DEFAULT_PROFILE_IMAGE;
     writeBtn.textContent = "리뷰 작성";
     return;
   }
@@ -330,8 +405,8 @@ async function fillReviewProfile() {
     if (!response.ok) return;
 
     const user = await response.json();
-    profileImg.src =
-      user.img && String(user.img).trim() ? user.img : "images/default-user.png";
+    currentViewerProfileImage = resolveProfileImage(user.img);
+    profileImg.src = currentViewerProfileImage;
     writeBtn.textContent = `${user.nickname}님의 리뷰 작성`;
   } catch (error) {
     console.error("review profile load failed:", error);

@@ -1,18 +1,67 @@
 const API = "https://api.mono-log.fun";
 const ACCESS_TOKEN_KEY = "access_token";
+const PROFILE_IMAGE_CDN_BASE = "https://cdn.mono-log.fun/profile_images/";
 const DEFAULT_PROFILE_IMAGE = "images/default-user.png";
 
 const state = {
   token: localStorage.getItem(ACCESS_TOKEN_KEY) || "",
   me: null,
   currentImage: "",
-}; 
+};
+
+function resolveProfileImage(src) {
+  const value = typeof src === "string" ? src.trim() : "";
+  if (!value) return DEFAULT_PROFILE_IMAGE;
+
+  if (
+    value === DEFAULT_PROFILE_IMAGE ||
+    value === `/${DEFAULT_PROFILE_IMAGE}` ||
+    /(?:^|\/)images\/default-user\.png$/i.test(value)
+  ) {
+    return DEFAULT_PROFILE_IMAGE;
+  }
+
+  if (value.startsWith("blob:") || value.startsWith("data:")) {
+    return value;
+  }
+
+  if (value.startsWith("//")) {
+    return `https:${value}`;
+  }
+
+  if (/^https?:\/\//i.test(value)) {
+    try {
+      const url = new URL(value);
+      if (url.origin === "https://cdn.mono-log.fun") {
+        return value;
+      }
+      if (url.origin !== API) {
+        return value;
+      }
+      return resolveProfileImage(`${url.pathname}${url.search}${url.hash}`);
+    } catch {
+      return value;
+    }
+  }
+
+  const match = value.match(/^([^?#]*)(.*)$/);
+  let path = (match?.[1] || value).replace(/^\/+/, "");
+  const suffix = match?.[2] || "";
+
+  path = path
+    .replace(/^api\/file\/profile-image\/+/i, "")
+    .replace(/^profile_images\/+/i, "");
+
+  if (!path || /(?:^|\/)images\/default-user\.png$/i.test(path)) {
+    return DEFAULT_PROFILE_IMAGE;
+  }
+
+  return `${PROFILE_IMAGE_CDN_BASE}${path}${suffix}`;
+}
 
 function readCookie(name) {
   const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const match = document.cookie.match(
-    new RegExp(`(?:^|; )${escaped}=([^;]*)`)
-  );
+  const match = document.cookie.match(new RegExp(`(?:^|; )${escaped}=([^;]*)`));
   return match ? decodeURIComponent(match[1]) : "";
 }
 
@@ -63,7 +112,7 @@ function showToast(message, isError = false) {
 function setProfileImage(src) {
   const image = document.getElementById("profilePreview");
   if (!image) return;
-  image.src = src && String(src).trim() ? src : DEFAULT_PROFILE_IMAGE;
+  image.src = src && String(src).trim() ? resolveProfileImage(src) : DEFAULT_PROFILE_IMAGE;
 }
 
 function openImagePicker() {
@@ -132,7 +181,7 @@ async function uploadProfileImage(file) {
 
   if (!response.ok) {
     throw new Error(
-      await readErrorMessage(response, "프로필 이미지 업로드에 실패했습니다.")
+      await readErrorMessage(response, "프로필 이미지 업로드에 실패했습니다."),
     );
   }
 
@@ -154,7 +203,7 @@ async function deleteProfileImage() {
 
   if (!response.ok) {
     throw new Error(
-      await readErrorMessage(response, "프로필 이미지 삭제에 실패했습니다.")
+      await readErrorMessage(response, "프로필 이미지 삭제에 실패했습니다."),
     );
   }
 
@@ -195,7 +244,9 @@ async function saveProfile(event) {
   });
 
   if (!response.ok) {
-    throw new Error(await readErrorMessage(response, "프로필 저장에 실패했습니다."));
+    throw new Error(
+      await readErrorMessage(response, "프로필 저장에 실패했습니다."),
+    );
   }
 
   const user = await response.json();
@@ -218,9 +269,15 @@ function bindEvents() {
     });
 
   document.getElementById("bio")?.addEventListener("input", updateBioCounter);
-  document.getElementById("changeImageBtn")?.addEventListener("click", openImagePicker);
-  document.getElementById("avatarEditBtn")?.addEventListener("click", openImagePicker);
-  document.getElementById("profilePreview")?.addEventListener("click", openImagePicker);
+  document
+    .getElementById("changeImageBtn")
+    ?.addEventListener("click", openImagePicker);
+  document
+    .getElementById("avatarEditBtn")
+    ?.addEventListener("click", openImagePicker);
+  document
+    .getElementById("profilePreview")
+    ?.addEventListener("click", openImagePicker);
 
   document
     .getElementById("profileImageInput")
@@ -243,14 +300,16 @@ function bindEvents() {
       }
     });
 
-  document.getElementById("deleteImageBtn")?.addEventListener("click", async () => {
-    try {
-      await deleteProfileImage();
-    } catch (error) {
-      console.error("profile image delete failed:", error);
-      showToast(error.message || "이미지 삭제에 실패했습니다.", true);
-    }
-  });
+  document
+    .getElementById("deleteImageBtn")
+    ?.addEventListener("click", async () => {
+      try {
+        await deleteProfileImage();
+      } catch (error) {
+        console.error("profile image delete failed:", error);
+        showToast(error.message || "이미지 삭제에 실패했습니다.", true);
+      }
+    });
 }
 
 async function init() {

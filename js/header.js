@@ -1,5 +1,57 @@
 ﻿const HEADER_ACCESS_TOKEN_KEY = "access_token";
 const HEADER_API = "https://api.mono-log.fun";
+const HEADER_PROFILE_IMAGE_CDN_BASE = "https://cdn.mono-log.fun/profile_images/";
+const HEADER_DEFAULT_PROFILE_IMAGE = "images/default-user.png";
+
+function resolveHeaderProfileImage(src) {
+  const value = typeof src === "string" ? src.trim() : "";
+  if (!value) return HEADER_DEFAULT_PROFILE_IMAGE;
+
+  if (
+    value === HEADER_DEFAULT_PROFILE_IMAGE ||
+    value === `/${HEADER_DEFAULT_PROFILE_IMAGE}` ||
+    /(?:^|\/)images\/default-user\.png$/i.test(value)
+  ) {
+    return HEADER_DEFAULT_PROFILE_IMAGE;
+  }
+
+  if (value.startsWith("blob:") || value.startsWith("data:")) {
+    return value;
+  }
+
+  if (value.startsWith("//")) {
+    return `https:${value}`;
+  }
+
+  if (/^https?:\/\//i.test(value)) {
+    try {
+      const url = new URL(value);
+      if (url.origin === "https://cdn.mono-log.fun") {
+        return value;
+      }
+      if (url.origin !== HEADER_API) {
+        return value;
+      }
+      return resolveHeaderProfileImage(`${url.pathname}${url.search}${url.hash}`);
+    } catch {
+      return value;
+    }
+  }
+
+  const match = value.match(/^([^?#]*)(.*)$/);
+  let path = (match?.[1] || value).replace(/^\/+/, "");
+  const suffix = match?.[2] || "";
+
+  path = path
+    .replace(/^api\/file\/profile-image\/+/i, "")
+    .replace(/^profile_images\/+/i, "");
+
+  if (!path || /(?:^|\/)images\/default-user\.png$/i.test(path)) {
+    return HEADER_DEFAULT_PROFILE_IMAGE;
+  }
+
+  return `${HEADER_PROFILE_IMAGE_CDN_BASE}${path}${suffix}`;
+}
 
 if (!document.querySelector('script[data-logout-js="1"]')) {
   const logoutScript = document.createElement("script");
@@ -43,8 +95,8 @@ fetch("../header.html")
         if (!user) return;
         const profileImg =
           user.img && String(user.img).trim()
-            ? user.img
-            : "/images/default-user.png";
+            ? resolveHeaderProfileImage(user.img)
+            : HEADER_DEFAULT_PROFILE_IMAGE;
 
         userMenu.innerHTML = `
             <img src="${profileImg}" alt="user">

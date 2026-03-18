@@ -137,6 +137,7 @@ window.WishFeature = (() => {
 
     try {
       const isFavorite = await toggle(movieId, document);
+      button.classList.toggle("on", isFavorite);
       button.dispatchEvent(
         new CustomEvent("wish:toggled", {
           bubbles: true,
