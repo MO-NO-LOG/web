@@ -342,7 +342,7 @@ async function loadMovieDetail() {
   const movieId = getMovieId();
   if (!movieId) return;
 
-  const response = await fetch(`${API}/api/movies/detail/${movieId}`);
+  const response = await fetch(`${API}/movies/detail/${movieId}`);
   if (!response.ok) return;
 
   const movie = await response.json();
