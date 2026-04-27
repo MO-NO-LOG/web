@@ -103,13 +103,17 @@ function getReviewMovieId(review) {
     review?.movie?.id,
   ];
 
-  const movieId = candidates.find((value) => Number.isFinite(Number(value)) && Number(value) > 0);
+  const movieId = candidates.find(
+    (value) => Number.isFinite(Number(value)) && Number(value) > 0,
+  );
   return movieId ? Number(movieId) : 0;
 }
 
 function getReviewId(review) {
   const candidates = [review?.reviewId, review?.review_id, review?.id];
-  const reviewId = candidates.find((value) => Number.isFinite(Number(value)) && Number(value) > 0);
+  const reviewId = candidates.find(
+    (value) => Number.isFinite(Number(value)) && Number(value) > 0,
+  );
   return reviewId ? Number(reviewId) : 0;
 }
 
@@ -285,7 +289,9 @@ async function loadWishlist(token) {
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
     const data = await response.json();
-    const favorites = Array.isArray(data.favorites) ? data.favorites.slice(0, 4) : [];
+    const favorites = Array.isArray(data.favorites)
+      ? data.favorites.slice(0, 4)
+      : [];
     const details = await Promise.all(
       favorites.map((item) => fetchMovieDetail(item.movieId, token)),
     );

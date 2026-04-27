@@ -122,7 +122,10 @@ function setProfileImage(src) {
     image.onerror = null;
     image.src = DEFAULT_PROFILE_IMAGE;
   };
-  image.src = src && String(src).trim() ? resolveProfileImage(src) : DEFAULT_PROFILE_IMAGE;
+  image.src =
+    src && String(src).trim()
+      ? resolveProfileImage(src)
+      : DEFAULT_PROFILE_IMAGE;
 }
 
 function openImagePicker() {

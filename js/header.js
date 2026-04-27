@@ -1,7 +1,8 @@
 ﻿const HEADER_ACCESS_TOKEN_KEY = "access_token";
 const HEADER_API = "https://api.mono-log.fun";
 const HEADER_API_HOST = new URL(HEADER_API).hostname;
-const HEADER_PROFILE_IMAGE_CDN_BASE = "https://cdn.mono-log.fun/profile_images/";
+const HEADER_PROFILE_IMAGE_CDN_BASE =
+  "https://cdn.mono-log.fun/profile_images/";
 const HEADER_PROFILE_IMAGE_CDN_HOST = "cdn.mono-log.fun";
 const HEADER_DEFAULT_PROFILE_IMAGE = "images/default-user.png";
 
@@ -34,7 +35,9 @@ function resolveHeaderProfileImage(src) {
       if (url.hostname !== HEADER_API_HOST) {
         return value;
       }
-      return resolveHeaderProfileImage(`${url.pathname}${url.search}${url.hash}`);
+      return resolveHeaderProfileImage(
+        `${url.pathname}${url.search}${url.hash}`,
+      );
     } catch {
       return value;
     }

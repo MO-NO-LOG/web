@@ -25,9 +25,7 @@ const profileImageRequestByNickname = new Map();
 
 function readCookie(name) {
   const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const match = document.cookie.match(
-    new RegExp(`(?:^|; )${escaped}=([^;]*)`)
-  );
+  const match = document.cookie.match(new RegExp(`(?:^|; )${escaped}=([^;]*)`));
   return match ? decodeURIComponent(match[1]) : "";
 }
 
@@ -98,8 +96,12 @@ function readMyReaction(review) {
     review?.userReaction,
   ];
 
-  const value = candidates.find((item) => typeof item === "string" && item.trim());
-  const normalized = String(value || "").trim().toUpperCase();
+  const value = candidates.find(
+    (item) => typeof item === "string" && item.trim(),
+  );
+  const normalized = String(value || "")
+    .trim()
+    .toUpperCase();
   return normalized === "LIKE" || normalized === "DISLIKE" ? normalized : null;
 }
 
@@ -123,7 +125,9 @@ function getMovieId() {
 }
 
 function getTargetReviewId() {
-  const reviewId = Number(new URLSearchParams(window.location.search).get("reviewId"));
+  const reviewId = Number(
+    new URLSearchParams(window.location.search).get("reviewId"),
+  );
   return Number.isFinite(reviewId) && reviewId > 0 ? reviewId : 0;
 }
 
@@ -206,7 +210,9 @@ function getProfileImageFromData(source) {
     source.avatar,
   ];
 
-  return candidates.find((value) => typeof value === "string" && value.trim()) || "";
+  return (
+    candidates.find((value) => typeof value === "string" && value.trim()) || ""
+  );
 }
 
 function getNicknameFromData(source) {
@@ -220,7 +226,9 @@ function getNicknameFromData(source) {
     source.user?.nickname,
   ];
 
-  return candidates.find((value) => typeof value === "string" && value.trim()) || "";
+  return (
+    candidates.find((value) => typeof value === "string" && value.trim()) || ""
+  );
 }
 
 async function fetchProfileImageByNickname(nickname) {
@@ -245,7 +253,9 @@ async function fetchProfileImageByNickname(nickname) {
       }
 
       const profile = await response.json();
-      const profileImage = resolveProfileImage(getProfileImageFromData(profile));
+      const profileImage = resolveProfileImage(
+        getProfileImageFromData(profile),
+      );
       profileImageCacheByNickname.set(key, profileImage);
       return profileImage;
     })
@@ -259,7 +269,9 @@ async function fetchProfileImageByNickname(nickname) {
 }
 
 async function hydrateProfileImages(root = document) {
-  const imageElements = [...root.querySelectorAll("img[data-profile-nickname]")];
+  const imageElements = [
+    ...root.querySelectorAll("img[data-profile-nickname]"),
+  ];
 
   await Promise.all(
     imageElements.map(async (imgEl) => {
@@ -301,7 +313,7 @@ function applyProfileImageFallback(imgEl) {
 function starRatingHTML(rating) {
   const value = Math.max(
     0.5,
-    Math.min(5, Math.round((Number(rating) || 0) * 2) / 2)
+    Math.min(5, Math.round((Number(rating) || 0) * 2) / 2),
   );
   const fullCount = Math.floor(value);
   const hasHalf = value % 1 !== 0;
@@ -518,8 +530,7 @@ function updateReviewReactionUI(reviewEl) {
   reviewEl.querySelectorAll(".reaction-btn").forEach((button) => {
     const reaction = button.dataset.reaction;
     const countElement = button.querySelector("span");
-    const count =
-      reaction === "LIKE" ? state.likeCount : state.dislikeCount;
+    const count = reaction === "LIKE" ? state.likeCount : state.dislikeCount;
 
     button.classList.toggle("active", state.myReaction === reaction);
     if (countElement) {
@@ -691,7 +702,7 @@ async function loadRecommendedMovies() {
               </div>
             </div>
           </article>
-        `
+        `,
       )
       .join("");
 
@@ -795,7 +806,9 @@ function updateReviewControls() {
   const viewMoreButton = document.querySelector(".reviews .view-more");
   if (viewMoreButton) {
     viewMoreButton.style.display =
-      !reviewExpanded && allReviews.length > REVIEWS_PREVIEW_COUNT ? "block" : "none";
+      !reviewExpanded && allReviews.length > REVIEWS_PREVIEW_COUNT
+        ? "block"
+        : "none";
   }
 
   renderReviewPagination();
@@ -933,7 +946,7 @@ async function preloadCommentCounts() {
       } catch (error) {
         console.error("comment count preload failed:", error);
       }
-    })
+    }),
   );
 }
 
@@ -1085,7 +1098,9 @@ async function submitReply(reviewEl, commentEl) {
 
 async function submitReview() {
   const movieId = Number(getMovieId());
-  const content = document.querySelector("#review-form textarea")?.value?.trim();
+  const content = document
+    .querySelector("#review-form textarea")
+    ?.value?.trim();
   const rating = document.querySelector('input[name="rating"]:checked')?.value;
 
   if (!movieId) return;
@@ -1211,7 +1226,9 @@ document.addEventListener("click", (event) => {
     return;
   }
 
-  const nestedReplyCancelButton = event.target.closest(".nested-reply-cancel-btn");
+  const nestedReplyCancelButton = event.target.closest(
+    ".nested-reply-cancel-btn",
+  );
   if (nestedReplyCancelButton) {
     const commentEl = nestedReplyCancelButton.closest(".comment-thread");
     if (commentEl) {
@@ -1229,7 +1246,9 @@ document.addEventListener("click", (event) => {
     return;
   }
 
-  const nestedReplySubmitButton = event.target.closest(".nested-reply-submit-btn");
+  const nestedReplySubmitButton = event.target.closest(
+    ".nested-reply-submit-btn",
+  );
   if (nestedReplySubmitButton) {
     const commentEl = nestedReplySubmitButton.closest(".comment-thread");
     const review = nestedReplySubmitButton.closest(".review");
@@ -1247,7 +1266,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   await loadRecommendedMovies();
 
   const submitButton = document.querySelector(
-    "#review-form .form-actions button:last-child"
+    "#review-form .form-actions button:last-child",
   );
   if (submitButton) {
     submitButton.addEventListener("click", submitReview);

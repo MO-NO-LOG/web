@@ -1,1575 +1,1587 @@
-﻿@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+﻿@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
 
 /* ================= 공통 ================= */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    background-color: #ffffff;
-    color: #111;
-    font-family: 'Pretendard';
-    -webkit-font-smoothing: antialiased;
+  background-color: #ffffff;
+  color: #111;
+  font-family: "Pretendard";
+  -webkit-font-smoothing: antialiased;
 }
 
 a {
-    color: inherit;
-    text-decoration: none;
+  color: inherit;
+  text-decoration: none;
 }
 
 /* ================= 상세 페이지 ================= */
 .detail {
-    padding-top: 140px;
-    padding-bottom: 120px;
+  padding-top: 140px;
+  padding-bottom: 120px;
 }
 
 .detail-top {
-    max-width: 1200px;
-    margin: 0 auto 160px;
-    display: flex;
-    gap: 80px;
+  max-width: 1200px;
+  margin: 0 auto 160px;
+  display: flex;
+  gap: 80px;
 }
 
 .poster {
-    width: 45%;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.25);
+  width: 45%;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.25);
 }
 
 .poster img {
-    width: 100%;
-    display: block;
+  width: 100%;
+  display: block;
 }
 
 .info {
-    width: 55%;
-    position: sticky;
-    /* padding-top: 180px; */
-    top: 120px;
+  width: 55%;
+  position: sticky;
+  /* padding-top: 180px; */
+  top: 120px;
 }
 
 .meta {
-    display: flex;
-    gap: 12px;
-    font-size: 12px;
-    color: #888;
-    letter-spacing: 1.3px;
-    text-transform: uppercase;
-    margin-bottom: 12px;
+  display: flex;
+  gap: 12px;
+  font-size: 12px;
+  color: #888;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
 }
 
 .title {
-    font-size: 48px;
-    font-weight: 800;
-    margin-bottom: 24px;
+  font-size: 48px;
+  font-weight: 800;
+  margin-bottom: 24px;
 }
 
 .score {
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-    margin-bottom: 32px;
-    letter-spacing: 1.3px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 32px;
+  letter-spacing: 1.3px;
 }
 
 .score span {
-    color: #a1a1a1;
+  color: #a1a1a1;
 }
 
 .score strong {
-    font-size: 32px;
+  font-size: 32px;
 }
 
 .summary h3 {
-    font-size: 14px;
-    margin-bottom: 30px;
+  font-size: 14px;
+  margin-bottom: 30px;
 }
 
 .summary p {
-    line-height: 1.7;
-    color: #555;
+  line-height: 1.7;
+  color: #555;
 }
 
 .btn {
-    padding: 20px 25px;
-    border-radius: 20px;
-    border: none;
-    cursor: pointer;
+  padding: 20px 25px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
 }
 
 .btn.main {
-    background: #000;
-    color: #fff;
+  background: #000;
+  color: #fff;
 }
 
 .btn.sub {
-    background: #eee;
+  background: #eee;
 }
 
 /* ================= 리뷰 ================= */
 .reviews {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 80px 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 20px;
 }
 
 .reviews button.view-more {
-    width: 1100px;
-    height: 40px;
-    border-radius: 30px;
-    font-weight: 600;
-    color: #555;
-    border: none;
-    cursor: pointer;
-    letter-spacing: 1.3px;
-    margin-top: 30px;
+  width: 1100px;
+  height: 40px;
+  border-radius: 30px;
+  font-weight: 600;
+  color: #555;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 1.3px;
+  margin-top: 30px;
 }
 
 /* 리뷰 헤더 */
 .reviews-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 26px;
-    padding-top: 60px;
-    border-top: 1.5px solid rgba(0, 0, 0, 0.131);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 26px;
+  padding-top: 60px;
+  border-top: 1.5px solid rgba(0, 0, 0, 0.131);
 }
 
 .reviews-header h2 {
-    font-size: 22px;
-    font-weight: 800;
+  font-size: 22px;
+  font-weight: 800;
 }
 
 /* 리뷰 작성 버튼 */
 .btn.write {
-    padding: 10px 24px;
-    border-radius: 999px;
-    background: #4F7CFF;
-    color: #fff;
-    font-size: 14px;
-    letter-spacing: 1.3px;
-    border: none;
-    cursor: pointer;
-    transition: 0.2s ease;
+  padding: 10px 24px;
+  border-radius: 999px;
+  background: #4f7cff;
+  color: #fff;
+  font-size: 14px;
+  letter-spacing: 1.3px;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s ease;
 }
 
 .btn.write:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(10, 124, 255, .35);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(10, 124, 255, 0.35);
 }
 
 /* 리뷰 입력 영역 */
 .review-input-wrap {
-    position: relative;
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
 
-    max-width: 1100px;
-    margin: 0 auto 26px;
-    padding-bottom: 18px;
-    padding-left: 58px;
+  max-width: 1100px;
+  margin: 0 auto 26px;
+  padding-bottom: 18px;
+  padding-left: 58px;
 }
 
 /* 프로필 */
 .profile {
-    position: absolute;
-    display: none;
+  position: absolute;
+  display: none;
 
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    object-fit: cover;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
 
-    margin-right: 10px;
-    left: 0;
-    top: 48px;
+  margin-right: 10px;
+  left: 0;
+  top: 48px;
 }
 
 /* 리뷰 폼 열릴 때 프로필 표시 */
-.review-form.show~.profile,
+.review-form.show ~ .profile,
 .review-input-wrap:has(.review-form.show) .profile {
-    display: block;
+  display: block;
 }
 
 /* 리뷰 작성 폼 */
 .review-form {
-    position: relative;
-    display: none;
-    background: transparent;
-    border-radius: 0;
-    padding: 0;
-    margin: 0;
-    flex: 1;
+  position: relative;
+  display: none;
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+  flex: 1;
 }
 
 .review-form.show {
-    display: block;
+  display: block;
 }
 
 #review-form.review-form.show {
-    display: flex !important;
-    flex-direction: column !important;
+  display: flex !important;
+  flex-direction: column !important;
 }
 
 /* 별점 입력(폼 내부) */
 #review-form .rating-input {
-    align-self: flex-end !important;
-    width: auto !important;
-    margin: 0 0 10px 0 !important;
-    display: flex !important;
-    flex-direction: row-reverse !important;
-    gap: 6px !important;
+  align-self: flex-end !important;
+  width: auto !important;
+  margin: 0 0 10px 0 !important;
+  display: flex !important;
+  flex-direction: row-reverse !important;
+  gap: 6px !important;
 }
 
 /* 별점 입력 */
 .rating-input {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: flex-end;
-    gap: 6px;
-    margin-bottom: 10px;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-bottom: 10px;
 }
 
 .rating-input input {
-    display: none;
+  display: none;
 }
 
 .rating-input label {
-    position: relative;
-    width: 13px;
-    height: 26px;
-    cursor: pointer;
-    display: inline-block;
-    overflow: hidden;
+  position: relative;
+  width: 13px;
+  height: 26px;
+  cursor: pointer;
+  display: inline-block;
+  overflow: hidden;
 }
 
 .rating-input label::before,
 .rating-input label::after {
-    content: "★";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 26px;
-    font-size: 26px;
-    line-height: 1;
+  content: "★";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 26px;
+  font-size: 26px;
+  line-height: 1;
 }
 
 .rating-input label::before {
-    color: #ddd;
+  color: #ddd;
 }
 
 .rating-input label::after {
-    color: #f5c542;
-    opacity: 0;
+  color: #f5c542;
+  opacity: 0;
 }
 
 .rating-input label.full::before,
 .rating-input label.full::after {
-    left: -13px;
-}
-
-.rating-input label:hover::after,
-.rating-input label:hover~label::after,
-.rating-input input:checked+label::after,
-.rating-input input:checked+label~label::after {
-    opacity: 1;
-}
-
-/* 리뷰 입력 textarea */
-.review-form textarea {
-    width: 100%;
-    background: transparent;
-    border: none;
-    border-radius: 0;
-    border-bottom: 1px solid rgba(94, 94, 94, 0.55);
-
-    height: 44px;
-    line-height: 44px;
-    padding: 0 6px;
-
-    font-size: 13px;
-    color: #111;
-
-    resize: none !important;
-    overflow: hidden;
-    outline: none;
-    margin: 0;
-}
-
-.review-form textarea:focus {
-    border-bottom-color: #111;
-}
-
-.review-form textarea::placeholder {
-    color: #9a9a9a;
-}
-
-/* 리뷰 폼 버튼 */
-.form-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 20px;
-    margin-top: 12px;
-}
-
-.form-actions button {
-    width: 80px;
-    padding: 8px 18px;
-    border-radius: 999px;
-    font-size: 13px;
-    cursor: pointer;
-    border: none;
-}
-
-.form-actions button:first-child {
-    background: #fff;
-    color: #000;
-    font-weight: 400;
-    border: 1px solid #939393;
-}
-
-.form-actions button:last-child {
-    background: #4F7CFF;
-    font-weight: 400;
-    color: #fff;
-}
-
-/* 별점 입력(중복 구간) */
-.rating-input {
-    display: flex;
-    flex-direction: row-reverse;
-    gap: 6px;
-    margin-bottom: 16px;
-}
-
-.rating-input input {
-    display: none;
-}
-
-.rating-input label {
-    font-size: 26px;
-    color: #ddd;
-    cursor: pointer;
-}
-
-.rating-input label:hover,
-.rating-input label:hover~label,
-.rating-input input:checked~label {
-    color: #f5c542;
-}
-
-/* 리뷰 카드 */
-.review {
-    padding: 36px 0;
-    position: relative;
-}
-
-/* 리뷰 액션(좋아요/싫어요/답글) */
-.review .action-row {
-    position: absolute;
-    right: 0;
-    top: 0px;
-    display: flex;
-    align-items: center;
-    gap: 18px;
-}
-
-/* 액션 아이콘+숫자 */
-.review .action-row .action {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.review .action-row .action img {
-    width: 18px;
-    height: 18px;
-    display: block;
-}
-
-.review .action-row .action span {
-    font-size: 13px;
-    line-height: 1;
-    display: inline-block;
-    transform: translateY(1px);
-}
-
-/* 답글 버튼(리뷰) */
-.review.has-replies .comment-btn {
-    margin-top: 18px;
-}
-
-/* 리뷰 상단(프로필/이름/별점) */
-.review-top {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 14px;
-}
-
-.review-top img {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-}
-
-.review .user {
-    font-size: 16px;
-    font-weight: 700;
-}
-
-.review .star {
-    margin-left: auto;
-    color: #ffb400;
-    letter-spacing: 2px;
-}
-
-.review p {
-    font-size: 15px;
-    line-height: 1.7;
-    color: #555;
-    max-width: 900px;
-}
-
-.reply-tools {
-    margin-top: 10px;
-}
-
-.reply-toggle {
-    border: 1px solid #d0d0d0;
-    background: #fff;
-    border-radius: 999px;
-    padding: 6px 12px;
-    font-size: 12px;
-    cursor: pointer;
-}
-
-.reply-box {
-    margin-top: 12px;
-    padding: 12px;
-    border: 1px solid #ececec;
-    border-radius: 12px;
-    background: #fafafa;
-}
-
-.reply-list {
-    margin: 0;
-    padding: 0;
-}
-
-.reply-item {
-    list-style: none;
-    border-bottom: 1px solid #ececec;
-    padding: 8px 0;
-}
-
-.reply-item:last-child {
-    border-bottom: none;
-}
-
-.reply-item strong {
-    font-size: 13px;
-}
-
-.reply-item p {
-    margin-top: 4px;
-    font-size: 13px;
-    color: #444;
-    max-width: none;
-}
-
-.reply-empty {
-    list-style: none;
-    font-size: 13px;
-    color: #777;
-}
-
-.reply-write {
-    margin-top: 10px;
-    display: flex;
-    gap: 8px;
-}
-
-.reply-input {
-    flex: 1;
-    height: 36px;
-    border: 1px solid #dcdcdc;
-    border-radius: 8px;
-    padding: 0 10px;
-    font-size: 13px;
-}
-
-.reply-submit {
-    height: 36px;
-    border: none;
-    border-radius: 8px;
-    padding: 0 12px;
-    background: #4f7cff;
-    color: #fff;
-    font-size: 13px;
-    cursor: pointer;
-}
-
-/* ================= 답글 (원본 구조 대응) ================= */
-.comment-btn {
-    margin-top: 18px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    font-size: 13px;
-    color: #555;
-}
-
-.reply-arrow {
-    width: 14px;
-    transition: transform 0.2s ease;
-}
-
-.comment-btn.open .reply-arrow {
-    transform: rotate(180deg);
-}
-
-.replies {
-    display: none;
-    margin-top: 12px;
-    padding: 14px;
-    border: 1px solid #ececec;
-    border-radius: 12px;
-    background: #fafafa;
-}
-
-.reply-form {
-    display: grid;
-    grid-template-columns: 36px 1fr auto auto;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 10px;
-}
-
-.reply-profile {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.reply-form input {
-    height: 36px;
-    border: 1px solid #dcdcdc;
-    border-radius: 8px;
-    padding: 0 10px;
-    font-size: 13px;
-}
-
-.reply-form button {
-    height: 36px;
-    border-radius: 8px;
-    padding: 0 12px;
-    cursor: pointer;
-}
-
-.reply-form .cancel-btn {
-    border: 1px solid #ddd;
-    background: #fff;
-    color: #444;
-}
-
-.reply-form .reply-submit-btn {
-    border: none;
-    background: #4f7cff;
-    color: #fff;
-}
-
-.replies-list .reply {
-    display: grid;
-    grid-template-columns: 36px 1fr auto;
-    gap: 10px;
-    align-items: start;
-    padding: 10px 0;
-    border-top: 1px solid #eee;
-}
-
-.replies-list .reply:first-child {
-    border-top: none;
-}
-
-.reply-content {
-    min-width: 0;
-}
-
-.reply-user {
-    font-size: 13px;
-    font-weight: 700;
-}
-
-.reply-body {
-    margin-top: 4px;
-    font-size: 13px;
-    color: #444;
-    line-height: 1.5;
-    word-break: break-word;
-}
-
-.reply-actions {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.reply-actions .action {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.reply-actions img {
-    width: 14px;
-    height: 14px;
-}
-
-.reply-actions span {
-    font-size: 12px;
-    color: #777;
-}
-
-/* ================= 추천 영화 ================= */
-.movie-card {
-    position: relative;
-    aspect-ratio: 2 / 3;
-    border-radius: 1rem;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.movie-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.6s ease, filter 0.6s ease;
-}
-
-.movie-card:hover {
-    transform: translateY(-12px) scale(1.03);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
-}
-
-.movie-card:hover img {
-    transform: scale(1.06);
-    filter: blur(1.5px);
-}
-
-.movie-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 100%);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 1rem;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-
-    text-align: left;
-}
-
-.movie-card:hover .movie-overlay {
-    opacity: 1;
-}
-
-.text-box {
-    display: flex;
-    justify-content: space-between;
-}
-
-a {
-    color: inherit;
-    text-decoration: none;
-}
-
-.movie-overlay .rating {
-    color: gold;
-    font-size: 12px;
-    margin-bottom: 0.25rem;
-}
-
-.movie-overlay h4 {
-    margin: 0 0 0.25rem 0;
-    color: #ccc;
-    font-weight: bold;
-    font-size: 16px;
-}
-
-.movie-overlay p {
-    font-size: 12px;
-    color: #ccc;
-    margin: 0;
-}
-
-/* 오버레이 */
-.recommend-item::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, .9), transparent);
-    opacity: 0;
-    transition: 0.3s ease;
-}
-
-.recommend-item:hover::after {
-    opacity: 1;
-}
-
-.recommend-item h4,
-.recommend-item span {
-    position: absolute;
-    left: 16px;
-    color: #fff;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: 0.3s ease;
-}
-
-.recommend-item h4 {
-    bottom: 36px;
-}
-
-.recommend-item span {
-    bottom: 16px;
-    color: #ccc;
-}
-
-.recommend-item:hover h4,
-.recommend-item:hover span {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* 추천 영역 */
-.recommend {
-    max-width: 1200px;
-    margin: 160px auto 0;
-}
-
-.recommend h2 {
-    margin-bottom: 20px;
-}
-
-.recommend-list {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 32px;
-}
-
-.recommend-item {
-    position: relative;
-    border-radius: 16px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
-
-.recommend-item img {
-    width: 100%;
-    display: block;
-    transition: transform 0.6s ease, filter 0.6s ease;
-}
-
-.recommend-item:hover {
-    transform: translateY(-12px) scale(1.03);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
-}
-
-.recommend-item:hover img {
-    transform: scale(1.06);
-    filter: blur(1.5px);
-}
-
-.recommend-item::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.recommend-item:hover::after {
-    opacity: 1;
-}
-
-.recommend-item h4,
-.recommend-item span {
-    position: absolute;
-    left: 16px;
-    color: #fff;
-    opacity: 0;
-    transition: 0.3s ease;
-    z-index: 2;
-}
-
-.recommend-item h4 {
-    bottom: 36px;
-    font-size: 16px;
-}
-
-.recommend-item span {
-    bottom: 16px;
-    font-size: 13px;
-    color: #ccc;
-}
-
-.recommend-item:hover h4,
-.recommend-item:hover span {
-    opacity: 1;
-}
-
-/* 리뷰 액션(기본) */
-.review-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 16px;
-    margin-top: 14px;
-}
-
-.action {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    cursor: pointer;
-}
-
-.action img {
-    width: 16px;
-    height: 16px;
-}
-
-/* ================= 답글 ================= */
-.replies {
-    display: none;
-    margin-top: 24px;
-    padding-left: 40px;
-}
-
-.reply {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
-}
-
-.reply-profile {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-}
-
-.reply-body {
-    flex: 1;
-    font-size: 14px;
-    color: #444;
-}
-
-.reply-actions {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.reply-actions img {
-    width: 14px;
-    height: 14px;
-    cursor: pointer;
-    opacity: 0.85;
-}
-
-.reply-form {
-    display: flex;
-    gap: 8px;
-    margin-top: 12px;
-}
-
-.reply-form input {
-    flex: 1;
-    padding: 6px 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-}
-
-.reply-form button {
-    padding: 6px 12px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-/* 회전 */
-.rotate-180 {
-    transform: rotate(180deg);
-}
-
-/* 답글 표시(중복 구간) */
-.replies {
-    display: block;
-}
-
-/* 답글 버튼 텍스트 */
-.comment-btn {
-    gap: 6px;
-    font-size: 13px;
-    color: #777;
-}
-
-.reply-count {
-    font-size: 13px;
-}
-
-/* 답글 영역(중복 구간) */
-.replies {
-    position: relative;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    display: none;
-    background: #fff;
-    z-index: 10;
-    margin-top: 20px;
-    padding-left: 48px;
-}
-
-.reply {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 0;
-}
-
-.reply-profile img {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-}
-
-.reply-body {
-    flex: 1;
-    font-size: 14px;
-    color: #444;
-}
-
-/* 리뷰 액션(중복 구간) */
-.review-actions {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-    margin-right: auto;
-}
-
-/* 액션 줄(중복 구간) */
-.action-row {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    position: absolute;
-    bottom: 60px;
-    right: 10px;
-}
-
-.action {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.reply-actions img {
-    width: 15px;
-    height: 15px;
-    opacity: 0.8;
-    cursor: pointer;
-}
-
-.reply-form {
-    display: flex;
-    gap: 8px;
-    margin-top: 14px;
-}
-
-.reply-form input {
-    flex: 1;
-    padding: 7px 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-}
-
-.reply-form button {
-    padding: 6px 12px;
-    border-radius: 30px;
-    border: none;
-    cursor: pointer;
-    color: #000;
-}
-
-.reply-form button:last-child {
-    background: #4F7CFF;
-    color: #fff;
-}
-
-/* rating override: keep five visible stars and support half-star selection */
-#review-form .rating-input {
-    gap: 0 !important;
-}
-
-.rating-input {
-    gap: 0 !important;
-}
-
-.rating-input label {
-    position: relative;
-    width: 13px !important;
-    height: 26px !important;
-    display: inline-block;
-    overflow: hidden;
-}
-
-.rating-input label::before,
-.rating-input label::after {
-    content: "\2605" !important;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 26px;
-    font-size: 26px;
-    line-height: 1;
-}
-
-.rating-input label::before {
-    color: #ddd !important;
-}
-
-.rating-input label::after {
-    color: #f5c542 !important;
-    opacity: 0;
-}
-
-.rating-input label.full::before,
-.rating-input label.full::after {
-    left: -13px;
+  left: -13px;
 }
 
 .rating-input label:hover::after,
 .rating-input label:hover ~ label::after,
 .rating-input input:checked + label::after,
 .rating-input input:checked + label ~ label::after {
-    opacity: 1;
+  opacity: 1;
+}
+
+/* 리뷰 입력 textarea */
+.review-form textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid rgba(94, 94, 94, 0.55);
+
+  height: 44px;
+  line-height: 44px;
+  padding: 0 6px;
+
+  font-size: 13px;
+  color: #111;
+
+  resize: none !important;
+  overflow: hidden;
+  outline: none;
+  margin: 0;
+}
+
+.review-form textarea:focus {
+  border-bottom-color: #111;
+}
+
+.review-form textarea::placeholder {
+  color: #9a9a9a;
+}
+
+/* 리뷰 폼 버튼 */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  margin-top: 12px;
+}
+
+.form-actions button {
+  width: 80px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 13px;
+  cursor: pointer;
+  border: none;
+}
+
+.form-actions button:first-child {
+  background: #fff;
+  color: #000;
+  font-weight: 400;
+  border: 1px solid #939393;
+}
+
+.form-actions button:last-child {
+  background: #4f7cff;
+  font-weight: 400;
+  color: #fff;
+}
+
+/* 별점 입력(중복 구간) */
+.rating-input {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.rating-input input {
+  display: none;
+}
+
+.rating-input label {
+  font-size: 26px;
+  color: #ddd;
+  cursor: pointer;
+}
+
+.rating-input label:hover,
+.rating-input label:hover ~ label,
+.rating-input input:checked ~ label {
+  color: #f5c542;
+}
+
+/* 리뷰 카드 */
+.review {
+  padding: 36px 0;
+  position: relative;
+}
+
+/* 리뷰 액션(좋아요/싫어요/답글) */
+.review .action-row {
+  position: absolute;
+  right: 0;
+  top: 0px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* 액션 아이콘+숫자 */
+.review .action-row .action {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.review .action-row .action img {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.review .action-row .action span {
+  font-size: 13px;
+  line-height: 1;
+  display: inline-block;
+  transform: translateY(1px);
+}
+
+/* 답글 버튼(리뷰) */
+.review.has-replies .comment-btn {
+  margin-top: 18px;
+}
+
+/* 리뷰 상단(프로필/이름/별점) */
+.review-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.review-top img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+}
+
+.review .user {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.review .star {
+  margin-left: auto;
+  color: #ffb400;
+  letter-spacing: 2px;
+}
+
+.review p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #555;
+  max-width: 900px;
+}
+
+.reply-tools {
+  margin-top: 10px;
+}
+
+.reply-toggle {
+  border: 1px solid #d0d0d0;
+  background: #fff;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.reply-box {
+  margin-top: 12px;
+  padding: 12px;
+  border: 1px solid #ececec;
+  border-radius: 12px;
+  background: #fafafa;
+}
+
+.reply-list {
+  margin: 0;
+  padding: 0;
+}
+
+.reply-item {
+  list-style: none;
+  border-bottom: 1px solid #ececec;
+  padding: 8px 0;
+}
+
+.reply-item:last-child {
+  border-bottom: none;
+}
+
+.reply-item strong {
+  font-size: 13px;
+}
+
+.reply-item p {
+  margin-top: 4px;
+  font-size: 13px;
+  color: #444;
+  max-width: none;
+}
+
+.reply-empty {
+  list-style: none;
+  font-size: 13px;
+  color: #777;
+}
+
+.reply-write {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+}
+
+.reply-input {
+  flex: 1;
+  height: 36px;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  padding: 0 10px;
+  font-size: 13px;
+}
+
+.reply-submit {
+  height: 36px;
+  border: none;
+  border-radius: 8px;
+  padding: 0 12px;
+  background: #4f7cff;
+  color: #fff;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* ================= 답글 (원본 구조 대응) ================= */
+.comment-btn {
+  margin-top: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #555;
+}
+
+.reply-arrow {
+  width: 14px;
+  transition: transform 0.2s ease;
+}
+
+.comment-btn.open .reply-arrow {
+  transform: rotate(180deg);
+}
+
+.replies {
+  display: none;
+  margin-top: 12px;
+  padding: 14px;
+  border: 1px solid #ececec;
+  border-radius: 12px;
+  background: #fafafa;
+}
+
+.reply-form {
+  display: grid;
+  grid-template-columns: 36px 1fr auto auto;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.reply-profile {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.reply-form input {
+  height: 36px;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  padding: 0 10px;
+  font-size: 13px;
+}
+
+.reply-form button {
+  height: 36px;
+  border-radius: 8px;
+  padding: 0 12px;
+  cursor: pointer;
+}
+
+.reply-form .cancel-btn {
+  border: 1px solid #ddd;
+  background: #fff;
+  color: #444;
+}
+
+.reply-form .reply-submit-btn {
+  border: none;
+  background: #4f7cff;
+  color: #fff;
+}
+
+.replies-list .reply {
+  display: grid;
+  grid-template-columns: 36px 1fr auto;
+  gap: 10px;
+  align-items: start;
+  padding: 10px 0;
+  border-top: 1px solid #eee;
+}
+
+.replies-list .reply:first-child {
+  border-top: none;
+}
+
+.reply-content {
+  min-width: 0;
+}
+
+.reply-user {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.reply-body {
+  margin-top: 4px;
+  font-size: 13px;
+  color: #444;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.reply-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.reply-actions .action {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.reply-actions img {
+  width: 14px;
+  height: 14px;
+}
+
+.reply-actions span {
+  font-size: 12px;
+  color: #777;
+}
+
+/* ================= 추천 영화 ================= */
+.movie-card {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  border-radius: 1rem;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.movie-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition:
+    transform 0.6s ease,
+    filter 0.6s ease;
+}
+
+.movie-card:hover {
+  transform: translateY(-12px) scale(1.03);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+}
+
+.movie-card:hover img {
+  transform: scale(1.06);
+  filter: blur(1.5px);
+}
+
+.movie-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+
+  text-align: left;
+}
+
+.movie-card:hover .movie-overlay {
+  opacity: 1;
+}
+
+.text-box {
+  display: flex;
+  justify-content: space-between;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.movie-overlay .rating {
+  color: gold;
+  font-size: 12px;
+  margin-bottom: 0.25rem;
+}
+
+.movie-overlay h4 {
+  margin: 0 0 0.25rem 0;
+  color: #ccc;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.movie-overlay p {
+  font-size: 12px;
+  color: #ccc;
+  margin: 0;
+}
+
+/* 오버레이 */
+.recommend-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+  opacity: 0;
+  transition: 0.3s ease;
+}
+
+.recommend-item:hover::after {
+  opacity: 1;
+}
+
+.recommend-item h4,
+.recommend-item span {
+  position: absolute;
+  left: 16px;
+  color: #fff;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: 0.3s ease;
+}
+
+.recommend-item h4 {
+  bottom: 36px;
+}
+
+.recommend-item span {
+  bottom: 16px;
+  color: #ccc;
+}
+
+.recommend-item:hover h4,
+.recommend-item:hover span {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 추천 영역 */
+.recommend {
+  max-width: 1200px;
+  margin: 160px auto 0;
+}
+
+.recommend h2 {
+  margin-bottom: 20px;
+}
+
+.recommend-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+
+.recommend-item {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+.recommend-item img {
+  width: 100%;
+  display: block;
+  transition:
+    transform 0.6s ease,
+    filter 0.6s ease;
+}
+
+.recommend-item:hover {
+  transform: translateY(-12px) scale(1.03);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+}
+
+.recommend-item:hover img {
+  transform: scale(1.06);
+  filter: blur(1.5px);
+}
+
+.recommend-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.recommend-item:hover::after {
+  opacity: 1;
+}
+
+.recommend-item h4,
+.recommend-item span {
+  position: absolute;
+  left: 16px;
+  color: #fff;
+  opacity: 0;
+  transition: 0.3s ease;
+  z-index: 2;
+}
+
+.recommend-item h4 {
+  bottom: 36px;
+  font-size: 16px;
+}
+
+.recommend-item span {
+  bottom: 16px;
+  font-size: 13px;
+  color: #ccc;
+}
+
+.recommend-item:hover h4,
+.recommend-item:hover span {
+  opacity: 1;
+}
+
+/* 리뷰 액션(기본) */
+.review-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 14px;
+}
+
+.action {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.action img {
+  width: 16px;
+  height: 16px;
+}
+
+/* ================= 답글 ================= */
+.replies {
+  display: none;
+  margin-top: 24px;
+  padding-left: 40px;
+}
+
+.reply {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.reply-profile {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.reply-body {
+  flex: 1;
+  font-size: 14px;
+  color: #444;
+}
+
+.reply-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.reply-actions img {
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  opacity: 0.85;
+}
+
+.reply-form {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.reply-form input {
+  flex: 1;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.reply-form button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* 회전 */
+.rotate-180 {
+  transform: rotate(180deg);
+}
+
+/* 답글 표시(중복 구간) */
+.replies {
+  display: block;
+}
+
+/* 답글 버튼 텍스트 */
+.comment-btn {
+  gap: 6px;
+  font-size: 13px;
+  color: #777;
+}
+
+.reply-count {
+  font-size: 13px;
+}
+
+/* 답글 영역(중복 구간) */
+.replies {
+  position: relative;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  display: none;
+  background: #fff;
+  z-index: 10;
+  margin-top: 20px;
+  padding-left: 48px;
+}
+
+.reply {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+}
+
+.reply-profile img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.reply-body {
+  flex: 1;
+  font-size: 14px;
+  color: #444;
+}
+
+/* 리뷰 액션(중복 구간) */
+.review-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  margin-right: auto;
+}
+
+/* 액션 줄(중복 구간) */
+.action-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: absolute;
+  bottom: 60px;
+  right: 10px;
+}
+
+.action {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.reply-actions img {
+  width: 15px;
+  height: 15px;
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.reply-form {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.reply-form input {
+  flex: 1;
+  padding: 7px 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.reply-form button {
+  padding: 6px 12px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  color: #000;
+}
+
+.reply-form button:last-child {
+  background: #4f7cff;
+  color: #fff;
+}
+
+/* rating override: keep five visible stars and support half-star selection */
+#review-form .rating-input {
+  gap: 0 !important;
+}
+
+.rating-input {
+  gap: 0 !important;
+}
+
+.rating-input label {
+  position: relative;
+  width: 13px !important;
+  height: 26px !important;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.rating-input label::before,
+.rating-input label::after {
+  content: "\2605" !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 26px;
+  font-size: 26px;
+  line-height: 1;
+}
+
+.rating-input label::before {
+  color: #ddd !important;
+}
+
+.rating-input label::after {
+  color: #f5c542 !important;
+  opacity: 0;
+}
+
+.rating-input label.full::before,
+.rating-input label.full::after {
+  left: -13px;
+}
+
+.rating-input label:hover::after,
+.rating-input label:hover ~ label::after,
+.rating-input input:checked + label::after,
+.rating-input input:checked + label ~ label::after {
+  opacity: 1;
 }
 
 .star-rating-display {
-    display: inline-flex;
-    align-items: center;
-    gap: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
 }
 
 .star-rating-display .star-icon {
-    position: relative;
-    width: 18px;
-    height: 18px;
-    display: inline-block;
+  position: relative;
+  width: 18px;
+  height: 18px;
+  display: inline-block;
 }
 
 .star-rating-display .star-icon::before,
 .star-rating-display .star-icon::after {
-    content: "\2605";
-    position: absolute;
-    top: 0;
-    left: 0;
-    font-size: 18px;
-    line-height: 1;
+  content: "\2605";
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 18px;
+  line-height: 1;
 }
 
 .star-rating-display .star-icon::before {
-    color: #d9d9d9;
+  color: #d9d9d9;
 }
 
 .star-rating-display .star-icon::after {
-    color: #f5c542;
+  color: #f5c542;
 }
 
 .star-rating-display .star-icon.empty::after {
-    display: none;
+  display: none;
 }
 
 .star-rating-display .star-icon.half::after {
-    width: 9px;
-    overflow: hidden;
+  width: 9px;
+  overflow: hidden;
 }
 
 .cancel-btn {
-    background: #eee;
+  background: #eee;
 }
 
 .review.has-replies {
-    position: relative;
+  position: relative;
 }
 
 .review.has-replies .comment-btn {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 2px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
 }
 
 .reply-count {
-    font-size: 15px;
-    color: #000;
-    display: flex;
-    font-weight: 700;
+  font-size: 15px;
+  color: #000;
+  display: flex;
+  font-weight: 700;
 }
 
 .comment-btn {
-    position: relative;
-    padding-left: 25px;
-    margin-right: auto;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+  position: relative;
+  padding-left: 25px;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .comment-btn::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 16px;
-    height: 0.5px;
-    background: #8282839b;
-    border-radius: 2px;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 0.5px;
+  background: #8282839b;
+  border-radius: 2px;
 }
 
 .comment-btn .reply-arrow {
-    transform: rotate(180deg);
-    transition: transform 0.25s ease;
+  transform: rotate(180deg);
+  transition: transform 0.25s ease;
 }
 
 .comment-btn.open .reply-arrow {
-    transform: rotate(360deg);
+  transform: rotate(360deg);
 }
 
 /* ================= 답글 영역(최종) ================= */
 .replies {
-    margin-top: 14px;
-    padding-left: 56px;
-    max-width: 980px;
+  margin-top: 14px;
+  padding-left: 56px;
+  max-width: 980px;
 }
 
 .replies .reply-form {
-    max-width: 900px;
-    margin: 0 auto 15px;
+  max-width: 900px;
+  margin: 0 auto 15px;
 
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 
-    padding: 8px 0 10px;
+  padding: 8px 0 10px;
 }
 
 .replies .reply-form input {
-    flex: 1;
-    height: 36px;
-    line-height: 40px;
+  flex: 1;
+  height: 36px;
+  line-height: 40px;
 
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid rgba(94, 94, 94, 0.55);
-    border-radius: 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(94, 94, 94, 0.55);
+  border-radius: 0;
 
-    padding: 0 6px;
-    font-size: 12px;
-    color: #111;
-    outline: none;
+  padding: 0 6px;
+  font-size: 12px;
+  color: #111;
+  outline: none;
 }
 
 .replies .reply-form input:focus {
-    border-bottom: 1px solid rgba(94, 94, 94, 0.55);
+  border-bottom: 1px solid rgba(94, 94, 94, 0.55);
 }
 
 .replies .reply-form input::placeholder {
-    color: #9a9a9a;
+  color: #9a9a9a;
 }
 
 .replies .reply-form button {
-    width: 68px;
-    padding: 6px 12px;
-    border-radius: 999px;
-    font-size: 12px;
-    cursor: pointer;
-    border: none;
+  width: 68px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  cursor: pointer;
+  border: none;
 }
 
 .replies .reply-form .cancel-btn {
-    background: #fff;
-    color: #000;
-    font-weight: 400;
-    border: 1px solid #939393;
+  background: #fff;
+  color: #000;
+  font-weight: 400;
+  border: 1px solid #939393;
 }
 
 .replies .reply-form button:last-child {
-    background: #4F7CFF;
-    font-weight: 400;
-    color: #fff;
+  background: #4f7cff;
+  font-weight: 400;
+  color: #fff;
 }
 
 .replies .reply {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
 
-    padding: 14px 0;
-    border-bottom: 1px solid rgba(94, 94, 94, 0.55);
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(94, 94, 94, 0.55);
 }
 
 .replies .reply-profile {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    object-fit: cover;
-    flex: 0 0 34px;
-    margin-top: 2px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: 0 0 34px;
+  margin-top: 2px;
 }
 
 .replies .reply-content {
-    flex: 1;
-    min-width: 0;
+  flex: 1;
+  min-width: 0;
 }
 
 .replies .reply-user {
-    display: block;
-    font-size: 13px;
-    font-weight: 700;
-    color: #111;
-    margin-bottom: 4px;
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 4px;
 }
 
 .replies .reply-body {
-    font-size: 13.5px;
-    line-height: 1.6;
-    color: #555;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #555;
 }
 
 .replies .comment-thread {
-    width: 100%;
+  width: 100%;
 }
 
 .replies .nested-reply-form {
-    max-width: 900px;
-    margin: 8px 0 0 46px;
+  max-width: 900px;
+  margin: 8px 0 0 46px;
 
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 
-    padding: 8px 0 10px;
+  padding: 8px 0 10px;
 }
 
 .replies .nested-reply-form .reply-profile {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    object-fit: cover;
-    flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: 0 0 34px;
 }
 
 .replies .nested-reply-form input {
-    flex: 1;
-    height: 36px;
-    line-height: 40px;
+  flex: 1;
+  height: 36px;
+  line-height: 40px;
 
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid rgba(94, 94, 94, 0.55);
-    border-radius: 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(94, 94, 94, 0.55);
+  border-radius: 0;
 
-    padding: 0 6px;
-    font-size: 12px;
-    color: #111;
-    outline: none;
+  padding: 0 6px;
+  font-size: 12px;
+  color: #111;
+  outline: none;
 }
 
 .replies .nested-reply-form input:focus {
-    border-bottom: 1px solid rgba(94, 94, 94, 0.55);
+  border-bottom: 1px solid rgba(94, 94, 94, 0.55);
 }
 
 .replies .nested-reply-form input::placeholder {
-    color: #9a9a9a;
+  color: #9a9a9a;
 }
 
 .replies .nested-reply-form button {
-    width: 68px;
-    padding: 6px 12px;
-    border-radius: 999px;
-    font-size: 12px;
-    cursor: pointer;
-    border: none;
+  width: 68px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  cursor: pointer;
+  border: none;
 }
 
 .replies .nested-reply-form .nested-reply-cancel-btn {
-    background: #fff;
-    color: #000;
-    font-weight: 400;
-    border: 1px solid #939393;
+  background: #fff;
+  color: #000;
+  font-weight: 400;
+  border: 1px solid #939393;
 }
 
 .replies .nested-reply-form .nested-reply-submit-btn {
-    background: #4F7CFF;
-    font-weight: 400;
-    color: #fff;
+  background: #4f7cff;
+  font-weight: 400;
+  color: #fff;
 }
 
 .replies .nested-replies {
-    margin-left: 46px;
+  margin-left: 46px;
 }
 
 .replies .nested-replies .nested-reply {
-    border-bottom: 1px solid rgba(94, 94, 94, 0.35);
+  border-bottom: 1px solid rgba(94, 94, 94, 0.35);
 }
 
 .replies .nested-replies .nested-reply:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .replies .reply-actions {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-left: 14px;
-    padding-top: 6px;
-    white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-left: 14px;
+  padding-top: 6px;
+  white-space: nowrap;
 }
 
 .replies .reply-actions .action {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
 }
 
 .replies .reply-actions .action img {
-    width: 16px;
-    height: 16px;
-    opacity: 0.9;
+  width: 16px;
+  height: 16px;
+  opacity: 0.9;
 }
 
 .replies .reply-actions .action span {
-    font-size: 12px;
-    color: #111;
+  font-size: 12px;
+  color: #111;
 }
 
 .replies .reply-empty-item {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .replies .reply-nested-form {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
 }
 
 .replies .reply-nested-input {
-    flex: 1;
-    height: 36px;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid rgba(94, 94, 94, 0.55);
-    padding: 0 6px;
-    font-size: 12px;
-    color: #111;
-    outline: none;
+  flex: 1;
+  height: 36px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(94, 94, 94, 0.55);
+  padding: 0 6px;
+  font-size: 12px;
+  color: #111;
+  outline: none;
 }
 
 .replies .reply-nested-input::placeholder {
-    color: #9a9a9a;
+  color: #9a9a9a;
 }
 
 .replies .reply-nested-cancel,
 .replies .reply-nested-submit {
-    width: 68px;
-    padding: 6px 12px;
-    border-radius: 999px;
-    font-size: 12px;
-    cursor: pointer;
-    border: none;
+  width: 68px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  cursor: pointer;
+  border: none;
 }
 
 .replies .reply-nested-cancel {
-    background: #fff;
-    color: #000;
-    border: 1px solid #939393;
+  background: #fff;
+  color: #000;
+  border: 1px solid #939393;
 }
 
 .replies .reply-nested-submit {
-    background: #4F7CFF;
-    color: #fff;
+  background: #4f7cff;
+  color: #fff;
 }
 
 .replies .reply-children {
-    margin-top: 12px;
-    padding-left: 18px;
-    border-left: 1px solid rgba(94, 94, 94, 0.2);
+  margin-top: 12px;
+  padding-left: 18px;
+  border-left: 1px solid rgba(94, 94, 94, 0.2);
 }
 
 .replies .reply-child {
-    padding: 12px 0 0;
-    border-bottom: none;
+  padding: 12px 0 0;
+  border-bottom: none;
 }
 
 .replies.nested-only > .reply-form {
-    display: none;
+  display: none;
 }
 
 /* ================= 리뷰 액션(배치) ================= */
 .review {
-    position: relative;
-    border-bottom: 1px solid #8282839b;
+  position: relative;
+  border-bottom: 1px solid #8282839b;
 }
 .review:last-child {
-    border: none;
+  border: none;
 }
 
 .review-actions {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    margin-top: 14px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 14px;
 }
 
 .review-actions .action-row {
-    position: static !important;
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    margin-left: auto;
+  position: static !important;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-left: auto;
 }
 
 .review-actions .comment-btn {
-    position: static !important;
-    margin: 0;
+  position: static !important;
+  margin: 0;
 }
 
 .review-actions .action {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .review-actions .action img {
-    width: 18px;
-    height: 18px;
-    display: block;
+  width: 18px;
+  height: 18px;
+  display: block;
 }
 
 .review-actions .action span {
-    font-size: 13px;
-    line-height: 1;
-    display: inline-block;
+  font-size: 13px;
+  line-height: 1;
+  display: inline-block;
 }
 
 .review-actions .reaction-btn {
-    transition: opacity 0.2s ease, transform 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
 .review-actions .reaction-btn.active img,
 .review-actions .reaction-btn.active span {
-    opacity: 1;
-    filter: saturate(1.2);
+  opacity: 1;
+  filter: saturate(1.2);
 }
 
 .review-actions .reaction-btn.active span {
-    color: #4F7CFF;
-    font-weight: 700;
+  color: #4f7cff;
+  font-weight: 700;
 }
 
 .review-actions .reaction-btn:hover {
-    transform: translateY(-1px);
+  transform: translateY(-1px);
 }
 
 .review-actions {
-    position: relative;
-    width: 100%;
+  position: relative;
+  width: 100%;
 }
 
 .review-actions .comment-btn {
-    position: absolute !important;
-    left: 0px !important;
-    top: 0 !important;
+  position: absolute !important;
+  left: 0px !important;
+  top: 0 !important;
 
-    margin: 0 !important;
-    margin-right: 0 !important;
+  margin: 0 !important;
+  margin-right: 0 !important;
 }
 
 /* view more riview */
 
 /* ================= 리뷰 페이지네이션 ================= */
 .review-pagination {
-    margin-top: 26px;
-    display: flex;
-    justify-content: center;
-    gap: 14px;
-    font-size: 13px;
-    color: #111;
+  margin-top: 26px;
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  font-size: 13px;
+  color: #111;
 }
 
 .review-pagination button {
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    padding: 6px 8px;
-    border-radius: 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 8px;
 }
 
 .review-pagination button.active {
-    font-weight: 800;
+  font-weight: 800;
 }
 
 .review-pagination button:hover {
-    background: rgba(0, 0, 0, 0.06);
+  background: rgba(0, 0, 0, 0.06);
 }
 
 /* 답글 열렸을 때 구분선 색 */
 .comment-btn.open::before {
-    border-bottom: 1px solid rgba(94, 94, 94, 0.55);
+  border-bottom: 1px solid rgba(94, 94, 94, 0.55);
 }
 
 .review.review-target {
-    scroll-margin-top: 140px;
-    border-radius: 18px;
-    outline: none;
+  scroll-margin-top: 140px;
+  border-radius: 18px;
+  outline: none;
 }
 
 .review.review-target-active {
-    animation: reviewTargetPulse 2.4s ease-out;
+  animation: reviewTargetPulse 2.4s ease-out;
 }
 
 @keyframes reviewTargetPulse {
-    0% {
-        background: rgba(79, 124, 255, 0.2);
-        box-shadow: 0 0 0 0 rgba(79, 124, 255, 0.32);
-    }
-    55% {
-        background: rgba(79, 124, 255, 0.08);
-        box-shadow: 0 0 0 12px rgba(79, 124, 255, 0);
-    }
-    100% {
-        background: rgba(79, 124, 255, 0.02);
-        box-shadow: 0 0 0 0 rgba(79, 124, 255, 0);
-    }
+  0% {
+    background: rgba(79, 124, 255, 0.2);
+    box-shadow: 0 0 0 0 rgba(79, 124, 255, 0.32);
+  }
+  55% {
+    background: rgba(79, 124, 255, 0.08);
+    box-shadow: 0 0 0 12px rgba(79, 124, 255, 0);
+  }
+  100% {
+    background: rgba(79, 124, 255, 0.02);
+    box-shadow: 0 0 0 0 rgba(79, 124, 255, 0);
+  }
 }

@@ -1,377 +1,305 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
-        <link rel="stylesheet" href="css/font.css" />
-        <link rel="stylesheet" href="css/header.css" />
-        <link rel="stylesheet" href="css/wishlist.css" />
-    </head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/font.css" />
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/wishlist.css" />
+  </head>
 
-    <body>
-        <header class="navbar"></header>
-        <main class="page">
-            <section class="hero">
-                <div class="hero-inner">
-                    <h2 class="hero-title">위시리스트</h2>
-                    <p class="hero-desc">
-                        다시 보고 싶은 영화를 확인해보세요.(최대 3개 선택 가능)
-                    </p>
+  <body>
+    <header class="navbar"></header>
+    <main class="page">
+      <section class="hero">
+        <div class="hero-inner">
+          <h2 class="hero-title">위시리스트</h2>
+          <p class="hero-desc">
+            다시 보고 싶은 영화를 확인해보세요.(최대 3개 선택 가능)
+          </p>
 
-                    <div class="top-row">
-                        <div class="count">
-                            전체 <span id="totalCount">0</span>개
-                        </div>
+          <div class="top-row">
+            <div class="count">전체 <span id="totalCount">0</span>개</div>
 
-                        <div
-                            class="sort"
-                            id="sortBox"
-                            tabindex="0"
-                            aria-label="정렬"
-                        >
-                            <div class="sort-head">
-                                <span class="sort-left">
-                                    <span id="sortLabel">가나다순</span>
-                                </span>
-                                <img
-                                    src="images/ui/up.png"
-                                    alt=""
-                                    class="sort-icon"
-                                />
-                            </div>
+            <div class="sort" id="sortBox" tabindex="0" aria-label="정렬">
+              <div class="sort-head">
+                <span class="sort-left">
+                  <span id="sortLabel">가나다순</span>
+                </span>
+                <img src="images/ui/up.png" alt="" class="sort-icon" />
+              </div>
 
-                            <ul class="sort-list" id="sortList">
-                                <li class="sort-item active" data-sort="kor">
-                                    가나다순
-                                </li>
-                                <li class="sort-item" data-sort="latest">
-                                    최신등록순
-                                </li>
-                                <li class="sort-item" data-sort="year">
-                                    개봉연도순
-                                </li>
-                                <li class="sort-item" data-sort="rating">
-                                    평점순
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+              <ul class="sort-list" id="sortList">
+                <li class="sort-item active" data-sort="kor">가나다순</li>
+                <li class="sort-item" data-sort="latest">최신등록순</li>
+                <li class="sort-item" data-sort="year">개봉연도순</li>
+                <li class="sort-item" data-sort="rating">평점순</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 내용 영역 -->
+      <section class="content">
+        <div class="grid-wrap">
+          <div class="empty" id="emptyState">
+            <div class="empty-box">
+              <div class="empty-icon">
+                <img
+                  src="images/ui/break.png"
+                  class="empty-icon-img"
+                  alt="깨진하트"
+                />
+              </div>
+              <h3>위시리스트가 비어있어요</h3>
+              <p>취향에 맞는 영화를 찾아 하트를 눌러보세요!</p>
+
+              <a class="empty-btn" href="movielist.html">영화 탐색하러 가기</a>
+            </div>
+          </div>
+
+          <div class="movie-grid" id="movieGrid">
+            <article
+              class="movie-card"
+              data-title="명탐정 피카츄"
+              data-year="1997"
+              data-rating="8.9"
+              data-added="2026-01-10"
+            >
+              <a class="movie-link" href="#">
+                <div class="poster">
+                  <img src="images/posters/1.명탐정 피카츄.webp" alt="포스터" />
+                  <button
+                    class="wish-btn on"
+                    type="button"
+                    aria-label="위시리스트"
+                  >
+                    <span class="wish-icon allow" aria-hidden="true"></span>
+                  </button>
                 </div>
-            </section>
-
-            <!-- 내용 영역 -->
-            <section class="content">
-                <div class="grid-wrap">
-                    <div class="empty" id="emptyState">
-                        <div class="empty-box">
-                            <div class="empty-icon">
-                                <img
-                                    src="images/ui/break.png"
-                                    class="empty-icon-img"
-                                    alt="깨진하트"
-                                />
-                            </div>
-                            <h3>위시리스트가 비어있어요</h3>
-                            <p>취향에 맞는 영화를 찾아 하트를 눌러보세요!</p>
-
-                            <a class="empty-btn" href="movielist.html"
-                                >영화 탐색하러 가기</a
-                            >
-                        </div>
-                    </div>
-
-                    <div class="movie-grid" id="movieGrid">
-                        <article
-                            class="movie-card"
-                            data-title="명탐정 피카츄"
-                            data-year="1997"
-                            data-rating="8.9"
-                            data-added="2026-01-10"
-                        >
-                            <a class="movie-link" href="#">
-                                <div class="poster">
-                                    <img
-                                        src="images/posters/1.명탐정 피카츄.webp"
-                                        alt="포스터"
-                                    />
-                                    <button
-                                        class="wish-btn on"
-                                        type="button"
-                                        aria-label="위시리스트"
-                                    >
-                                        <span
-                                            class="wish-icon allow"
-                                            aria-hidden="true"
-                                        ></span>
-                                    </button>
-                                </div>
-                                <div class="movie-info">
-                                    <h4 class="movie-title">명탐정 피카츄</h4>
-                                    <div class="movie-meta">
-                                        <span>장르</span
-                                        ><span class="dot">·</span
-                                        ><span>개봉연도</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </article>
-
-                        <article
-                            class="movie-card"
-                            data-title="어벤져스 엔드게임"
-                            data-year="2002"
-                            data-rating="8.1"
-                            data-added="2026-01-21"
-                        >
-                            <a class="movie-link" href="#">
-                                <div class="poster">
-                                    <img
-                                        src="images/posters/10. 어벤져스 엔드게임.webp"
-                                        alt="포스터"
-                                    />
-                                    <button
-                                        class="wish-btn on"
-                                        type="button"
-                                        aria-label="위시리스트"
-                                    >
-                                        <span
-                                            class="wish-icon allow"
-                                            aria-hidden="true"
-                                        ></span>
-                                    </button>
-                                </div>
-                                <div class="movie-info">
-                                    <h4 class="movie-title">
-                                        어벤져스 엔드게임
-                                    </h4>
-                                    <div class="movie-meta">
-                                        <span>장르</span
-                                        ><span class="dot">·</span
-                                        ><span>개봉연도</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </article>
-
-                        <article
-                            class="movie-card"
-                            data-title="캐리비안의 해적"
-                            data-year="1988"
-                            data-rating="8.0"
-                            data-added="2026-01-18"
-                        >
-                            <a class="movie-link" href="#">
-                                <div class="poster">
-                                    <img
-                                        src="images/posters/11. 캐리비안의 해저기 블랙펄의 저주.webp"
-                                        alt="포스터"
-                                    />
-                                    <button
-                                        class="wish-btn on"
-                                        type="button"
-                                        aria-label="위시리스트"
-                                    >
-                                        <span
-                                            class="wish-icon allow"
-                                            aria-hidden="true"
-                                        ></span>
-                                    </button>
-                                </div>
-                                <div class="movie-info">
-                                    <h4 class="movie-title">캐리비안의 해적</h4>
-                                    <div class="movie-meta">
-                                        <span>장르</span
-                                        ><span class="dot">·</span
-                                        ><span>개봉연도</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </article>
-
-                        <article
-                            class="movie-card"
-                            data-title="인셉션"
-                            data-year="1977"
-                            data-rating="8.6"
-                            data-added="2026-01-05"
-                        >
-                            <a class="movie-link" href="#">
-                                <div class="poster">
-                                    <img
-                                        src="images/posters/12. 인셉션.webp"
-                                        alt="포스터"
-                                    />
-                                    <button
-                                        class="wish-btn on"
-                                        type="button"
-                                        aria-label="위시리스트"
-                                    >
-                                        <span
-                                            class="wish-icon allow"
-                                            aria-hidden="true"
-                                        ></span>
-                                    </button>
-                                </div>
-                                <div class="movie-info">
-                                    <h4 class="movie-title">인셉션</h4>
-                                    <div class="movie-meta">
-                                        <span>장르</span
-                                        ><span class="dot">·</span
-                                        ><span>개봉연도</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </article>
-
-                        <article
-                            class="movie-card"
-                            data-title="인터스텔라"
-                            data-year="1977"
-                            data-rating="8.6"
-                            data-added="2026-01-05"
-                        >
-                            <a class="movie-link" href="#">
-                                <div class="poster">
-                                    <img
-                                        src="images/posters/13. 인터스텔라.webp"
-                                        alt="포스터"
-                                    />
-                                    <button
-                                        class="wish-btn on"
-                                        type="button"
-                                        aria-label="위시리스트"
-                                    >
-                                        <span
-                                            class="wish-icon allow"
-                                            aria-hidden="true"
-                                        ></span>
-                                    </button>
-                                </div>
-                                <div class="movie-info">
-                                    <h4 class="movie-title">인터스텔라</h4>
-                                    <div class="movie-meta">
-                                        <span>장르</span
-                                        ><span class="dot">·</span
-                                        ><span>개봉연도</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </article>
-
-                        <article
-                            class="movie-card"
-                            data-title="터미네이터"
-                            data-year="1977"
-                            data-rating="8.6"
-                            data-added="2026-01-05"
-                        >
-                            <a class="movie-link" href="#">
-                                <div class="poster">
-                                    <img
-                                        src="images/posters/14. 터미네이터.webp"
-                                        alt="포스터"
-                                    />
-                                    <button
-                                        class="wish-btn on"
-                                        type="button"
-                                        aria-label="위시리스트"
-                                    >
-                                        <span
-                                            class="wish-icon allow"
-                                            aria-hidden="true"
-                                        ></span>
-                                    </button>
-                                </div>
-                                <div class="movie-info">
-                                    <h4 class="movie-title">터미네이터</h4>
-                                    <div class="movie-meta">
-                                        <span>장르</span
-                                        ><span class="dot">·</span
-                                        ><span>개봉연도</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </article>
-
-                        <article
-                            class="movie-card"
-                            data-title="트루먼 쇼"
-                            data-year="1977"
-                            data-rating="8.6"
-                            data-added="2026-01-05"
-                        >
-                            <a class="movie-link" href="#">
-                                <div class="poster">
-                                    <img
-                                        src="images/posters/15. 트루먼 쇼.webp"
-                                        alt="포스터"
-                                    />
-                                    <button
-                                        class="wish-btn on"
-                                        type="button"
-                                        aria-label="위시리스트"
-                                    >
-                                        <span
-                                            class="wish-icon allow"
-                                            aria-hidden="true"
-                                        ></span>
-                                    </button>
-                                </div>
-                                <div class="movie-info">
-                                    <h4 class="movie-title">트루먼 쇼</h4>
-                                    <div class="movie-meta">
-                                        <span>장르</span
-                                        ><span class="dot">·</span
-                                        ><span>개봉연도</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </article>
-
-                        <article
-                            class="movie-card"
-                            data-title="하울의 움직이는 성"
-                            data-year="1977"
-                            data-rating="8.6"
-                            data-added="2026-01-05"
-                        >
-                            <a class="movie-link" href="#">
-                                <div class="poster">
-                                    <img
-                                        src="images/posters/16. 하울의 움직이는 성.webp"
-                                        alt="포스터"
-                                    />
-                                    <button
-                                        class="wish-btn on"
-                                        type="button"
-                                        aria-label="위시리스트"
-                                    >
-                                        <span
-                                            class="wish-icon allow"
-                                            aria-hidden="true"
-                                        ></span>
-                                    </button>
-                                </div>
-                                <div class="movie-info">
-                                    <h4 class="movie-title">
-                                        하울의 움직이는 성
-                                    </h4>
-                                    <div class="movie-meta">
-                                        <span>장르</span
-                                        ><span class="dot">·</span
-                                        ><span>개봉연도</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </article>
-                    </div>
+                <div class="movie-info">
+                  <h4 class="movie-title">명탐정 피카츄</h4>
+                  <div class="movie-meta">
+                    <span>장르</span><span class="dot">·</span
+                    ><span>개봉연도</span>
+                  </div>
                 </div>
-            </section>
-        </main>
+              </a>
+            </article>
 
-        <script src="js/wish.js"></script>
-        <script src="js/wishlist.js"></script>
-        <script src="js/header.js"></script>
-    </body>
+            <article
+              class="movie-card"
+              data-title="어벤져스 엔드게임"
+              data-year="2002"
+              data-rating="8.1"
+              data-added="2026-01-21"
+            >
+              <a class="movie-link" href="#">
+                <div class="poster">
+                  <img
+                    src="images/posters/10. 어벤져스 엔드게임.webp"
+                    alt="포스터"
+                  />
+                  <button
+                    class="wish-btn on"
+                    type="button"
+                    aria-label="위시리스트"
+                  >
+                    <span class="wish-icon allow" aria-hidden="true"></span>
+                  </button>
+                </div>
+                <div class="movie-info">
+                  <h4 class="movie-title">어벤져스 엔드게임</h4>
+                  <div class="movie-meta">
+                    <span>장르</span><span class="dot">·</span
+                    ><span>개봉연도</span>
+                  </div>
+                </div>
+              </a>
+            </article>
+
+            <article
+              class="movie-card"
+              data-title="캐리비안의 해적"
+              data-year="1988"
+              data-rating="8.0"
+              data-added="2026-01-18"
+            >
+              <a class="movie-link" href="#">
+                <div class="poster">
+                  <img
+                    src="images/posters/11. 캐리비안의 해저기 블랙펄의 저주.webp"
+                    alt="포스터"
+                  />
+                  <button
+                    class="wish-btn on"
+                    type="button"
+                    aria-label="위시리스트"
+                  >
+                    <span class="wish-icon allow" aria-hidden="true"></span>
+                  </button>
+                </div>
+                <div class="movie-info">
+                  <h4 class="movie-title">캐리비안의 해적</h4>
+                  <div class="movie-meta">
+                    <span>장르</span><span class="dot">·</span
+                    ><span>개봉연도</span>
+                  </div>
+                </div>
+              </a>
+            </article>
+
+            <article
+              class="movie-card"
+              data-title="인셉션"
+              data-year="1977"
+              data-rating="8.6"
+              data-added="2026-01-05"
+            >
+              <a class="movie-link" href="#">
+                <div class="poster">
+                  <img src="images/posters/12. 인셉션.webp" alt="포스터" />
+                  <button
+                    class="wish-btn on"
+                    type="button"
+                    aria-label="위시리스트"
+                  >
+                    <span class="wish-icon allow" aria-hidden="true"></span>
+                  </button>
+                </div>
+                <div class="movie-info">
+                  <h4 class="movie-title">인셉션</h4>
+                  <div class="movie-meta">
+                    <span>장르</span><span class="dot">·</span
+                    ><span>개봉연도</span>
+                  </div>
+                </div>
+              </a>
+            </article>
+
+            <article
+              class="movie-card"
+              data-title="인터스텔라"
+              data-year="1977"
+              data-rating="8.6"
+              data-added="2026-01-05"
+            >
+              <a class="movie-link" href="#">
+                <div class="poster">
+                  <img src="images/posters/13. 인터스텔라.webp" alt="포스터" />
+                  <button
+                    class="wish-btn on"
+                    type="button"
+                    aria-label="위시리스트"
+                  >
+                    <span class="wish-icon allow" aria-hidden="true"></span>
+                  </button>
+                </div>
+                <div class="movie-info">
+                  <h4 class="movie-title">인터스텔라</h4>
+                  <div class="movie-meta">
+                    <span>장르</span><span class="dot">·</span
+                    ><span>개봉연도</span>
+                  </div>
+                </div>
+              </a>
+            </article>
+
+            <article
+              class="movie-card"
+              data-title="터미네이터"
+              data-year="1977"
+              data-rating="8.6"
+              data-added="2026-01-05"
+            >
+              <a class="movie-link" href="#">
+                <div class="poster">
+                  <img src="images/posters/14. 터미네이터.webp" alt="포스터" />
+                  <button
+                    class="wish-btn on"
+                    type="button"
+                    aria-label="위시리스트"
+                  >
+                    <span class="wish-icon allow" aria-hidden="true"></span>
+                  </button>
+                </div>
+                <div class="movie-info">
+                  <h4 class="movie-title">터미네이터</h4>
+                  <div class="movie-meta">
+                    <span>장르</span><span class="dot">·</span
+                    ><span>개봉연도</span>
+                  </div>
+                </div>
+              </a>
+            </article>
+
+            <article
+              class="movie-card"
+              data-title="트루먼 쇼"
+              data-year="1977"
+              data-rating="8.6"
+              data-added="2026-01-05"
+            >
+              <a class="movie-link" href="#">
+                <div class="poster">
+                  <img src="images/posters/15. 트루먼 쇼.webp" alt="포스터" />
+                  <button
+                    class="wish-btn on"
+                    type="button"
+                    aria-label="위시리스트"
+                  >
+                    <span class="wish-icon allow" aria-hidden="true"></span>
+                  </button>
+                </div>
+                <div class="movie-info">
+                  <h4 class="movie-title">트루먼 쇼</h4>
+                  <div class="movie-meta">
+                    <span>장르</span><span class="dot">·</span
+                    ><span>개봉연도</span>
+                  </div>
+                </div>
+              </a>
+            </article>
+
+            <article
+              class="movie-card"
+              data-title="하울의 움직이는 성"
+              data-year="1977"
+              data-rating="8.6"
+              data-added="2026-01-05"
+            >
+              <a class="movie-link" href="#">
+                <div class="poster">
+                  <img
+                    src="images/posters/16. 하울의 움직이는 성.webp"
+                    alt="포스터"
+                  />
+                  <button
+                    class="wish-btn on"
+                    type="button"
+                    aria-label="위시리스트"
+                  >
+                    <span class="wish-icon allow" aria-hidden="true"></span>
+                  </button>
+                </div>
+                <div class="movie-info">
+                  <h4 class="movie-title">하울의 움직이는 성</h4>
+                  <div class="movie-meta">
+                    <span>장르</span><span class="dot">·</span
+                    ><span>개봉연도</span>
+                  </div>
+                </div>
+              </a>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="js/wish.js"></script>
+    <script src="js/wishlist.js"></script>
+    <script src="js/header.js"></script>
+  </body>
 </html>

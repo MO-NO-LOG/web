@@ -1,154 +1,137 @@
 <!doctype html>
 <html lang="ko">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>내 정보 수정</title>
-        <link rel="stylesheet" href="css/editpage.css" />
-        <link rel="stylesheet" href="css/header.css" />
-    </head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>내 정보 수정</title>
+    <link rel="stylesheet" href="css/editpage.css" />
+    <link rel="stylesheet" href="css/header.css" />
+  </head>
 
-    <body>
-        <header class="navbar"></header>
+  <body>
+    <header class="navbar"></header>
 
-        <main class="page">
-            <section class="content">
-                <h1>내 정보 수정</h1>
-                <p class="desc">
-                    프로필 이미지와 기본 정보를 수정할 수 있습니다.
-                </p>
+    <main class="page">
+      <section class="content">
+        <h1>내 정보 수정</h1>
+        <p class="desc">프로필 이미지와 기본 정보를 수정할 수 있습니다.</p>
 
-                <form id="editProfileForm">
-                    <div class="profile-area">
-                        <div class="avatar-wrap">
-                            <img
-                                id="profilePreview"
-                                src="images/default-user.png"
-                                alt="프로필 이미지"
-                            />
-                            <button
-                                id="avatarEditBtn"
-                                class="avatar-edit-btn"
-                                type="button"
-                                aria-label="프로필 이미지 변경"
-                            >
-                                <img src="images/ui/pen.png" alt="" />
-                            </button>
-                        </div>
+        <form id="editProfileForm">
+          <div class="profile-area">
+            <div class="avatar-wrap">
+              <img
+                id="profilePreview"
+                src="images/default-user.png"
+                alt="프로필 이미지"
+              />
+              <button
+                id="avatarEditBtn"
+                class="avatar-edit-btn"
+                type="button"
+                aria-label="프로필 이미지 변경"
+              >
+                <img src="images/ui/pen.png" alt="" />
+              </button>
+            </div>
 
-                        <div class="profile-text">
-                            <div class="profile-title">프로필 사진 변경</div>
-                            <div class="profile-sub">
-                                이미지를 클릭하거나 버튼을 눌러 프로필 사진을
-                                변경하세요.
-                            </div>
-                            <div class="profile-buttons">
-                                <button
-                                    id="changeImageBtn"
-                                    class="line-btn"
-                                    type="button"
-                                >
-                                    이미지 업로드
-                                </button>
-                                <button
-                                    id="deleteImageBtn"
-                                    class="line-btn"
-                                    type="button"
-                                >
-                                    이미지 삭제
-                                </button>
-                            </div>
-                            <input
-                                id="profileImageInput"
-                                type="file"
-                                accept="image/*"
-                                hidden
-                            />
-                        </div>
-                    </div>
+            <div class="profile-text">
+              <div class="profile-title">프로필 사진 변경</div>
+              <div class="profile-sub">
+                이미지를 클릭하거나 버튼을 눌러 프로필 사진을 변경하세요.
+              </div>
+              <div class="profile-buttons">
+                <button id="changeImageBtn" class="line-btn" type="button">
+                  이미지 업로드
+                </button>
+                <button id="deleteImageBtn" class="line-btn" type="button">
+                  이미지 삭제
+                </button>
+              </div>
+              <input
+                id="profileImageInput"
+                type="file"
+                accept="image/*"
+                hidden
+              />
+            </div>
+          </div>
 
-                    <div class="field">
-                        <span class="field-guide">계정 정보</span>
-                        <label for="email">이메일 주소</label>
-                        <div class="input-wrap">
-                            <input id="email" type="email" readonly />
-                        </div>
-                    </div>
+          <div class="field">
+            <span class="field-guide">계정 정보</span>
+            <label for="email">이메일 주소</label>
+            <div class="input-wrap">
+              <input id="email" type="email" readonly />
+            </div>
+          </div>
 
-                    <div class="field">
-                        <span class="field-guide">기본 정보</span>
-                        <label for="nickname">닉네임</label>
-                        <div class="input-wrap">
-                            <input
-                                id="nickname"
-                                type="text"
-                                maxlength="30"
-                                placeholder="닉네임을 입력하세요"
-                            />
-                        </div>
-                    </div>
+          <div class="field">
+            <span class="field-guide">기본 정보</span>
+            <label for="nickname">닉네임</label>
+            <div class="input-wrap">
+              <input
+                id="nickname"
+                type="text"
+                maxlength="30"
+                placeholder="닉네임을 입력하세요"
+              />
+            </div>
+          </div>
 
-                    <div class="field">
-                        <label for="bio">소개글</label>
-                        <div class="input-wrap textarea-wrap">
-                            <textarea
-                                id="bio"
-                                maxlength="300"
-                                placeholder="자기소개를 입력하세요"
-                            ></textarea>
-                        </div>
-                        <small><span id="bioCount">0</span>/300</small>
-                    </div>
+          <div class="field">
+            <label for="bio">소개글</label>
+            <div class="input-wrap textarea-wrap">
+              <textarea
+                id="bio"
+                maxlength="300"
+                placeholder="자기소개를 입력하세요"
+              ></textarea>
+            </div>
+            <small><span id="bioCount">0</span>/300</small>
+          </div>
 
-                    <div class="field">
-                        <span class="field-guide">비밀번호 변경</span>
-                    </div>
+          <div class="field">
+            <span class="field-guide">비밀번호 변경</span>
+          </div>
 
-                    <div class="two-col">
-                        <div class="field">
-                            <label for="password">새 비밀번호</label>
-                            <div class="input-wrap">
-                                <input
-                                    id="password"
-                                    type="password"
-                                    placeholder="새 비밀번호"
-                                    autocomplete="new-password"
-                                />
-                            </div>
-                        </div>
+          <div class="two-col">
+            <div class="field">
+              <label for="password">새 비밀번호</label>
+              <div class="input-wrap">
+                <input
+                  id="password"
+                  type="password"
+                  placeholder="새 비밀번호"
+                  autocomplete="new-password"
+                />
+              </div>
+            </div>
 
-                        <div class="field">
-                            <label for="passwordConfirm"
-                                >새 비밀번호 확인</label
-                            >
-                            <div class="input-wrap">
-                                <input
-                                    id="passwordConfirm"
-                                    type="password"
-                                    placeholder="새 비밀번호 확인"
-                                    autocomplete="new-password"
-                                />
-                            </div>
-                        </div>
-                    </div>
+            <div class="field">
+              <label for="passwordConfirm">새 비밀번호 확인</label>
+              <div class="input-wrap">
+                <input
+                  id="passwordConfirm"
+                  type="password"
+                  placeholder="새 비밀번호 확인"
+                  autocomplete="new-password"
+                />
+              </div>
+            </div>
+          </div>
 
-                    <div class="actions">
-                        <button
-                            class="cancel"
-                            type="button"
-                            onclick="history.back()"
-                        >
-                            취소
-                        </button>
-                        <button class="save" type="submit">변경사항 저장</button>
-                    </div>
-                </form>
-            </section>
-        </main>
+          <div class="actions">
+            <button class="cancel" type="button" onclick="history.back()">
+              취소
+            </button>
+            <button class="save" type="submit">변경사항 저장</button>
+          </div>
+        </form>
+      </section>
+    </main>
 
-        <div id="toast" class="toast hidden"></div>
+    <div id="toast" class="toast hidden"></div>
 
-        <script src="js/editpage.js"></script>
-        <script src="js/header.js"></script>
-    </body>
+    <script src="js/editpage.js"></script>
+    <script src="js/header.js"></script>
+  </body>
 </html>

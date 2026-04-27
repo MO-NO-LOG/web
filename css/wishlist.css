@@ -1,347 +1,347 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
 
 :root {
-    --border: #c8c8c8;
-    --hover: #4f7cff;
-    --text: #222222;
-    --black: #18181b;
+  --border: #c8c8c8;
+  --hover: #4f7cff;
+  --text: #222222;
+  --black: #18181b;
 
-    --heart-default: url("../images/ui/heart_stroke.png");
-    --heart-hover: url("../images/ui/heart_stroke.png");
-    --heart-on: url("../images/ui/redheart.png");
-    --heart-on-hover: url("../images/ui/redheart.png");
+  --heart-default: url("../images/ui/heart_stroke.png");
+  --heart-hover: url("../images/ui/heart_stroke.png");
+  --heart-on: url("../images/ui/redheart.png");
+  --heart-on-hover: url("../images/ui/redheart.png");
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: "Pretendard";
-    color: var(--text);
-    background: #1f1f1f;
+  font-family: "Pretendard";
+  color: var(--text);
+  background: #1f1f1f;
 }
 
 a {
-    color: inherit;
-    text-decoration: none;
+  color: inherit;
+  text-decoration: none;
 }
 
 .page {
-    min-height: 100vh;
+  min-height: 100vh;
 }
 
 /* 상단 */
 .hero {
-    background: #fff;
-    padding: 90px 0 50px;
+  background: #fff;
+  padding: 90px 0 50px;
 }
 
 .hero-inner {
-    width: min(1100px, calc(100% - 80px));
-    margin: 0 auto;
+  width: min(1100px, calc(100% - 80px));
+  margin: 0 auto;
 }
 
 .hero-title {
-    margin-top: 50px;
-    font-size: 32px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
+  margin-top: 50px;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
 }
 
 .hero-desc {
-    margin-top: 10px;
-    font-size: 16px;
-    color: #9a9a9a;
+  margin-top: 10px;
+  font-size: 16px;
+  color: #9a9a9a;
 }
 
 .top-row {
-    margin-top: 26px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  margin-top: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .count {
-    font-size: 14px;
-    font-weight: 700;
+  font-size: 14px;
+  font-weight: 700;
 }
 
 .count span {
-    color: var(--hover);
+  color: var(--hover);
 }
 
 .sort {
-    position: relative;
-    width: 140px;
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    background: #fff;
-    cursor: pointer;
+  position: relative;
+  width: 140px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: #fff;
+  cursor: pointer;
 }
 
 .sort-head {
-    height: 38px;
-    padding: 0 16px;
-    display: flex;
-    align-items: center;
+  height: 38px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
 }
 
 .sort-left {
-    width: 88px;
-    font-size: 16px;
-    font-weight: 700;
-    white-space: nowrap;
+  width: 88px;
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
 }
 
 .sort-icon {
-    width: 14px;
-    height: 14px;
-    margin-left: 4px;
-    object-fit: contain;
-    opacity: 0.9;
-    transform: rotate(180deg);
+  width: 14px;
+  height: 14px;
+  margin-left: 4px;
+  object-fit: contain;
+  opacity: 0.9;
+  transform: rotate(180deg);
 }
 
 .sort:hover .sort-list,
 .sort.open .sort-list {
-    display: block;
+  display: block;
 }
 
 .sort-list {
-    display: none;
-    position: absolute;
-    top: 38px;
-    left: 0;
-    width: 100%;
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    overflow: hidden;
-    z-index: 999;
+  display: none;
+  position: absolute;
+  top: 38px;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  z-index: 999;
 }
 
 .sort-item {
-    padding: 10px 14px;
-    font-size: 14px;
-    font-weight: 700;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 700;
 }
 
 .sort-item:hover {
-    background: rgba(79, 124, 255, 0.12);
+  background: rgba(79, 124, 255, 0.12);
 }
 
 .sort-item.active {
-    background: var(--hover);
-    color: #fff;
+  background: var(--hover);
+  color: #fff;
 }
 
 /* 본문 */
 .content {
-    background: #fff;
-    padding: 30px 0 120px;
+  background: #fff;
+  padding: 30px 0 120px;
 }
 
 .grid-wrap {
-    width: min(1100px, calc(100% - 80px));
-    margin: 0 auto;
+  width: min(1100px, calc(100% - 80px));
+  margin: 0 auto;
 }
 
 /* 비었을 때 화면 */
 .empty {
-    display: none;
+  display: none;
 }
 
 .empty.show {
-    display: block;
+  display: block;
 }
 
 .empty-box {
-    margin-top: 40px;
-    border: 2px dashed #bdbdbd;
-    border-radius: 22px;
-    height: 520px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    gap: 10px;
+  margin-top: 40px;
+  border: 2px dashed #bdbdbd;
+  border-radius: 22px;
+  height: 520px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
 }
 
 .empty-icon {
-    width: 64px;
-    height: 64px;
-    border-radius: 999px;
-    background: #f1f1f1;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  background: #f1f1f1;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .empty-icon-img {
-    width: 36px;
-    height: 36px;
-    object-fit: contain;
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
 }
 
 .empty-box h3 {
-    font-size: 16px;
-    font-weight: 800;
+  font-size: 16px;
+  font-weight: 800;
 }
 
 .empty-box p {
-    font-size: 13px;
-    color: #8f8f8f;
+  font-size: 13px;
+  color: #8f8f8f;
 }
 
 .empty-btn {
-    margin-top: 14px;
-    background: var(--black);
-    color: #fff;
-    padding: 10px 18px;
-    border-radius: 999px;
-    font-size: 13px;
-    font-weight: 800;
+  margin-top: 14px;
+  background: var(--black);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 800;
 }
 
 .empty-hint {
-    margin-top: 10px;
-    font-size: 12px;
-    color: #9a9a9a;
+  margin-top: 10px;
+  font-size: 12px;
+  color: #9a9a9a;
 }
 
 /* 영화 그리드 */
 .movie-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 34px 26px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 34px 26px;
 }
 
 .movie-card {
-    background: transparent;
+  background: transparent;
 }
 
 .poster {
-    position: relative;
-    border-radius: 18px;
-    overflow: hidden;
-    background: #111;
-    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #111;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
 }
 
 .poster img {
-    width: 100%;
-    aspect-ratio: 3/4;
-    object-fit: cover;
-    display: block;
-    transition:
-        transform 0.18s ease,
-        filter 0.18s ease;
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  display: block;
+  transition:
+    transform 0.18s ease,
+    filter 0.18s ease;
 }
 
 .poster:hover img {
-    transform: scale(1.02);
-    filter: blur(1px) brightness(0.9);
+  transform: scale(1.02);
+  filter: blur(1px) brightness(0.9);
 }
 
 .wish-btn {
-    position: absolute;
-    right: 12px;
-    top: 12px;
-    width: 50px;
-    height: 50px;
-    border-radius: 999px;
-    border: none;
-    background: rgba(0, 0, 0, 0.35);
-    backdrop-filter: blur(4px);
-    display: grid;
-    place-items: center;
-    cursor: pointer;
-    transition:
-        transform 0.12s ease,
-        background 0.15s ease,
-        box-shadow 0.15s ease;
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  width: 50px;
+  height: 50px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(4px);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition:
+    transform 0.12s ease,
+    background 0.15s ease,
+    box-shadow 0.15s ease;
 
-    opacity: 1;
-    pointer-events: auto;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .wish-btn:hover {
-    transform: scale(1.05);
-    background: rgba(180, 180, 180, 0.42);
-    box-shadow: 0 8px 30px 0 rgba(79, 124, 255, 0.25);
+  transform: scale(1.05);
+  background: rgba(180, 180, 180, 0.42);
+  box-shadow: 0 8px 30px 0 rgba(79, 124, 255, 0.25);
 }
 
 .wish-icon {
-    width: 22px;
-    height: 22px;
-    background-image: var(--heart-default);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+  width: 22px;
+  height: 22px;
+  background-image: var(--heart-default);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .wish-btn:hover .wish-icon {
-    background-image: var(--heart-default);
+  background-image: var(--heart-default);
 }
 
 .wish-btn.on .wish-icon {
-    background-image: var(--heart-on);
+  background-image: var(--heart-on);
 }
 
 .wish-btn.on:hover .wish-icon {
-    background-image: var(--heart-on-hover);
+  background-image: var(--heart-on-hover);
 }
 
 /* 텍스트 */
 .movie-info {
-    margin-top: 14px;
+  margin-top: 14px;
 }
 
 .movie-title {
-    font-size: 18px;
-    font-weight: 600;
-    color: #000;
-    letter-spacing: -0.2px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #000;
+  letter-spacing: -0.2px;
 }
 
 .movie-meta {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #9d9d9d;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #9d9d9d;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .movie-meta .dot {
-    opacity: 0.55;
+  opacity: 0.55;
 }
 
 /* 반응형 */
 @media (max-width: 980px) {
-    .movie-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
+  .movie-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 @media (max-width: 720px) {
-    .hero-inner,
-    .grid-wrap {
-        width: min(1100px, calc(100% - 28px));
-    }
+  .hero-inner,
+  .grid-wrap {
+    width: min(1100px, calc(100% - 28px));
+  }
 
-    .movie-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+  .movie-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
-    .top-row {
-        gap: 12px;
-        flex-direction: column;
-        align-items: flex-start;
-    }
+  .top-row {
+    gap: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }

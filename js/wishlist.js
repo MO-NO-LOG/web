@@ -26,7 +26,7 @@ function escapeHtml(value) {
         ">": "&gt;",
         '"': "&quot;",
         "'": "&#39;",
-      })[char]
+      })[char],
   );
 }
 
@@ -142,7 +142,7 @@ async function loadWishlist() {
     const favorites = Array.isArray(data.favorites) ? data.favorites : [];
 
     const details = await Promise.all(
-      favorites.map((item) => fetchMovieDetail(item.movieId, token))
+      favorites.map((item) => fetchMovieDetail(item.movieId, token)),
     );
 
     wishlistMovies = favorites.map((item, index) => {
@@ -187,7 +187,7 @@ sortBox.addEventListener("click", (event) => {
   if (!item) return;
 
   [...sortList.querySelectorAll(".sort-item")].forEach((element) =>
-    element.classList.remove("active")
+    element.classList.remove("active"),
   );
   item.classList.add("active");
   sortLabel.textContent = item.textContent;

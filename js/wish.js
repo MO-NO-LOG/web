@@ -13,7 +13,7 @@ window.WishFeature = (() => {
   function readCookie(name) {
     const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     const match = document.cookie.match(
-      new RegExp(`(?:^|; )${escaped}=([^;]*)`)
+      new RegExp(`(?:^|; )${escaped}=([^;]*)`),
     );
     return match ? decodeURIComponent(match[1]) : "";
   }
@@ -72,7 +72,7 @@ window.WishFeature = (() => {
     favoriteMovieIds = new Set(
       favorites
         .map((item) => Number(item.movieId))
-        .filter((movieId) => Number.isFinite(movieId) && movieId > 0)
+        .filter((movieId) => Number.isFinite(movieId) && movieId > 0),
     );
     loaded = true;
     return favoriteMovieIds;
@@ -142,7 +142,7 @@ window.WishFeature = (() => {
         new CustomEvent("wish:toggled", {
           bubbles: true,
           detail: { movieId, isFavorite },
-        })
+        }),
       );
     } catch (error) {
       console.error("wish toggle failed:", error);
