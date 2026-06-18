@@ -219,6 +219,7 @@ function switchSection(name) {
   else if (name === "users") loadUsers();
   else if (name === "movies") loadMovies();
   else if (name === "reviews") loadReviews();
+  else if (name === "settings") loadSettings();
 }
 
 document.querySelectorAll(".admin-nav-item").forEach((btn) => {
@@ -639,6 +640,34 @@ function deleteReview(rid) {
     }
   });
 }
+
+// ───────── 시스템 설정 ─────────
+async function loadSettings() {
+  try {
+    const data = await api("/api/admin/settings/email-verification");
+    document.getElementById("emailVerificationToggle").checked = data.enabled;
+  } catch (err) {
+    toast(err.message, "error");
+  }
+}
+
+document.getElementById("emailVerificationToggle").addEventListener("change", async (e) => {
+  const enabled = e.target.checked;
+  try {
+    await api("/api/admin/settings/email-verification", {
+      method: "PUT",
+      body: JSON.stringify({ enabled }),
+    });
+    toast(
+      enabled
+        ? "이메일 인증이 활성화되었습니다."
+        : "이메일 인증이 비활성화되었습니다.",
+    );
+  } catch (err) {
+    toast(err.message, "error");
+    e.target.checked = !enabled;
+  }
+});
 
 // ───────── 초기화 ─────────
 async function init() {
