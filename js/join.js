@@ -1,5 +1,5 @@
 ﻿const API = "https://api.mono-log.fun";
-const REQUIRE_EMAIL_VERIFY = true; // 배포 시 true
+let requireEmailVerify = true;
 
 // ========================
 // DOM 참조
@@ -82,6 +82,24 @@ function fillDays() {
 fillYears();
 fillMonths();
 fillDays();
+
+// ========================
+// 이메일 인증 설정 조회
+// ========================
+(async () => {
+  try {
+    const res = await fetch(`${API}/api/auth/verify-email/enabled`);
+    const data = await res.json();
+    requireEmailVerify = Boolean(data.enabled);
+  } catch {
+    requireEmailVerify = true;
+  }
+  if (!requireEmailVerify) {
+    document.querySelector(".verify-code-box")?.classList.add("hidden");
+    const sendCodeBtn = document.getElementById("sendCodeBtn");
+    if (sendCodeBtn) sendCodeBtn.closest(".input-box")?.classList.add("hidden");
+  }
+})();
 
 // ========================
 // 생년월일 변경 이벤트
@@ -201,7 +219,7 @@ document.querySelector("form").addEventListener("submit", async (e) => {
     return;
   }
 
-  if (REQUIRE_EMAIL_VERIFY && !isEmailVerified) {
+  if (requireEmailVerify && !isEmailVerified) {
     try {
       const statusRes = await fetch(`${API}/api/auth/verify-email/status`, {
         method: "POST",
@@ -215,7 +233,7 @@ document.querySelector("form").addEventListener("submit", async (e) => {
     }
   }
 
-  if (REQUIRE_EMAIL_VERIFY && !isEmailVerified) {
+  if (requireEmailVerify && !isEmailVerified) {
     alert("이메일 인증을 완료한 뒤 회원가입하세요.");
     return;
   }

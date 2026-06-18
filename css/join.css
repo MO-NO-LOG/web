@@ -255,3 +255,7 @@ span {
 .birth-select-row option {
   color: #111;
 }
+
+.hidden {
+  display: none !important;
+}
