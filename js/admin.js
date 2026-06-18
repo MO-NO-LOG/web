@@ -17,6 +17,7 @@ const state = {
   editingUserId: null,
   editingMovieId: null,
   confirmAction: null,
+  csrfToken: null,
 };
 
 // ───────── 유틸 ─────────
@@ -29,12 +30,67 @@ function authHeaders() {
   return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
-async function api(path, options = {}) {
-  const res = await fetch(`${API}${path}`, {
+function readCookie(name) {
+  const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const match = document.cookie.match(new RegExp(`(?:^|; )${escaped}=([^;]*)`));
+  return match ? decodeURIComponent(match[1]) : "";
+}
+
+async function getCsrfToken() {
+  const cookieToken = readCookie("csrf_token");
+  if (cookieToken) {
+    state.csrfToken = cookieToken;
+    return cookieToken;
+  }
+  if (state.csrfToken) return state.csrfToken;
+
+  const response = await fetch(`${API}/api/auth/csrf`, {
     credentials: "include",
-    headers: { "Content-Type": "application/json", ...authHeaders() },
-    ...options,
   });
+  if (!response.ok) throw new Error(`CSRF ${response.status}`);
+
+  const data = await response.json();
+  state.csrfToken = readCookie("csrf_token") || data.csrfToken || null;
+  if (!state.csrfToken) throw new Error("CSRF token missing");
+  return state.csrfToken;
+}
+
+async function api(path, options = {}) {
+  const method = (options.method || "GET").toUpperCase();
+  const isStateChange = !["GET", "HEAD", "OPTIONS"].includes(method);
+
+  const buildHeaders = async () => {
+    const headers = { "Content-Type": "application/json", ...authHeaders() };
+    if (isStateChange) headers["X-CSRF-Token"] = await getCsrfToken();
+    return headers;
+  };
+
+  const doFetch = async () => {
+    const res = await fetch(`${API}${path}`, {
+      credentials: "include",
+      headers: await buildHeaders(),
+      ...options,
+    });
+    return res;
+  };
+
+  let res = await doFetch();
+
+  // CSRF 토큰 만료/무효 시 리프레시 후 1회 재시도
+  if (res.status === 403 && isStateChange) {
+    let code = null;
+    try {
+      const body = await res.clone().json();
+      code = body.code;
+    } catch {
+      /* ignore */
+    }
+    if (code === "CSRF_INVALID") {
+      state.csrfToken = null;
+      res = await doFetch();
+    }
+  }
+
   if (res.status === 401) {
     localStorage.removeItem(ACCESS_TOKEN_KEY);
     location.href = "login.html";
