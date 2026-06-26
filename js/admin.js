@@ -150,7 +150,9 @@ function resolveProfileImage(src) {
       return value;
     }
   }
-  const path = value.replace(/^\/+/, "").replace(/^api\/file\/profile-image\/+/i, "");
+  const path = value
+    .replace(/^\/+/, "")
+    .replace(/^api\/file\/profile-image\/+/i, "");
   if (!path) return DEFAULT_PROFILE_IMAGE;
   return `${PROFILE_IMAGE_CDN_BASE}${path}`;
 }
@@ -346,14 +348,24 @@ function renderUsers(users) {
     .join("");
 
   body.querySelectorAll("[data-edit-user]").forEach((btn) => {
-    btn.addEventListener("click", () => openUserModal(Number(btn.dataset.editUser)));
+    btn.addEventListener("click", () =>
+      openUserModal(Number(btn.dataset.editUser)),
+    );
   });
   body.querySelectorAll("[data-del-user]").forEach((btn) => {
-    btn.addEventListener("click", () => deleteUser(Number(btn.dataset.delUser)));
+    btn.addEventListener("click", () =>
+      deleteUser(Number(btn.dataset.delUser)),
+    );
   });
-  renderPagination("usersPagination", state.users.page, users.length, loadUsers, (p) => {
-    state.users.page = p;
-  });
+  renderPagination(
+    "usersPagination",
+    state.users.page,
+    users.length,
+    loadUsers,
+    (p) => {
+      state.users.page = p;
+    },
+  );
 }
 
 function openUserModal(uid) {
@@ -448,14 +460,24 @@ function renderMovies(movies) {
     .join("");
 
   body.querySelectorAll("[data-edit-movie]").forEach((btn) => {
-    btn.addEventListener("click", () => openMovieModal(Number(btn.dataset.editMovie)));
+    btn.addEventListener("click", () =>
+      openMovieModal(Number(btn.dataset.editMovie)),
+    );
   });
   body.querySelectorAll("[data-del-movie]").forEach((btn) => {
-    btn.addEventListener("click", () => deleteMovie(Number(btn.dataset.delMovie)));
+    btn.addEventListener("click", () =>
+      deleteMovie(Number(btn.dataset.delMovie)),
+    );
   });
-  renderPagination("moviesPagination", state.movies.page, movies.length, loadMovies, (p) => {
-    state.movies.page = p;
-  });
+  renderPagination(
+    "moviesPagination",
+    state.movies.page,
+    movies.length,
+    loadMovies,
+    (p) => {
+      state.movies.page = p;
+    },
+  );
 }
 
 document.getElementById("openMovieModal").addEventListener("click", () => {
@@ -599,11 +621,19 @@ function renderReviews(reviews) {
     .join("");
 
   body.querySelectorAll("[data-del-review]").forEach((btn) => {
-    btn.addEventListener("click", () => deleteReview(Number(btn.dataset.delReview)));
+    btn.addEventListener("click", () =>
+      deleteReview(Number(btn.dataset.delReview)),
+    );
   });
-  renderPagination("reviewsPagination", state.reviews.page, reviews.length, loadReviews, (p) => {
-    state.reviews.page = p;
-  });
+  renderPagination(
+    "reviewsPagination",
+    state.reviews.page,
+    reviews.length,
+    loadReviews,
+    (p) => {
+      state.reviews.page = p;
+    },
+  );
 }
 
 function renderPagination(containerId, page, dataLength, loader, setPage) {
@@ -651,23 +681,25 @@ async function loadSettings() {
   }
 }
 
-document.getElementById("emailVerificationToggle").addEventListener("change", async (e) => {
-  const enabled = e.target.checked;
-  try {
-    await api("/api/admin/settings/email-verification", {
-      method: "PUT",
-      body: JSON.stringify({ enabled }),
-    });
-    toast(
-      enabled
-        ? "이메일 인증이 활성화되었습니다."
-        : "이메일 인증이 비활성화되었습니다.",
-    );
-  } catch (err) {
-    toast(err.message, "error");
-    e.target.checked = !enabled;
-  }
-});
+document
+  .getElementById("emailVerificationToggle")
+  .addEventListener("change", async (e) => {
+    const enabled = e.target.checked;
+    try {
+      await api("/api/admin/settings/email-verification", {
+        method: "PUT",
+        body: JSON.stringify({ enabled }),
+      });
+      toast(
+        enabled
+          ? "이메일 인증이 활성화되었습니다."
+          : "이메일 인증이 비활성화되었습니다.",
+      );
+    } catch (err) {
+      toast(err.message, "error");
+      e.target.checked = !enabled;
+    }
+  });
 
 // ───────── 초기화 ─────────
 async function init() {

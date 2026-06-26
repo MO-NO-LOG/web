@@ -26,20 +26,20 @@ HTML, CSS, Vanilla JavaScript로 구성된 정적 웹 프로젝트이며, 영화
 
 ## 페이지 구성
 
-| 파일 | 설명 |
-| --- | --- |
-| `index.html` | 메인 페이지, 영화 검색, 트렌드/추천 영화 섹션 |
-| `movielist.html` | 검색 결과 및 영화 목록 페이지 |
-| `jenre.html` | 장르별 영화 탐색 페이지 |
-| `review.html` | 영화 상세 정보 및 리뷰 페이지 |
-| `wishlist.html` | 위시리스트 페이지 |
-| `mypage.html` | 마이페이지 |
-| `editpage.html` | 회원 정보 수정 페이지 |
-| `join.html` | 회원가입 페이지 |
-| `login.html` | 로그인 페이지 |
-| `find_id.html` | 아이디 찾기 페이지 |
-| `find_pwd.html` | 비밀번호 찾기 페이지 |
-| `header.html` | 공통 헤더 마크업 |
+| 파일             | 설명                                          |
+| ---------------- | --------------------------------------------- |
+| `index.html`     | 메인 페이지, 영화 검색, 트렌드/추천 영화 섹션 |
+| `movielist.html` | 검색 결과 및 영화 목록 페이지                 |
+| `jenre.html`     | 장르별 영화 탐색 페이지                       |
+| `review.html`    | 영화 상세 정보 및 리뷰 페이지                 |
+| `wishlist.html`  | 위시리스트 페이지                             |
+| `mypage.html`    | 마이페이지                                    |
+| `editpage.html`  | 회원 정보 수정 페이지                         |
+| `join.html`      | 회원가입 페이지                               |
+| `login.html`     | 로그인 페이지                                 |
+| `find_id.html`   | 아이디 찾기 페이지                            |
+| `find_pwd.html`  | 비밀번호 찾기 페이지                          |
+| `header.html`    | 공통 헤더 마크업                              |
 
 ## 폴더 구조
 
