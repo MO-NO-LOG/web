@@ -95,9 +95,9 @@ fillDays();
     requireEmailVerify = true;
   }
   if (!requireEmailVerify) {
+    isEmailVerified = true;
     document.querySelector(".verify-code-box")?.classList.add("hidden");
-    const sendCodeBtn = document.getElementById("sendCodeBtn");
-    if (sendCodeBtn) sendCodeBtn.closest(".input-box")?.classList.add("hidden");
+    sendCodeBtn?.classList.add("hidden");
   }
 })();
 
@@ -111,6 +111,7 @@ monthSelect.addEventListener("change", fillDays);
 // 이메일 인증 처리
 // ========================
 emailInput.addEventListener("input", () => {
+  if (!requireEmailVerify) return;
   isEmailVerified = false;
   setVerifyStatus("이메일 인증 필요", "#ffd36b");
 });
