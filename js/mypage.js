@@ -1,8 +1,5 @@
 ﻿const API = "https://api.mono-log.fun";
 const ACCESS_TOKEN_KEY = "access_token";
-const API_HOST = new URL(API).hostname;
-const PROFILE_IMAGE_CDN_BASE = "https://cdn.mono-log.fun/profile_images/";
-const PROFILE_IMAGE_CDN_HOST = "cdn.mono-log.fun";
 const DEFAULT_PROFILE_IMAGE = "images/default-user.png";
 
 const state = {
@@ -12,70 +9,6 @@ const state = {
 };
 
 const FALLBACK_POSTER = "images/ui/break.png";
-
-function resolveProfileImage(src) {
-  const value = typeof src === "string" ? src.trim() : "";
-  if (!value) return DEFAULT_PROFILE_IMAGE;
-
-  if (
-    value === DEFAULT_PROFILE_IMAGE ||
-    value === `/${DEFAULT_PROFILE_IMAGE}` ||
-    /(?:^|\/)images\/default-user\.png$/i.test(value)
-  ) {
-    return DEFAULT_PROFILE_IMAGE;
-  }
-
-  if (value.startsWith("blob:") || value.startsWith("data:")) {
-    return value;
-  }
-
-  if (value.startsWith("//")) {
-    return `https:${value}`;
-  }
-
-  if (/^https?:\/\//i.test(value)) {
-    try {
-      const url = new URL(value);
-      if (url.hostname === PROFILE_IMAGE_CDN_HOST) {
-        return `https://${PROFILE_IMAGE_CDN_HOST}${url.pathname}${url.search}${url.hash}`;
-      }
-      if (url.hostname !== API_HOST) {
-        return value;
-      }
-      return resolveProfileImage(`${url.pathname}${url.search}${url.hash}`);
-    } catch {
-      return value;
-    }
-  }
-
-  const match = value.match(/^([^?#]*)(.*)$/);
-  let path = (match?.[1] || value).replace(/^\/+/, "");
-  const suffix = match?.[2] || "";
-
-  path = path
-    .replace(/^api\/file\/profile-image\/+/i, "")
-    .replace(/^profile_images\/+/i, "");
-
-  if (path && !/\.(?:avif|png|jpe?g|gif|webp|svg)$/i.test(path)) {
-    path = `${path}.avif`;
-  }
-
-  if (!path || /(?:^|\/)images\/default-user\.png$/i.test(path)) {
-    return DEFAULT_PROFILE_IMAGE;
-  }
-
-  return `${PROFILE_IMAGE_CDN_BASE}${path}${suffix}`;
-}
-
-function formatDate(value) {
-  if (!value) return "-";
-  const d = new Date(value);
-  if (Number.isNaN(d.getTime())) return "-";
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, "0");
-  const day = String(d.getDate()).padStart(2, "0");
-  return `${y}.${m}.${day}`;
-}
 
 function calcJoinedDays(value) {
   if (!value) return 0;
@@ -124,15 +57,6 @@ function moveToReview(movieId, reviewId = 0) {
     params.set("reviewId", String(reviewId));
   }
   window.location.href = `review.html?${params.toString()}`;
-}
-
-function escapeHtml(value) {
-  return String(value ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
 }
 
 function renderWishlist() {

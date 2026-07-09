@@ -4,10 +4,6 @@ const DEFAULT_PROFILE_IMAGE = "images/default-user.png";
 const FALLBACK_POSTER = "images/ui/break.png";
 const PAGE_SIZE = 20;
 
-const PROFILE_IMAGE_CDN_BASE = "https://cdn.mono-log.fun/profile_images/";
-const PROFILE_IMAGE_CDN_HOST = "cdn.mono-log.fun";
-const API_HOST = new URL(API).hostname;
-
 const state = {
   me: null,
   section: "dashboard",
@@ -30,11 +26,7 @@ function authHeaders() {
   return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
-function readCookie(name) {
-  const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const match = document.cookie.match(new RegExp(`(?:^|; )${escaped}=([^;]*)`));
-  return match ? decodeURIComponent(match[1]) : "";
-}
+
 
 async function getCsrfToken() {
   const cookieToken = readCookie("csrf_token");
@@ -110,52 +102,7 @@ async function api(path, options = {}) {
   return res.json();
 }
 
-function escapeHtml(value) {
-  return String(value ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
-}
 
-function formatDate(value) {
-  if (!value) return "-";
-  const d = new Date(value);
-  if (Number.isNaN(d.getTime())) return "-";
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, "0");
-  const day = String(d.getDate()).padStart(2, "0");
-  return `${y}.${m}.${day}`;
-}
-
-function resolveProfileImage(src) {
-  const value = typeof src === "string" ? src.trim() : "";
-  if (!value) return DEFAULT_PROFILE_IMAGE;
-  if (
-    value === DEFAULT_PROFILE_IMAGE ||
-    /(?:^|\/)images\/default-user\.png$/i.test(value)
-  )
-    return DEFAULT_PROFILE_IMAGE;
-  if (value.startsWith("blob:") || value.startsWith("data:")) return value;
-  if (value.startsWith("//")) return `https:${value}`;
-  if (/^https?:\/\//i.test(value)) {
-    try {
-      const url = new URL(value);
-      if (url.hostname === PROFILE_IMAGE_CDN_HOST)
-        return `https://${PROFILE_IMAGE_CDN_HOST}${url.pathname}`;
-      if (url.hostname !== API_HOST) return value;
-      return resolveProfileImage(`${url.pathname}${url.search}`);
-    } catch {
-      return value;
-    }
-  }
-  const path = value
-    .replace(/^\/+/, "")
-    .replace(/^api\/file\/profile-image\/+/i, "");
-  if (!path) return DEFAULT_PROFILE_IMAGE;
-  return `${PROFILE_IMAGE_CDN_BASE}${path}`;
-}
 
 function toast(message, type = "success") {
   const el = document.getElementById("toast");

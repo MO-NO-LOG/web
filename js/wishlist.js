@@ -16,20 +16,6 @@ function getToken() {
   return localStorage.getItem(ACCESS_TOKEN_KEY) || "";
 }
 
-function escapeHtml(value) {
-  return String(value ?? "").replace(
-    /[&<>"']/g,
-    (char) =>
-      ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;",
-      })[char],
-  );
-}
-
 function updateCountAndEmpty() {
   totalCount.textContent = wishlistMovies.length;
 

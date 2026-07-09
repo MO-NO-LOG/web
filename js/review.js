@@ -1,8 +1,6 @@
 const API = "https://api.mono-log.fun";
 const ACCESS_TOKEN_KEY = "access_token";
-const API_HOST = new URL(API).hostname;
 
-let csrfTokenCache = null;
 let allReviews = [];
 let reviewExpanded = false;
 let currentReviewPage = 1;
@@ -11,8 +9,6 @@ const reviewReactionState = new Map();
 const REVIEWS_PREVIEW_COUNT = 3;
 const REVIEWS_PAGE_SIZE = 5;
 const FALLBACK_POSTER = "images/ui/break.png";
-const PROFILE_IMAGE_CDN_BASE = "https://cdn.mono-log.fun/profile_images/";
-const PROFILE_IMAGE_CDN_HOST = "cdn.mono-log.fun";
 const DEFAULT_PROFILE_IMAGE = "images/default-user.png";
 const REVIEW_FOCUS_CLASS = "review-target";
 const REVIEW_FOCUS_ACTIVE_CLASS = "review-target-active";
@@ -22,12 +18,6 @@ let currentViewerProfileImage = DEFAULT_PROFILE_IMAGE;
 let pendingFocusReviewId = 0;
 const profileImageCacheByNickname = new Map();
 const profileImageRequestByNickname = new Map();
-
-function readCookie(name) {
-  const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const match = document.cookie.match(new RegExp(`(?:^|; )${escaped}=([^;]*)`));
-  return match ? decodeURIComponent(match[1]) : "";
-}
 
 function readStoredReactionState() {
   try {
@@ -133,69 +123,6 @@ function getTargetReviewId() {
 
 function getToken() {
   return localStorage.getItem(ACCESS_TOKEN_KEY) || "";
-}
-
-function escapeHtml(value) {
-  return String(value ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
-}
-
-function resolveProfileImage(src) {
-  const value = typeof src === "string" ? src.trim() : "";
-  if (!value) return DEFAULT_PROFILE_IMAGE;
-
-  if (
-    value === DEFAULT_PROFILE_IMAGE ||
-    value === `/${DEFAULT_PROFILE_IMAGE}` ||
-    /(?:^|\/)images\/default-user\.png$/i.test(value)
-  ) {
-    return DEFAULT_PROFILE_IMAGE;
-  }
-
-  if (value.startsWith("blob:") || value.startsWith("data:")) {
-    return value;
-  }
-
-  if (value.startsWith("//")) {
-    return `https:${value}`;
-  }
-
-  if (/^https?:\/\//i.test(value)) {
-    try {
-      const url = new URL(value);
-      if (url.hostname === PROFILE_IMAGE_CDN_HOST) {
-        return `https://${PROFILE_IMAGE_CDN_HOST}${url.pathname}${url.search}${url.hash}`;
-      }
-      if (url.hostname !== API_HOST) {
-        return value;
-      }
-      return resolveProfileImage(`${url.pathname}${url.search}${url.hash}`);
-    } catch {
-      return value;
-    }
-  }
-
-  const match = value.match(/^([^?#]*)(.*)$/);
-  let path = (match?.[1] || value).replace(/^\/+/, "");
-  const suffix = match?.[2] || "";
-
-  path = path
-    .replace(/^api\/file\/profile-image\/+/i, "")
-    .replace(/^profile_images\/+/i, "");
-
-  if (path && !/\.(?:avif|png|jpe?g|gif|webp|svg)$/i.test(path)) {
-    path = `${path}.avif`;
-  }
-
-  if (!path || /(?:^|\/)images\/default-user\.png$/i.test(path)) {
-    return DEFAULT_PROFILE_IMAGE;
-  }
-
-  return `${PROFILE_IMAGE_CDN_BASE}${path}${suffix}`;
 }
 
 function getProfileImageFromData(source) {
@@ -326,30 +253,6 @@ function starRatingHTML(rating) {
       ${'<span class="star-icon empty"></span>'.repeat(emptyCount)}
     </span>
   `;
-}
-
-async function getCsrfToken() {
-  const cookieToken = readCookie("csrf_token");
-  if (cookieToken) {
-    csrfTokenCache = cookieToken;
-    return cookieToken;
-  }
-
-  if (csrfTokenCache) return csrfTokenCache;
-
-  const response = await fetch(`${API}/api/auth/csrf`, {
-    credentials: "include",
-  });
-  if (!response.ok) {
-    throw new Error(`CSRF ${response.status}`);
-  }
-
-  const data = await response.json();
-  csrfTokenCache = readCookie("csrf_token") || data.csrfToken || null;
-  if (!csrfTokenCache) {
-    throw new Error("CSRF token missing");
-  }
-  return csrfTokenCache;
 }
 
 async function readErrorMessage(response, fallback) {
@@ -853,43 +756,6 @@ function extractCommentsFromResponse(data) {
 
   const comments = candidates.find((value) => Array.isArray(value));
   return Array.isArray(comments) ? comments : [];
-}
-
-function updateReplyCountUI(reviewEl) {
-  const button = reviewEl.querySelector(".comment-btn");
-  if (!button) return;
-
-  const comments = reviewEl.__comments || [];
-  const count = getReplyCount(comments);
-  const text = button.querySelector(".reply-count");
-
-  button.dataset.count = String(count);
-  button.style.display = count > 0 ? "inline-flex" : "none";
-
-  if (!text) return;
-  text.innerText = button.classList.contains("open")
-    ? "답글 접기"
-    : `답글 ${count}개`;
-}
-
-async function loadComments(reviewEl) {
-  const reviewId = Number(reviewEl.dataset.reviewId);
-  if (!reviewId) return;
-
-  const response = await fetch(`${API}/api/reviews/comment/list`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ reviewId }),
-  });
-
-  if (!response.ok) {
-    throw new Error(`HTTP ${response.status}`);
-  }
-
-  const data = await response.json();
-  reviewEl.__comments = Array.isArray(data.comments) ? data.comments : [];
-  renderReplies(reviewEl);
-  updateReplyCountUI(reviewEl);
 }
 
 function updateReplyCountUI(reviewEl) {

@@ -6,23 +6,6 @@ let currentMovies = [];
 
 const params = new URLSearchParams(window.location.search);
 const keyword = (params.get("keyword") || "").trim();
-const GENRE_KEYWORDS = new Set([
-  "액션",
-  "코미디",
-  "드라마",
-  "sf",
-  "스릴러",
-  "공포",
-  "로맨스",
-  "애니메이션",
-  "판타지",
-  "미스터리",
-  "범죄",
-  "모험",
-  "다큐멘터리",
-  "전쟁",
-  "뮤지컬",
-]);
 
 const searchType = (
   params.get("searchType") ||

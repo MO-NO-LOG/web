@@ -22,15 +22,6 @@ const genreMap = {
   musical: "뮤지컬",
 };
 
-function escapeHtml(value) {
-  return String(value ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
-}
-
 function toDateText(movie) {
   if (!movie.releaseDate) return "-";
   return String(movie.releaseDate).slice(0, 4);

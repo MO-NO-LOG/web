@@ -1,66 +1,6 @@
 ﻿const HEADER_ACCESS_TOKEN_KEY = "access_token";
 const HEADER_API = "https://api.mono-log.fun";
-const HEADER_API_HOST = new URL(HEADER_API).hostname;
-const HEADER_PROFILE_IMAGE_CDN_BASE =
-  "https://cdn.mono-log.fun/profile_images/";
-const HEADER_PROFILE_IMAGE_CDN_HOST = "cdn.mono-log.fun";
 const HEADER_DEFAULT_PROFILE_IMAGE = "images/default-user.png";
-
-function resolveHeaderProfileImage(src) {
-  const value = typeof src === "string" ? src.trim() : "";
-  if (!value) return HEADER_DEFAULT_PROFILE_IMAGE;
-
-  if (
-    value === HEADER_DEFAULT_PROFILE_IMAGE ||
-    value === `/${HEADER_DEFAULT_PROFILE_IMAGE}` ||
-    /(?:^|\/)images\/default-user\.png$/i.test(value)
-  ) {
-    return HEADER_DEFAULT_PROFILE_IMAGE;
-  }
-
-  if (value.startsWith("blob:") || value.startsWith("data:")) {
-    return value;
-  }
-
-  if (value.startsWith("//")) {
-    return `https:${value}`;
-  }
-
-  if (/^https?:\/\//i.test(value)) {
-    try {
-      const url = new URL(value);
-      if (url.hostname === HEADER_PROFILE_IMAGE_CDN_HOST) {
-        return `https://${HEADER_PROFILE_IMAGE_CDN_HOST}${url.pathname}${url.search}${url.hash}`;
-      }
-      if (url.hostname !== HEADER_API_HOST) {
-        return value;
-      }
-      return resolveHeaderProfileImage(
-        `${url.pathname}${url.search}${url.hash}`,
-      );
-    } catch {
-      return value;
-    }
-  }
-
-  const match = value.match(/^([^?#]*)(.*)$/);
-  let path = (match?.[1] || value).replace(/^\/+/, "");
-  const suffix = match?.[2] || "";
-
-  path = path
-    .replace(/^api\/file\/profile-image\/+/i, "")
-    .replace(/^profile_images\/+/i, "");
-
-  if (path && !/\.(?:avif|png|jpe?g|gif|webp|svg)$/i.test(path)) {
-    path = `${path}.avif`;
-  }
-
-  if (!path || /(?:^|\/)images\/default-user\.png$/i.test(path)) {
-    return HEADER_DEFAULT_PROFILE_IMAGE;
-  }
-
-  return `${HEADER_PROFILE_IMAGE_CDN_BASE}${path}${suffix}`;
-}
 
 if (!document.querySelector('script[data-logout-js="1"]')) {
   const logoutScript = document.createElement("script");
@@ -104,7 +44,7 @@ fetch("../header.html")
         if (!user) return;
         const profileImg =
           user.img && String(user.img).trim()
-            ? resolveHeaderProfileImage(user.img)
+            ? resolveProfileImage(user.img)
             : HEADER_DEFAULT_PROFILE_IMAGE;
 
         userMenu.innerHTML = `

@@ -4,39 +4,9 @@ const WISH_ACCESS_TOKEN_KEY = "access_token";
 window.WishFeature = (() => {
   let favoriteMovieIds = new Set();
   let loaded = false;
-  let csrfTokenCache = null;
 
   function getToken() {
     return localStorage.getItem(WISH_ACCESS_TOKEN_KEY) || "";
-  }
-
-  function readCookie(name) {
-    const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    const match = document.cookie.match(
-      new RegExp(`(?:^|; )${escaped}=([^;]*)`),
-    );
-    return match ? decodeURIComponent(match[1]) : "";
-  }
-
-  async function getCsrfToken() {
-    const cookieToken = readCookie("csrf_token");
-    if (cookieToken) {
-      csrfTokenCache = cookieToken;
-      return cookieToken;
-    }
-
-    if (csrfTokenCache) return csrfTokenCache;
-
-    const response = await request(`${WISH_API}/api/auth/csrf`, {
-      credentials: "include",
-    });
-
-    const data = await response.json();
-    csrfTokenCache = readCookie("csrf_token") || data.csrfToken || null;
-    if (!csrfTokenCache) {
-      throw new Error("CSRF token missing");
-    }
-    return csrfTokenCache;
   }
 
   async function request(url, options = {}) {
