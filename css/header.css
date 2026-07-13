@@ -3,12 +3,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Pretendard";
+  font-family: "Wanted Sans Variable", "Pretendard", sans-serif;
   list-style: none;
 }
 
 a {
-  font-family: "Pretendard";
+  font-family: "Wanted Sans Variable", "Pretendard", sans-serif;
   color: inherit;
   text-decoration: none;
 }

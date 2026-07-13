@@ -1,6 +1,4 @@
-﻿@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
-
-/* ================= 공통 ================= */
+﻿/* ================= 공통 ================= */
 * {
   margin: 0;
   padding: 0;
@@ -10,7 +8,7 @@
 body {
   background-color: #ffffff;
   color: #111;
-  font-family: "Pretendard";
+  font-family: "Wanted Sans Variable", "Pretendard", sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 

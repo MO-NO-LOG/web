@@ -20,7 +20,7 @@
 }
 
 body {
-  font-family: "Pretendard";
+  font-family: "Wanted Sans Variable", "Pretendard", sans-serif;
   color: var(--text);
   background: #1f1f1f;
 }
@@ -500,5 +500,18 @@ body {
   .wish-icon {
     width: 20px;
     height: 20px;
+  }
+}
+
+/* 터치 기기 — wish-btn 항상 표시 */
+@media (hover: none) and (pointer: coarse) {
+  .poster .wish-btn {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  .poster:hover img {
+    transform: none;
+    filter: none;
   }
 }

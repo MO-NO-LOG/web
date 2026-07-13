@@ -1,6 +1,4 @@
-﻿@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
-
-html,
+﻿html,
 body {
   width: 100%;
   overflow-x: hidden;
@@ -9,7 +7,7 @@ body {
 body {
   background: #000;
   color: #fff;
-  font-family: "Pretendard";
+  font-family: "Wanted Sans Variable", "Pretendard", sans-serif;
 }
 
 /* 寃???곸뿭 */
@@ -588,5 +586,51 @@ body {
   .section-title {
     font-size: 16px;
     margin-bottom: 14px;
+  }
+}
+
+/* ============================
+   터치 기기 — hover 미지원
+   오버레이 항상 표시 + hover 효과 제거
+============================ */
+@media (hover: none) and (pointer: coarse) {
+  .movie-overlay {
+    opacity: 1 !important;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.85) 0%,
+      rgba(0, 0, 0, 0.25) 60%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  }
+
+  .movie-card:hover,
+  .movie-card:hover img {
+    transform: none;
+    filter: none;
+    box-shadow: none;
+  }
+
+  .movie-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .movie-card:hover img {
+    transform: none;
+    filter: none;
+  }
+
+  .rank-card:hover .poster-wrap {
+    box-shadow: none;
+  }
+
+  .rank-card:hover img {
+    transform: none;
+    filter: none;
+  }
+
+  .rank-card:hover .rank-num {
+    opacity: 1;
   }
 }
