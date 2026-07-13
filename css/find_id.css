@@ -155,6 +155,69 @@ Button
 }
 
 /* =======================
+   반응형
+======================= */
+@media screen and (max-width: 768px) {
+  .content {
+    position: relative;
+    width: 90%;
+    max-width: 400px;
+    margin: 100px auto 50px;
+    padding: 32px 24px;
+    height: auto;
+    min-height: auto;
+  }
+
+  .content h2 {
+    font-size: 26px;
+  }
+
+  .input-box {
+    height: 60px;
+    margin: 16px 0 28px;
+  }
+
+  .input-box input {
+    padding: 18px 40px 18px 18px;
+    font-size: 15px;
+  }
+
+  input::placeholder {
+    font-size: 15px;
+  }
+
+  .btnn {
+    width: 90px;
+    height: 46px;
+    font-size: 16px;
+  }
+
+  .remember {
+    font-size: 14px;
+    margin: 24px 0 20px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .content {
+    padding: 24px 18px;
+  }
+
+  .content h2 {
+    font-size: 22px;
+  }
+
+  .input-box {
+    height: 52px;
+  }
+
+  .input-box input {
+    font-size: 14px;
+    padding: 14px 16px;
+  }
+}
+
+/* =======================
 Input UX 제거
 ======================= */
 input::-ms-reveal,

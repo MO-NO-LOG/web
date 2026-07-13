@@ -57,6 +57,113 @@ body {
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.2);
   }
+
+  .content h2 {
+    font-size: 26px;
+  }
+
+  form {
+    height: 60vh;
+    padding-right: 6px;
+  }
+
+  .content .input-box {
+    height: 50px;
+    margin: 24px 0;
+  }
+
+  .content .input-box input {
+    font-size: 14px;
+    padding: 14px 18px;
+  }
+
+  .line-box {
+    gap: 8px;
+  }
+
+  .content .input-box .line-box input {
+    width: 75%;
+  }
+
+  .verify-btn {
+    width: 25%;
+    min-width: 70px;
+    height: 50px;
+    font-size: 12px;
+  }
+
+  .btnn {
+    height: 42px;
+    font-size: 15px;
+  }
+
+  .birth-select-row select {
+    height: 48px;
+    font-size: 13px;
+    padding: 0 10px;
+  }
+
+  .gender-btn {
+    height: 40px;
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .content {
+    padding: 28px 16px;
+    width: 92%;
+    border-radius: 16px;
+  }
+
+  .content h2 {
+    font-size: 22px;
+  }
+
+  form {
+    height: 55vh;
+  }
+
+  .content .input-box {
+    height: 46px;
+    margin: 18px 0;
+  }
+
+  .content .input-box input {
+    font-size: 13px;
+    padding: 12px 14px;
+    border-radius: 23px;
+  }
+
+  .verify-btn {
+    min-width: 60px;
+    height: 46px;
+    font-size: 11px;
+  }
+
+  .btnn {
+    height: 38px;
+    font-size: 14px;
+  }
+
+  .birth-select-row {
+    gap: 6px;
+  }
+
+  .birth-select-row select {
+    height: 42px;
+    font-size: 12px;
+  }
+
+  .gender-btn {
+    height: 36px;
+    font-size: 13px;
+  }
+
+  .content .input-box.verify-code-box {
+    margin-top: 8px;
+    margin-bottom: 40px;
+  }
 }
 form {
   height: 70vh;

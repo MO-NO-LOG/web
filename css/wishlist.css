@@ -345,3 +345,62 @@ a {
     align-items: flex-start;
   }
 }
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 70px 0 30px;
+  }
+
+  .hero-title {
+    margin-top: 30px;
+    font-size: 24px;
+  }
+
+  .hero-desc {
+    font-size: 14px;
+  }
+
+  .movie-grid {
+    gap: 16px;
+  }
+
+  .movie-link {
+    padding: 10px;
+    border-radius: 16px;
+  }
+
+  .movie-title {
+    font-size: 14px;
+  }
+
+  .movie-meta {
+    font-size: 12px;
+  }
+
+  .poster .wish-btn {
+    width: 38px;
+    height: 38px;
+    top: 8px;
+    right: 8px;
+  }
+
+  .empty-box {
+    height: auto;
+    min-height: 340px;
+    padding: 40px 20px;
+  }
+
+  .sort {
+    width: 120px;
+  }
+
+  .sort-head {
+    height: 34px;
+    padding: 0 12px;
+  }
+
+  .sort-left {
+    font-size: 14px;
+    width: 72px;
+  }
+}

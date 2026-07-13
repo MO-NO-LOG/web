@@ -26,8 +26,6 @@ function authHeaders() {
   return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
-
-
 async function getCsrfToken() {
   const cookieToken = readCookie("csrf_token");
   if (cookieToken) {
@@ -101,8 +99,6 @@ async function api(path, options = {}) {
   if (res.status === 204) return null;
   return res.json();
 }
-
-
 
 function toast(message, type = "success") {
   const el = document.getElementById("toast");

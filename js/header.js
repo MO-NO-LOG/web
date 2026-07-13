@@ -77,3 +77,38 @@ fetch("../header.html")
       .catch((err) => console.error("header user fetch failed:", err));
   })
   .catch((err) => console.error("header load failed:", err));
+
+/* ====================
+   햄버거 메뉴 토글
+==================== */
+function initHamburger() {
+  const hamburger = document.querySelector(".hamburger");
+  const menu = document.querySelector(".menu");
+  if (!hamburger || !menu) return;
+
+  hamburger.addEventListener("click", () => {
+    const isOpen = menu.classList.toggle("open");
+    hamburger.classList.toggle("open");
+    hamburger.setAttribute("aria-expanded", isOpen);
+    document.body.style.overflow = isOpen ? "hidden" : "";
+  });
+
+  /* 메뉴 링크 클릭 시 닫기 */
+  menu.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      menu.classList.remove("open");
+      hamburger.classList.remove("open");
+      hamburger.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+    });
+  });
+}
+
+/* 햄버거가 DOM에 추가된 후 실행 */
+const observer = new MutationObserver(() => {
+  if (document.querySelector(".hamburger")) {
+    initHamburger();
+    observer.disconnect();
+  }
+});
+observer.observe(document.body, { childList: true, subtree: true });

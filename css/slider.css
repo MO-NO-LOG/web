@@ -48,3 +48,14 @@ body {
     border-radius: 10px;
   }
 }
+
+@media screen and (max-width: 480px) {
+  .slider-container {
+    height: 20%;
+  }
+
+  .slider-track img {
+    width: 33%;
+    border-radius: 8px;
+  }
+}

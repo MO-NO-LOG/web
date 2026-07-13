@@ -207,6 +207,72 @@ a {
   .movie-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  .page-title {
+    font-size: 20px;
+  }
+
+  .pagination button {
+    width: 32px;
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 450px) {
+  .movie-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .container {
+    margin: 20px auto;
+  }
+
+  .page-title {
+    font-size: 18px;
+    margin-bottom: 14px;
+  }
+
+  .card-info {
+    padding: 8px;
+  }
+
+  .title {
+    font-size: 12px;
+  }
+
+  .genre,
+  .rating,
+  .date {
+    font-size: 11px;
+  }
+
+  .pagination {
+    gap: 4px;
+  }
+
+  .pagination button {
+    width: 28px;
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+
+  .wish-btn {
+    width: 36px;
+    height: 36px;
+    top: 6px;
+    right: 6px;
+  }
+
+  .wish-icon {
+    width: 20px;
+    height: 20px;
+  }
 }
 
 .arrow-btn {

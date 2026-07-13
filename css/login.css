@@ -64,6 +64,71 @@ body {
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.2);
   }
+
+  .content h2 {
+    font-size: 28px;
+  }
+
+  .content .input-box {
+    height: 50px;
+    margin: 24px 0;
+  }
+
+  .content .input-box input {
+    font-size: 14px;
+    padding: 16px 20px;
+  }
+
+  .btnn {
+    height: 42px;
+    font-size: 15px;
+    margin: 12px 0 20px;
+  }
+
+  .button {
+    gap: 14px;
+  }
+
+  .button a {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .content {
+    padding: 28px 16px;
+    width: 92%;
+    border-radius: 16px;
+  }
+
+  .content h2 {
+    font-size: 24px;
+  }
+
+  .content .input-box {
+    height: 46px;
+    margin: 18px 0;
+  }
+
+  .content .input-box input {
+    font-size: 13px;
+    padding: 14px 16px;
+    border-radius: 23px;
+  }
+
+  .btnn {
+    height: 38px;
+    font-size: 14px;
+  }
+
+  .remember {
+    font-size: 13px;
+  }
+
+  .remember label input {
+    width: 13px;
+    height: 13px;
+  }
 }
 
 .content h2 {

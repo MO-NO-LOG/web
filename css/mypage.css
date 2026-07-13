@@ -654,7 +654,7 @@ a {
 }
 
 /* =====================
-    반응형 레이아웃 (반응형 코드)
+    반응형 레이아웃
 ===================== */
 
 @media (max-width: 768px) {
@@ -669,6 +669,138 @@ a {
 
   .review-item {
     gap: 10px;
+  }
+
+  .avatar {
+    width: 110px;
+    height: 110px;
+  }
+
+  .profile h2 {
+    font-size: 20px;
+  }
+
+  .my-review {
+    padding: 20px;
+  }
+
+  .my-review h3 {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 550px) {
+  .profile {
+    margin-bottom: 36px;
+  }
+
+  .avatar {
+    width: 90px;
+    height: 90px;
+  }
+
+  .avatar > a {
+    width: 32px;
+    height: 32px;
+  }
+
+  .profile h2 {
+    font-size: 18px;
+  }
+
+  .stats {
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 16px 12px;
+  }
+
+  .stats div {
+    flex: 1;
+    min-width: 60px;
+  }
+
+  .stats strong {
+    font-size: 16px;
+  }
+
+  .my-review {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .my-review h3 {
+    font-size: 14px;
+    margin-bottom: 14px;
+  }
+
+  .review-item {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px 0;
+  }
+
+  .review-item strong {
+    font-size: 14px;
+    width: 100%;
+  }
+
+  .review-item p {
+    font-size: 12px;
+    margin-top: 4px;
+    width: 100%;
+  }
+
+  .review-date {
+    font-size: 10px;
+  }
+
+  .stars {
+    font-size: 18px;
+    margin-left: 0;
+  }
+
+  .more-btn {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .wishlist {
+    padding: 16px;
+  }
+
+  .wish-cta {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 14px;
+  }
+
+  .wish-cta-left {
+    width: 100%;
+  }
+
+  .wishlist-link-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 400px) {
+  .container {
+    width: 100%;
+    padding: 0 12px;
+  }
+
+  .stats {
+    gap: 8px;
+    padding: 12px 8px;
+  }
+
+  .stats div strong {
+    font-size: 14px;
+  }
+
+  .wish-cta {
+    padding: 12px;
   }
 }
 

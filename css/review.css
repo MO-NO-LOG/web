@@ -1585,3 +1585,269 @@ a {
     box-shadow: 0 0 0 0 rgba(79, 124, 255, 0);
   }
 }
+
+/* =====================
+    반응형
+===================== */
+@media (max-width: 1024px) {
+  .detail-top {
+    gap: 48px;
+    padding: 0 32px;
+  }
+
+  .title {
+    font-size: 38px;
+  }
+
+  .reviews {
+    padding: 60px 32px;
+  }
+
+  .reviews button.view-more {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .detail {
+    padding-top: 90px;
+    padding-bottom: 60px;
+  }
+
+  .detail-top {
+    flex-direction: column;
+    gap: 32px;
+    margin-bottom: 60px;
+    padding: 0 20px;
+  }
+
+  .poster {
+    width: 60%;
+    max-width: 360px;
+    margin: 0 auto;
+  }
+
+  .info {
+    width: 100%;
+    position: static;
+    top: auto;
+  }
+
+  .title {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+
+  .meta {
+    font-size: 11px;
+  }
+
+  .score strong {
+    font-size: 26px;
+  }
+
+  .summary h3 {
+    margin-bottom: 16px;
+  }
+
+  .summary p {
+    font-size: 14px;
+  }
+
+  .reviews {
+    padding: 40px 20px;
+  }
+
+  .reviews-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding-top: 36px;
+  }
+
+  .reviews-header h2 {
+    font-size: 20px;
+  }
+
+  .review-input-wrap {
+    padding-left: 0;
+    flex-direction: column;
+  }
+
+  .review-form textarea {
+    font-size: 14px;
+  }
+
+  .profile {
+    position: static;
+    width: 36px;
+    height: 36px;
+  }
+
+  .review-input-wrap .profile {
+    display: none;
+  }
+
+  .review {
+    padding: 24px 0;
+  }
+
+  .review-top {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .review-top img {
+    width: 34px;
+    height: 34px;
+  }
+
+  .review .star {
+    margin-left: 0;
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .review p {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .review .action-row {
+    position: static;
+    margin-top: 12px;
+    gap: 14px;
+  }
+
+  .review .action-row .action img {
+    width: 16px;
+    height: 16px;
+  }
+
+  .review .action-row .action span {
+    font-size: 12px;
+  }
+
+  .rating-input label {
+    width: 11px;
+    height: 22px;
+  }
+
+  .rating-input label::before,
+  .rating-input label::after {
+    font-size: 22px;
+    width: 22px;
+  }
+
+  .rating-input label.full::before,
+  .rating-input label.full::after {
+    left: -11px;
+  }
+
+  .form-actions {
+    gap: 12px;
+  }
+
+  .form-actions button {
+    width: 70px;
+    padding: 6px 14px;
+    font-size: 12px;
+  }
+
+  /* 추천 영화 목록 */
+  .recommend {
+    padding: 0 20px 60px;
+  }
+
+  .recommend-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 550px) {
+  .detail {
+    padding-top: 70px;
+  }
+
+  .detail-top {
+    gap: 20px;
+    padding: 0 16px;
+  }
+
+  .poster {
+    width: 70%;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .score {
+    margin-bottom: 20px;
+  }
+
+  .score strong {
+    font-size: 22px;
+  }
+
+  .meta {
+    font-size: 10px;
+    gap: 8px;
+  }
+
+  .reviews {
+    padding: 28px 16px;
+  }
+
+  .reviews-header h2 {
+    font-size: 18px;
+  }
+
+  .btn.write {
+    font-size: 12px;
+    padding: 8px 18px;
+  }
+
+  .review p {
+    font-size: 13px;
+  }
+
+  .recommend h2 {
+    font-size: 18px;
+  }
+
+  .recommend-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .review-pagination {
+    gap: 8px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 400px) {
+  .recommend-list {
+    grid-template-columns: 1fr;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+
+  .detail-top {
+    padding: 0 12px;
+  }
+
+  .reviews {
+    padding: 20px 12px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .review .user {
+    font-size: 14px;
+  }
+}

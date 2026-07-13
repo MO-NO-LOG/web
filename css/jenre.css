@@ -440,3 +440,65 @@ body {
     min-width: 108px;
   }
 }
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 70px 0 40px;
+  }
+
+  .hero-title {
+    margin-top: 30px;
+    font-size: 24px;
+  }
+
+  .hero-desc {
+    font-size: 14px;
+  }
+
+  .genre-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .genre-btn {
+    min-width: 0;
+    height: 42px;
+    font-size: 15px;
+    padding: 0 14px;
+  }
+
+  .content {
+    padding: 0 20px 40px;
+  }
+
+  .movie-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .movie-link {
+    padding: 10px;
+    border-radius: 16px;
+  }
+
+  .movie-title {
+    font-size: 14px;
+  }
+
+  .movie-meta {
+    font-size: 12px;
+    gap: 6px;
+  }
+
+  .wish-btn {
+    width: 38px;
+    height: 38px;
+    top: 8px;
+    right: 8px;
+  }
+
+  .wish-icon {
+    width: 20px;
+    height: 20px;
+  }
+}
