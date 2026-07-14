@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/slider.css" />
     <link rel="stylesheet" href="css/header.css" />
     <link rel="stylesheet" href="css/footer.css" />
+    <link rel="stylesheet" href="css/oauth.css" />
   </head>
 
   <body>
@@ -131,6 +132,7 @@
         </div>
 
         <button type="submit" class="btnn">회원가입</button>
+        <div id="oauth-container"></div>
       </form>
     </div>
 
@@ -186,5 +188,9 @@
     <script src="js/slider.js"></script>
     <script src="js/join.js"></script>
     <script src="js/header.js"></script>
+    <script src="js/oauth.js"></script>
+    <script>
+      injectKakaoButton("oauth-container", { label: "카카오로 시작하기" });
+    </script>
   </body>
 </html>
