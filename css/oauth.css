@@ -1,0 +1,73 @@
+/* Kakao OAuth Button */
+.oauth-divider {
+    display: flex;
+    align-items: center;
+    margin: 1.2rem 0;
+    color: #888;
+    font-size: 0.85rem;
+}
+
+.oauth-divider::before,
+.oauth-divider::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #333;
+}
+
+.oauth-divider span {
+    padding: 0 10px;
+}
+
+.btn-kakao {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background: #FEE500;
+    color: #3C1E1E;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: opacity 0.15s;
+    text-decoration: none;
+}
+
+.btn-kakao:hover {
+    opacity: 0.85;
+}
+
+.btn-kakao svg {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.gender-options {
+    display: flex;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.gender-btn {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #555;
+    border-radius: 6px;
+    background: transparent;
+    color: #ccc;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.gender-btn.active {
+    border: 1px solid #FEE500;
+    color: #FEE500;
+}
