@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>프로필 완성 — MONO-LOG</title>
+    <link rel="stylesheet" href="css/login.css" />
+    <link rel="stylesheet" href="css/oauth.css" />
+  </head>
+  <body>
+    <div class="content">
+      <form id="profileForm">
+        <h2>프로필을 완성해주세요</h2>
+        <p style="color: #999; font-size: 0.85rem;">추가 정보가 필요합니다.</p>
+
+        <div id="field-email" class="input-box hidden">
+          <span>이메일</span>
+          <input type="email" id="email" placeholder="이메일을 입력하세요" />
+        </div>
+
+        <div id="field-nickname" class="input-box hidden">
+          <span>닉네임</span>
+          <input type="text" id="nickname" placeholder="닉네임을 입력하세요" />
+        </div>
+
+        <div id="field-gender" class="input-box hidden">
+          <span>성별</span>
+          <div class="gender-options">
+            <button type="button" class="gender-btn" data-gender="M">남성</button>
+            <button type="button" class="gender-btn" data-gender="F">여성</button>
+            <button type="button" class="gender-btn" data-gender="O">기타</button>
+          </div>
+        </div>
+
+        <div id="field-birth" class="input-box hidden">
+          <span>생년월일</span>
+          <input type="date" id="birthDate" />
+        </div>
+
+        <button type="submit" class="btnn">완료</button>
+      </form>
+    </div>
+
+    <script src="js/header.js"></script>
+    <script src="js/profile_complete.js"></script>
+  </body>
+</html>
