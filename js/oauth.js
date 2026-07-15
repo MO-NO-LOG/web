@@ -1,4 +1,4 @@
-const ACCESS_TOKEN_KEY = "access_token";
+const OAUTH_TOKEN_KEY = "access_token";
 
 function kakaoLogin() {
     location.href = "https://api.mono-log.fun/api/oauth/kakao/login";
@@ -33,7 +33,7 @@ function injectKakaoButton(containerId, options = {}) {
 (function moveTokenFromCookie() {
     const match = document.cookie.match(/(?:^|; )oauth_access_token=([^;]*)/);
     if (match) {
-        localStorage.setItem(ACCESS_TOKEN_KEY, decodeURIComponent(match[1]));
+        localStorage.setItem(OAUTH_TOKEN_KEY, decodeURIComponent(match[1]));
         document.cookie = "oauth_access_token=; max-age=0; path=/";
     }
 })();
