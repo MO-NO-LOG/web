@@ -1,7 +1,7 @@
 const ACCESS_TOKEN_KEY = "access_token";
 
 function kakaoLogin() {
-    location.href = "/api/oauth/kakao/login";
+    location.href = "https://api.mono-log.fun/api/oauth/kakao/login";
 }
 
 function injectKakaoButton(containerId, options = {}) {
