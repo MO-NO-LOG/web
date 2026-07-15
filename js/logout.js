@@ -20,6 +20,6 @@ document.addEventListener("click", async (e) => {
   } finally {
     localStorage.removeItem(LOGOUT_ACCESS_TOKEN_KEY);
     document.cookie = "oauth_access_token=; max-age=0; path=/";
-    window.location.href = "login.html";
+    window.location.href = "index.html";
   }
 });
