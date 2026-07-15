@@ -19,6 +19,7 @@ document.addEventListener("click", async (e) => {
     console.error("logout failed:", err);
   } finally {
     localStorage.removeItem(LOGOUT_ACCESS_TOKEN_KEY);
+    document.cookie = "oauth_access_token=; max-age=0; path=/";
     window.location.href = "login.html";
   }
 });
