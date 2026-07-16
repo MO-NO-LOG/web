@@ -16,6 +16,7 @@ fetch("../header.html")
     if (!header) return;
 
     header.innerHTML = html;
+    document.dispatchEvent(new CustomEvent("header:loaded"));
 
     const userMenu = header.querySelector(".user-menu");
     if (!userMenu) return;
@@ -78,9 +79,6 @@ fetch("../header.html")
   })
   .catch((err) => console.error("header load failed:", err));
 
-/* ====================
-   햄버거 메뉴 토글
-==================== */
 function initHamburger() {
   const hamburger = document.querySelector(".hamburger");
   const menu = document.querySelector(".menu");
@@ -93,7 +91,6 @@ function initHamburger() {
     document.body.style.overflow = isOpen ? "hidden" : "";
   });
 
-  /* 메뉴 링크 클릭 시 닫기 */
   menu.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => {
       menu.classList.remove("open");
@@ -104,11 +101,4 @@ function initHamburger() {
   });
 }
 
-/* 햄버거가 DOM에 추가된 후 실행 */
-const observer = new MutationObserver(() => {
-  if (document.querySelector(".hamburger")) {
-    initHamburger();
-    observer.disconnect();
-  }
-});
-observer.observe(document.body, { childList: true, subtree: true });
+document.addEventListener("header:loaded", initHamburger);

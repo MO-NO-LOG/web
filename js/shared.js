@@ -115,4 +115,36 @@
     if (!csrfTokenCache) throw new Error("CSRF token missing");
     return csrfTokenCache;
   };
+
+  window.readErrorMessage = async function readErrorMessage(response, fallback) {
+    try {
+      var data = await response.json();
+      if (typeof data.message === "string" && data.message.trim()) return data.message.trim();
+      if (typeof data.detail === "string" && data.detail.trim()) return data.detail.trim();
+    } catch {}
+    return fallback;
+  };
+
+  window.fetchMovieDetail = async function fetchMovieDetail(movieId, token) {
+    try {
+      var response = await fetch(API + "/api/movies/detail/" + movieId, {
+        credentials: "include",
+        headers: token ? { Authorization: "Bearer " + token } : {},
+      });
+      if (!response.ok) return null;
+      return response.json();
+    } catch (error) {
+      console.error("movie detail load failed:", error);
+      return null;
+    }
+  };
+
+  window.formatRating = function formatRating(rating) {
+    return Number(rating || 0).toFixed(1);
+  };
+
+  window.makeTextStars = function makeTextStars(rating) {
+    var filled = Math.max(0, Math.min(5, Math.round(Number(rating) || 0)));
+    return "★".repeat(filled) + "☆".repeat(5 - filled);
+  };
 })();

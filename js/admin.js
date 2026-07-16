@@ -100,6 +100,22 @@ async function api(path, options = {}) {
   return res.json();
 }
 
+function adminTableState(bodyId, colspan, { loading, error, empty }) {
+  const body = document.getElementById(bodyId);
+  if (!body) return;
+  if (loading) body.innerHTML = `<tr class="admin-loading-row"><td colspan="${colspan}">불러오는 중…</td></tr>`;
+  else if (error) body.innerHTML = `<tr class="admin-empty-row"><td colspan="${colspan}">${escapeHtml(error)}</td></tr>`;
+  else if (empty) body.innerHTML = `<tr class="admin-empty-row"><td colspan="${colspan}">${escapeHtml(empty)}</td></tr>`;
+}
+
+function ratingBadge(rating) {
+  return `<span class="rating-badge">★ ${Number(rating).toFixed(1)}</span>`;
+}
+
+function rowActions(actions) {
+  return `<div class="row-actions">${actions}</div>`;
+}
+
 function toast(message, type = "success") {
   const el = document.getElementById("toast");
   el.textContent = message;
@@ -237,7 +253,7 @@ function renderRecentReviews(reviews) {
       <tr>
         <td>${escapeHtml(r.userNickname)}</td>
         <td class="cell-ellipsis">${escapeHtml(r.movieTitle)}</td>
-        <td><span class="rating-badge">★ ${Number(r.rating).toFixed(1)}</span></td>
+        <td>${ratingBadge(r.rating)}</td>
         <td>${formatDate(r.createdAt)}</td>
       </tr>`,
     )
@@ -246,25 +262,26 @@ function renderRecentReviews(reviews) {
 
 // ───────── 사용자 관리 ─────────
 async function loadUsers() {
-  const body = document.getElementById("usersBody");
-  body.innerHTML = `<tr class="admin-loading-row"><td colspan="7">불러오는 중…</td></tr>`;
+  adminTableState("usersBody", 7, { loading: true });
   try {
-    const data = await api(
-      `/api/admin/users?page=${state.users.page}&size=${PAGE_SIZE}`,
-    );
+    const data = await api(`/api/admin/users?page=${state.users.page}&size=${PAGE_SIZE}`);
     state.users.data = data;
     renderUsers(data);
   } catch (err) {
-    body.innerHTML = `<tr class="admin-empty-row"><td colspan="7">${escapeHtml(err.message)}</td></tr>`;
+    adminTableState("usersBody", 7, { error: err.message });
   }
 }
 
 function renderUsers(users) {
-  const body = document.getElementById("usersBody");
+  adminTableState("usersBody", 7, {
+    loading: false,
+    empty: users.length ? null : "사용자가 없습니다.",
+  });
   if (!users.length) {
-    body.innerHTML = `<tr class="admin-empty-row"><td colspan="7">사용자가 없습니다.</td></tr>`;
+    renderPagination("usersPagination", state.users.page, 0, loadUsers, (p) => { state.users.page = p; });
     return;
   }
+  const body = document.getElementById("usersBody");
   body.innerHTML = users
     .map(
       (u) => `
@@ -281,34 +298,22 @@ function renderUsers(users) {
         <td>${u.reviewCount ?? 0}</td>
         <td>${formatDate(u.createdAt)}</td>
         <td>
-          <div class="row-actions">
+          ${rowActions(`
             <button class="icon-btn" title="수정" data-edit-user="${u.uid}">✎</button>
             <button class="icon-btn danger" title="삭제" data-del-user="${u.uid}">🗑</button>
-          </div>
+          `)}
         </td>
       </tr>`,
     )
     .join("");
 
   body.querySelectorAll("[data-edit-user]").forEach((btn) => {
-    btn.addEventListener("click", () =>
-      openUserModal(Number(btn.dataset.editUser)),
-    );
+    btn.addEventListener("click", () => openUserModal(Number(btn.dataset.editUser)));
   });
   body.querySelectorAll("[data-del-user]").forEach((btn) => {
-    btn.addEventListener("click", () =>
-      deleteUser(Number(btn.dataset.delUser)),
-    );
+    btn.addEventListener("click", () => deleteUser(Number(btn.dataset.delUser)));
   });
-  renderPagination(
-    "usersPagination",
-    state.users.page,
-    users.length,
-    loadUsers,
-    (p) => {
-      state.users.page = p;
-    },
-  );
+  renderPagination("usersPagination", state.users.page, users.length, loadUsers, (p) => { state.users.page = p; });
 }
 
 function openUserModal(uid) {
@@ -363,25 +368,26 @@ function deleteUser(uid) {
 
 // ───────── 영화 관리 ─────────
 async function loadMovies() {
-  const body = document.getElementById("moviesBody");
-  body.innerHTML = `<tr class="admin-loading-row"><td colspan="7">불러오는 중…</td></tr>`;
+  adminTableState("moviesBody", 7, { loading: true });
   try {
-    const data = await api(
-      `/api/admin/movies?page=${state.movies.page}&size=${PAGE_SIZE}`,
-    );
+    const data = await api(`/api/admin/movies?page=${state.movies.page}&size=${PAGE_SIZE}`);
     state.movies.data = data;
     renderMovies(data);
   } catch (err) {
-    body.innerHTML = `<tr class="admin-empty-row"><td colspan="7">${escapeHtml(err.message)}</td></tr>`;
+    adminTableState("moviesBody", 7, { error: err.message });
   }
 }
 
 function renderMovies(movies) {
-  const body = document.getElementById("moviesBody");
+  adminTableState("moviesBody", 7, {
+    loading: false,
+    empty: movies.length ? null : "영화가 없습니다.",
+  });
   if (!movies.length) {
-    body.innerHTML = `<tr class="admin-empty-row"><td colspan="7">영화가 없습니다.</td></tr>`;
+    renderPagination("moviesPagination", state.movies.page, 0, loadMovies, (p) => { state.movies.page = p; });
     return;
   }
+  const body = document.getElementById("moviesBody");
   body.innerHTML = movies
     .map(
       (m) => `
@@ -390,37 +396,25 @@ function renderMovies(movies) {
         <td>${escapeHtml(m.title)}</td>
         <td>${escapeHtml(m.director || "-")}</td>
         <td>${formatDate(m.releaseDate)}</td>
-        <td><span class="rating-badge">★ ${Number(m.averageRating).toFixed(1)}</span></td>
+        <td>${ratingBadge(m.averageRating)}</td>
         <td>${m.reviewCount ?? 0}</td>
         <td>
-          <div class="row-actions">
+          ${rowActions(`
             <button class="icon-btn" title="수정" data-edit-movie="${m.mid}">✎</button>
             <button class="icon-btn danger" title="삭제" data-del-movie="${m.mid}">🗑</button>
-          </div>
+          `)}
         </td>
       </tr>`,
     )
     .join("");
 
   body.querySelectorAll("[data-edit-movie]").forEach((btn) => {
-    btn.addEventListener("click", () =>
-      openMovieModal(Number(btn.dataset.editMovie)),
-    );
+    btn.addEventListener("click", () => openMovieModal(Number(btn.dataset.editMovie)));
   });
   body.querySelectorAll("[data-del-movie]").forEach((btn) => {
-    btn.addEventListener("click", () =>
-      deleteMovie(Number(btn.dataset.delMovie)),
-    );
+    btn.addEventListener("click", () => deleteMovie(Number(btn.dataset.delMovie)));
   });
-  renderPagination(
-    "moviesPagination",
-    state.movies.page,
-    movies.length,
-    loadMovies,
-    (p) => {
-      state.movies.page = p;
-    },
-  );
+  renderPagination("moviesPagination", state.movies.page, movies.length, loadMovies, (p) => { state.movies.page = p; });
 }
 
 document.getElementById("openMovieModal").addEventListener("click", () => {
@@ -524,25 +518,26 @@ document.getElementById("tmdbForm").addEventListener("submit", async (e) => {
 
 // ───────── 리뷰 관리 ─────────
 async function loadReviews() {
-  const body = document.getElementById("reviewsBody");
-  body.innerHTML = `<tr class="admin-loading-row"><td colspan="8">불러오는 중…</td></tr>`;
+  adminTableState("reviewsBody", 8, { loading: true });
   try {
-    const data = await api(
-      `/api/admin/reviews?page=${state.reviews.page}&size=${PAGE_SIZE}`,
-    );
+    const data = await api(`/api/admin/reviews?page=${state.reviews.page}&size=${PAGE_SIZE}`);
     state.reviews.data = data;
     renderReviews(data);
   } catch (err) {
-    body.innerHTML = `<tr class="admin-empty-row"><td colspan="8">${escapeHtml(err.message)}</td></tr>`;
+    adminTableState("reviewsBody", 8, { error: err.message });
   }
 }
 
 function renderReviews(reviews) {
-  const body = document.getElementById("reviewsBody");
+  adminTableState("reviewsBody", 8, {
+    loading: false,
+    empty: reviews.length ? null : "리뷰가 없습니다.",
+  });
   if (!reviews.length) {
-    body.innerHTML = `<tr class="admin-empty-row"><td colspan="8">리뷰가 없습니다.</td></tr>`;
+    renderPagination("reviewsPagination", state.reviews.page, 0, loadReviews, (p) => { state.reviews.page = p; });
     return;
   }
+  const body = document.getElementById("reviewsBody");
   body.innerHTML = reviews
     .map(
       (r) => `
@@ -551,32 +546,20 @@ function renderReviews(reviews) {
         <td>${escapeHtml(r.userNickname)}</td>
         <td class="cell-ellipsis">${escapeHtml(r.movieTitle)}</td>
         <td class="cell-ellipsis">${escapeHtml(r.title || "-")}</td>
-        <td><span class="rating-badge">★ ${Number(r.rating).toFixed(1)}</span></td>
+        <td>${ratingBadge(r.rating)}</td>
         <td class="cell-ellipsis">${escapeHtml(r.content)}</td>
         <td>${formatDate(r.createdAt)}</td>
         <td>
-          <div class="row-actions">
-            <button class="icon-btn danger" title="삭제" data-del-review="${r.rid}">🗑</button>
-          </div>
+          ${rowActions(`<button class="icon-btn danger" title="삭제" data-del-review="${r.rid}">🗑</button>`)}
         </td>
       </tr>`,
     )
     .join("");
 
   body.querySelectorAll("[data-del-review]").forEach((btn) => {
-    btn.addEventListener("click", () =>
-      deleteReview(Number(btn.dataset.delReview)),
-    );
+    btn.addEventListener("click", () => deleteReview(Number(btn.dataset.delReview)));
   });
-  renderPagination(
-    "reviewsPagination",
-    state.reviews.page,
-    reviews.length,
-    loadReviews,
-    (p) => {
-      state.reviews.page = p;
-    },
-  );
+  renderPagination("reviewsPagination", state.reviews.page, reviews.length, loadReviews, (p) => { state.reviews.page = p; });
 }
 
 function renderPagination(containerId, page, dataLength, loader, setPage) {

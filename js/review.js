@@ -12,42 +12,12 @@ const FALLBACK_POSTER = "images/ui/break.png";
 const DEFAULT_PROFILE_IMAGE = "images/default-user.png";
 const REVIEW_FOCUS_CLASS = "review-target";
 const REVIEW_FOCUS_ACTIVE_CLASS = "review-target-active";
-const REVIEW_REACTION_STORAGE_KEY = "review_reaction_state";
+
 
 let currentViewerProfileImage = DEFAULT_PROFILE_IMAGE;
 let pendingFocusReviewId = 0;
 const profileImageCacheByNickname = new Map();
 const profileImageRequestByNickname = new Map();
-
-function readStoredReactionState() {
-  try {
-    const raw = localStorage.getItem(REVIEW_REACTION_STORAGE_KEY);
-    const parsed = raw ? JSON.parse(raw) : {};
-    return parsed && typeof parsed === "object" ? parsed : {};
-  } catch {
-    return {};
-  }
-}
-
-function writeStoredReactionState(reviewId, state) {
-  if (!reviewId) return;
-
-  const stored = readStoredReactionState();
-  stored[String(reviewId)] = {
-    likeCount: Number(state.likeCount || 0),
-    dislikeCount: Number(state.dislikeCount || 0),
-    myReaction: state.myReaction || null,
-  };
-
-  try {
-    localStorage.setItem(REVIEW_REACTION_STORAGE_KEY, JSON.stringify(stored));
-  } catch {}
-}
-
-function getStoredReactionState(reviewId) {
-  const stored = readStoredReactionState()[String(reviewId)];
-  return stored && typeof stored === "object" ? stored : null;
-}
 
 function readReactionCount(review, type) {
   const candidates =
@@ -93,21 +63,6 @@ function readMyReaction(review) {
     .trim()
     .toUpperCase();
   return normalized === "LIKE" || normalized === "DISLIKE" ? normalized : null;
-}
-
-function syncReactionStateToReviews(reviewId, state) {
-  allReviews = allReviews.map((review) => {
-    if (Number(review.reviewId) !== Number(reviewId)) return review;
-
-    return {
-      ...review,
-      likeCount: state.likeCount,
-      likes: state.likeCount,
-      dislikeCount: state.dislikeCount,
-      dislikes: state.dislikeCount,
-      myReaction: state.myReaction,
-    };
-  });
 }
 
 function getMovieId() {
@@ -255,29 +210,15 @@ function starRatingHTML(rating) {
   `;
 }
 
-async function readErrorMessage(response, fallback) {
-  try {
-    const data = await response.json();
-    if (typeof data.detail === "string") return data.detail;
-    if (typeof data.message === "string") return data.message;
-  } catch {}
-  return fallback;
-}
-
 function getReactionState(review) {
   const reviewId = Number(review.reviewId);
   if (!reviewReactionState.has(reviewId)) {
-    const storedState = getStoredReactionState(reviewId);
-    const nextState = storedState || {
+    reviewReactionState.set(reviewId, {
       likeCount: readReactionCount(review, "LIKE"),
       dislikeCount: readReactionCount(review, "DISLIKE"),
       myReaction: readMyReaction(review),
-    };
-
-    reviewReactionState.set(reviewId, nextState);
-    syncReactionStateToReviews(reviewId, nextState);
+    });
   }
-
   return reviewReactionState.get(reviewId);
 }
 
@@ -299,11 +240,13 @@ function reviewActionIcons(review) {
   `;
 }
 
-function passiveActionIcons() {
-  return `
-    <div class="action"><img src="images/ui/like.webp" alt="좋아요"><span>0</span></div>
-    <div class="action"><img src="images/ui/like.webp" class="rotate-180" alt="싫어요"><span>0</span></div>
-  `;
+const PASSIVE_ACTION_ICONS = `
+  <div class="action"><img src="images/ui/like.webp" alt="좋아요"><span>0</span></div>
+  <div class="action"><img src="images/ui/like.webp" class="rotate-180" alt="싫어요"><span>0</span></div>
+`;
+
+function profileImgHTML(imgSrc, nickname, cssClass, alt) {
+  return `<img src="${escapeHtml(imgSrc)}" class="${cssClass}" alt="${alt}" data-profile-nickname="${escapeHtml(nickname)}" data-profile-source="${escapeHtml(imgSrc)}">`;
 }
 
 function makeReplyHTML(reply) {
@@ -313,20 +256,12 @@ function makeReplyHTML(reply) {
 
   return `
     <div class="reply nested-reply">
-      <img
-        src="${escapeHtml(replyProfileImage)}"
-        class="reply-profile"
-        alt="reply-user"
-        data-profile-nickname="${escapeHtml(replyNickname)}"
-        data-profile-source="${escapeHtml(replyProfileSource)}"
-      >
+      ${profileImgHTML(replyProfileImage, replyNickname, "reply-profile", "reply-user")}
       <div class="reply-content">
         <span class="reply-user">${escapeHtml(reply.userNickname || "익명")}</span>
         <div class="reply-body">${escapeHtml(reply.content || "")}</div>
       </div>
-      <div class="reply-actions">
-        ${passiveActionIcons()}
-      </div>
+      <div class="reply-actions">${PASSIVE_ACTION_ICONS}</div>
     </div>
   `;
 }
@@ -341,20 +276,13 @@ function makeCommentThreadHTML(comment) {
   return `
     <div class="comment-thread" data-comment-id="${commentId}">
       <div class="reply">
-        <img
-          src="${escapeHtml(commentProfileImage)}"
-          class="reply-profile"
-          alt="comment-user"
-          data-profile-nickname="${escapeHtml(commentNickname)}"
-          data-profile-source="${escapeHtml(commentProfileSource)}"
-        >
+        ${profileImgHTML(commentProfileImage, commentNickname, "reply-profile", "comment-user")}
         <div class="reply-content">
           <span class="reply-user">${escapeHtml(comment.userNickname || "익명")}</span>
           <div class="reply-body">${escapeHtml(comment.content || "")}</div>
         </div>
         <div class="reply-actions">
-          <div class="action"><img src="images/ui/like.webp" alt="좋아요"><span>0</span></div>
-          <div class="action"><img src="images/ui/like.webp" class="rotate-180" alt="싫어요"><span>0</span></div>
+          ${PASSIVE_ACTION_ICONS}
           <div class="action reply-toggle-btn" role="button" tabindex="0" aria-label="대댓글 작성">
             <img src="images/ui/comment.webp" alt="댓글">
           </div>
@@ -490,7 +418,7 @@ async function sendReaction(reviewId, reaction) {
   });
 
   if (!response.ok) {
-    throw new Error(await readErrorMessage(response, "반응 처리 실패"));
+    throw new Error(await window.readErrorMessage(response, "반응 처리 실패"));
   }
 }
 
@@ -505,16 +433,12 @@ async function toggleReaction(reviewEl, reaction) {
   const previous = { ...state };
 
   applyReactionChange(state, nextReaction);
-  syncReactionStateToReviews(reviewId, state);
-  writeStoredReactionState(reviewId, state);
   updateReviewReactionUI(reviewEl);
 
   try {
     await sendReaction(reviewId, nextReaction);
   } catch (error) {
-    reviewReactionState.set(reviewId, previous);
-    syncReactionStateToReviews(reviewId, previous);
-    writeStoredReactionState(reviewId, previous);
+    Object.assign(state, previous);
     updateReviewReactionUI(reviewEl);
     alert(error.message || "반응 처리 실패");
   }
@@ -898,7 +822,7 @@ async function submitComment(reviewEl) {
   });
 
   if (!response.ok) {
-    alert(await readErrorMessage(response, "댓글 작성 실패"));
+    alert(await window.readErrorMessage(response, "댓글 작성 실패"));
     return;
   }
 
@@ -953,7 +877,7 @@ async function submitReply(reviewEl, commentEl) {
   });
 
   if (!response.ok) {
-    alert(await readErrorMessage(response, "대댓글 작성 실패"));
+    alert(await window.readErrorMessage(response, "대댓글 작성 실패"));
     return;
   }
 
@@ -999,7 +923,7 @@ async function submitReview() {
   });
 
   if (!response.ok) {
-    alert(await readErrorMessage(response, "리뷰 작성 실패"));
+    alert(await window.readErrorMessage(response, "리뷰 작성 실패"));
     return;
   }
 

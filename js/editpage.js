@@ -8,19 +8,6 @@ const state = {
   currentImage: "",
 };
 
-async function readErrorMessage(response, fallback) {
-  try {
-    const data = await response.json();
-    if (typeof data.message === "string" && data.message.trim()) {
-      return data.message;
-    }
-    if (typeof data.detail === "string" && data.detail.trim()) {
-      return data.detail;
-    }
-  } catch {}
-  return fallback;
-}
-
 function showToast(message, isError = false) {
   const toast = document.getElementById("toast");
   if (!toast) return;
@@ -116,7 +103,7 @@ async function uploadProfileImage(file) {
 
   if (!response.ok) {
     throw new Error(
-      await readErrorMessage(response, "프로필 이미지 업로드에 실패했습니다."),
+      await window.readErrorMessage(response, "프로필 이미지 업로드에 실패했습니다."),
     );
   }
 
@@ -138,7 +125,7 @@ async function deleteProfileImage() {
 
   if (!response.ok) {
     throw new Error(
-      await readErrorMessage(response, "프로필 이미지 삭제에 실패했습니다."),
+      await window.readErrorMessage(response, "프로필 이미지 삭제에 실패했습니다."),
     );
   }
 
@@ -180,7 +167,7 @@ async function saveProfile(event) {
 
   if (!response.ok) {
     throw new Error(
-      await readErrorMessage(response, "프로필 저장에 실패했습니다."),
+      await window.readErrorMessage(response, "프로필 저장에 실패했습니다."),
     );
   }
 

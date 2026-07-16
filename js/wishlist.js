@@ -88,21 +88,6 @@ function renderMovies() {
   updateCountAndEmpty();
 }
 
-async function fetchMovieDetail(movieId, token) {
-  try {
-    const response = await fetch(`${API}/api/movies/detail/${movieId}`, {
-      headers: token ? { Authorization: `Bearer ${token}` } : {},
-      credentials: "include",
-    });
-
-    if (!response.ok) return null;
-    return response.json();
-  } catch (error) {
-    console.error("wishlist detail load failed:", error);
-    return null;
-  }
-}
-
 async function loadWishlist() {
   const token = getToken();
 
@@ -128,7 +113,7 @@ async function loadWishlist() {
     const favorites = Array.isArray(data.favorites) ? data.favorites : [];
 
     const details = await Promise.all(
-      favorites.map((item) => fetchMovieDetail(item.movieId, token)),
+      favorites.map((item) => window.fetchMovieDetail(item.movieId, token)),
     );
 
     wishlistMovies = favorites.map((item, index) => {

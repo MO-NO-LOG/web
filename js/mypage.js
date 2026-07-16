@@ -10,24 +10,6 @@ const state = {
 
 const FALLBACK_POSTER = "images/ui/break.png";
 
-function calcJoinedDays(value) {
-  if (!value) return 0;
-  const joined = new Date(value);
-  if (Number.isNaN(joined.getTime())) return 0;
-  const diff = Date.now() - joined.getTime();
-  return Math.max(1, Math.floor(diff / (1000 * 60 * 60 * 24)));
-}
-
-function renderStars(rating) {
-  const filledCount = Math.max(0, Math.min(5, Math.round(Number(rating) || 0)));
-  const emptyCount = 5 - filledCount;
-
-  return `
-    <span class="stars-filled" aria-hidden="true">${"★".repeat(filledCount)}</span><span class="stars-empty" aria-hidden="true">${"☆".repeat(emptyCount)}</span>
-    <span class="sr-only">별점 ${filledCount}점</span>
-  `;
-}
-
 function getReviewMovieId(review) {
   const candidates = [
     review?.movieId,
@@ -127,7 +109,7 @@ function renderReviews() {
     const movieTitle = item.movieTitle || "Movie";
     const createdAt = formatDate(item.createdAt);
     const content = item.content || "";
-    const stars = renderStars(item.rating);
+    const stars = window.makeTextStars(item.rating);
 
     const row = document.createElement("div");
     row.className = "review-item";
@@ -184,22 +166,11 @@ function fillProfile(user, profile) {
   if (commentCountEl)
     commentCountEl.textContent = `${profile.commentCount || 0} 개`;
   if (joinedDaysEl) {
-    joinedDaysEl.textContent = `${calcJoinedDays(profile.joinedAt || user.created_at)} 일`;
-  }
-}
-
-async function fetchMovieDetail(movieId, token) {
-  try {
-    const response = await fetch(`${API}/api/movies/detail/${movieId}`, {
-      credentials: "include",
-      headers: token ? { Authorization: `Bearer ${token}` } : {},
-    });
-
-    if (!response.ok) return null;
-    return response.json();
-  } catch (error) {
-    console.error("mypage wishlist detail load failed:", error);
-    return null;
+    const joinedAt = profile.joinedAt || user.created_at;
+    const days = joinedAt
+      ? Math.max(1, Math.floor((Date.now() - new Date(joinedAt).getTime()) / 86400000))
+      : 0;
+    joinedDaysEl.textContent = `${days} 일`;
   }
 }
 
@@ -217,7 +188,7 @@ async function loadWishlist(token) {
       ? data.favorites.slice(0, 4)
       : [];
     const details = await Promise.all(
-      favorites.map((item) => fetchMovieDetail(item.movieId, token)),
+      favorites.map((item) => window.fetchMovieDetail(item.movieId, token)),
     );
 
     state.wishlist = favorites.map((item, index) => {
